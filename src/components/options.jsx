@@ -1,0 +1,784 @@
+import React, { useState, useEffect } from "react";
+import "./options.css";
+
+const Options = () => {
+  const [broadcastType, setBroadcastType] = useState("");
+  const [category, setCategory] = useState("");
+  const [profiles, setProfiles] = useState([""]);
+  const [stipend, setStipend] = useState([""]);
+  const [ctc, setCTC] = useState([""]);
+  const [duration, setDuration] = useState([""]);
+  const [branch, setBranch] = useState([[""]]);
+
+  const [profileCount, setProfileCount] = useState(1);
+  const [tenthPercentage, setTenthPercentage] = useState([""]);
+  const [twelfthPercentage, setTwelfthPercentage] = useState([""]);
+  const [btechCGPA, setBtechCGPA] = useState([""]);
+  const [mtechCGPA, setMtechCGPA] = useState([""]);
+  const [isStipendDependent, setIsStipendDependent] = useState(false);
+  const [isBranchDependent, setIsBranchDependent] = useState(false);
+  const [isDurationDependent, setIsDurationDependent] = useState(false);
+  const [isBTech, setIsBTech] = useState("BTech");
+  const [isPBC, setIsPBC] = useState(true);
+  const [hasCTC, setHasCTC] = useState(true);
+  const [isCTCDependent, setIsCTCDependent] = useState(false);
+  const [isCriteriaDependent, setIsCriteriaDependent] = useState(false);
+  const [location, setLocation] = useState(["Bengaluru"]);
+  const [dod, setDoD] = useState("");
+  const [modeOfDrive, setModeOfDrive] = useState("Hybrid");
+  const [doj, setDoj] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const [isLocationDependent, setIsLocationDependent] = useState(false);
+
+  const printAllStates = () => {
+    console.log("========== Current State Snapshot ==========");
+    console.log("broadcastType:", broadcastType);
+    console.log("category:", category);
+    console.log("profiles:", profiles);
+    console.log("stipend:", stipend);
+    console.log("ctc:", ctc);
+    console.log("duration:", duration);
+    console.log("branch:", branch);
+    console.log("profileCount:", profileCount);
+    console.log("tenthPercentage:", tenthPercentage);
+    console.log("twelfthPercentage:", twelfthPercentage);
+    console.log("btechCGPA:", btechCGPA);
+    console.log("mtechCGPA:", mtechCGPA);
+    console.log("isStipendDependent:", isStipendDependent);
+    console.log("isBranchDependent:", isBranchDependent);
+    console.log("isDurationDependent:", isDurationDependent);
+    console.log("isBTech:", isBTech);
+    console.log("isPBC:", isPBC);
+    console.log("hasCTC:", hasCTC);
+    console.log("isCTCDependent:", isCTCDependent);
+    console.log("isCriteriaDependent:", isCriteriaDependent);
+    console.log("location:", location);
+    console.log("dod (Date of Drive):", dod);
+    console.log("modeOfDrive:", modeOfDrive);
+    console.log("doj (Date of Joining):", doj);
+    console.log("deadline:", deadline);
+    console.log("isLocationDependent:", isLocationDependent);
+    console.log("mtechBranches:", mtechBranches);
+    console.log("mtechProfileBranches:", mtechProfileBranches);
+    console.log("============================================");
+  };
+
+  const handleChange = (index, value) => {
+    const updated = [...profiles];
+    updated[index] = value;
+    setProfiles(updated);
+  };
+
+  const addProfile = () => {
+    setProfiles([...profiles, ""]);
+    setStipend([...stipend, ""]);
+    setCTC([...ctc, ""]);
+    setLocation([...location, ""]);
+    setTenthPercentage([...tenthPercentage, ""]);
+    setTwelfthPercentage([...twelfthPercentage, ""]);
+    setBtechCGPA([...btechCGPA, ""]);
+    setMtechCGPA([...mtechCGPA, ""]);
+    setDuration([...duration, ""]);
+    setBranch([...branch, []]);
+  };
+
+  const removeProfile = (index) => {
+    setProfiles(profiles.filter((_, i) => i !== index));
+    setStipend(stipend.filter((_, i) => i !== index));
+    setCTC(ctc.filter((_, i) => i !== index));
+    setLocation(location.filter((_, i) => i !== index));
+    setTenthPercentage(tenthPercentage.filter((_, i) => i !== index));
+    setTwelfthPercentage(twelfthPercentage.filter((_, i) => i !== index));
+    setBtechCGPA(btechCGPA.filter((_, i) => i !== index));
+    setMtechCGPA(mtechCGPA.filter((_, i) => i !== index));
+    setDuration(duration.filter((_, i) => i !== index));
+    setBranch(branch.filter((_, i) => i !== index));
+  };
+
+  useEffect(() => {
+    setProfileCount(profiles.length);
+  }, [profiles]);
+
+  const handleBranchChange = (profileIdx, branchValue) => {
+    const updated = [...branch];
+    if (!updated[profileIdx]) updated[profileIdx] = [];
+    if (updated[profileIdx].includes(branchValue)) {
+      updated[profileIdx] = updated[profileIdx].filter(
+        (b) => b !== branchValue
+      );
+    } else {
+      updated[profileIdx].push(branchValue);
+    }
+    setBranch(updated);
+  };
+
+  return (
+    <div className="options">
+      <h3>Broadcast Options</h3>
+      <select
+        name="broadcastType"
+        value={broadcastType}
+        onChange={(e) => setBroadcastType(e.target.value)}
+      >
+        <option value="">Select an option</option>
+        <option value="on-campus">On-Campus</option>
+        <option value="off-campus">Off-Campus</option>
+        <option value="update">Update</option>
+        <option value="results">Results</option>
+      </select>
+      <select
+        name="isBTech"
+        value={isBTech}
+        onChange={(e) => setIsBTech(e.target.value)}
+      >
+        <option value="BTech">BTech</option>
+        <option value="MTech">MTech</option>
+      </select>
+      {broadcastType === "on-campus" && (
+        <div className="on-campus-options">
+          <label>Category</label>
+          <select
+            name="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">Select Category</option>
+            <option value="Internship">Internship</option>
+            <option value="DIT">DIT</option>
+            <option value="ODC">ODC</option>
+            <option value="OD">OD</option>
+            <option value="GOD">GOD</option>
+          </select>
+          <label>Company Name</label>
+          <input type="text" placeholder="Enter company name" />
+          {category === "Internship" && (
+            <>
+              <input
+                type="checkbox"
+                id="isPBC"
+                className="checkbox-input"
+                checked={isPBC}
+                onChange={(e) => setIsPBC(e.target.checked)}
+              />
+              <label htmlFor="isPBC" className="checkbox-label">
+                Is it a PBC?
+              </label>
+            </>
+          )}
+          {category === "Internship" && isPBC && (
+            <>
+              <input
+                type="checkbox"
+                id="hasCTC"
+                className="checkbox-input"
+                checked={hasCTC}
+                onChange={(e) => setHasCTC(e.target.checked)}
+              />
+              <label htmlFor="hasCTC" className="checkbox-label">
+                Has CTC?
+              </label>
+            </>
+          )}
+          {category === "Internship" && (
+            <label className="input-label">Internship Profile(s)</label>
+          )}
+
+          {category === "Internship" &&
+            profiles.map((profile, index) => (
+              <div key={index} className="profile-input-row">
+                <div className="profile-input-header">
+                  <input
+                    type="text"
+                    className="profile-input"
+                    placeholder="Enter profile"
+                    value={profile}
+                    onChange={(e) => handleChange(index, e.target.value)}
+                  />
+                  {index === profiles.length - 1 ? (
+                    <button
+                      type="button"
+                      className="add-profile-button"
+                      onClick={addProfile}
+                      title="Add another profile"
+                    >
+                      +
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="remove-profile-button"
+                      onClick={() => removeProfile(index)}
+                      title="Remove this profile"
+                    >
+                      –
+                    </button>
+                  )}
+                </div>
+
+                {category === "Internship" && isBranchDependent && (
+                  <>
+                    <label>
+                      {isBTech === "BTech" ? "Branch" : "Sub-branch"}
+                    </label>
+                    {isBTech === "BTech" ? (
+                      <div className="branch-checkbox-group">
+                        <div className="row-1">
+                          <label>
+                            <input
+                              type="checkbox"
+                              value="AIML"
+                              checked={branch[index]?.includes("AIML")}
+                              onChange={() => handleBranchChange(index, "AIML")}
+                            />{" "}
+                            AIML
+                          </label>
+                          <label>
+                            <input
+                              type="checkbox"
+                              value="CSE"
+                              checked={branch[index]?.includes("CSE")}
+                              onChange={() => handleBranchChange(index, "CSE")}
+                            />{" "}
+                            CSE
+                          </label>
+                          <label>
+                            <input
+                              type="checkbox"
+                              value="ECE"
+                              checked={branch[index]?.includes("ECE")}
+                              onChange={() => handleBranchChange(index, "ECE")}
+                            />{" "}
+                            ECE
+                          </label>
+                        </div>
+                        <div className="row-2">
+                          <label>
+                            <input
+                              type="checkbox"
+                              value="EEE"
+                              checked={branch[index]?.includes("EEE")}
+                              onChange={() => handleBranchChange(index, "EEE")}
+                            />{" "}
+                            EEE
+                          </label>
+                          <label>
+                            <input
+                              type="checkbox"
+                              value="ISE"
+                              checked={branch[index]?.includes("ISE")}
+                              onChange={() => handleBranchChange(index, "ISE")}
+                            />{" "}
+                            ISE
+                          </label>
+                          <label>
+                            <input
+                              type="checkbox"
+                              value="Mech"
+                              checked={branch[index]?.includes("Mech")}
+                              onChange={() => handleBranchChange(index, "Mech")}
+                            />{" "}
+                            Mech
+                          </label>
+                        </div>
+                        <div className="row-3">
+                          <label>
+                            <input
+                              type="checkbox"
+                              value="Civil"
+                              checked={branch[index]?.includes("Civil")}
+                              onChange={() =>
+                                handleBranchChange(index, "Civil")
+                              }
+                            />{" "}
+                            Civil
+                          </label>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="branch-checkbox-group">
+                        {Object.entries(mtechBranchOptions).map(
+                          ([rowKey, branchList], i) => (
+                            <div className={`row-${i + 1}`} key={rowKey}>
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  checked={isMtechProfileAllChecked(
+                                    index,
+                                    rowKey
+                                  )}
+                                  onChange={() =>
+                                    handleMtechProfileSelectAll(index, rowKey)
+                                  }
+                                />{" "}
+                                {rowKey}
+                              </label>
+                              {branchList.map((branchName) => (
+                                <label key={branchName}>
+                                  <input
+                                    type="checkbox"
+                                    value={branchName}
+                                    checked={isMtechProfileChecked(
+                                      index,
+                                      rowKey,
+                                      branchName
+                                    )}
+                                    onChange={() =>
+                                      handleMtechProfileBranchChange(
+                                        index,
+                                        rowKey,
+                                        branchName
+                                      )
+                                    }
+                                  />{" "}
+                                  {branchName}
+                                </label>
+                              ))}
+                            </div>
+                          )
+                        )}
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {category === "Internship" && isCriteriaDependent && (
+                  <>
+                    <label>Tenth Percentage</label>
+                    <input
+                      type="number"
+                      className="tenth-input"
+                      placeholder="Enter tenth percentage"
+                      value={tenthPercentage}
+                      onChange={(e) => setTenthPercentage(e.target.value)}
+                    />
+                    <label>Twelfth Percentage</label>
+                    <input
+                      type="number"
+                      className="twelfth-input"
+                      placeholder="Enter twelfth percentage"
+                      value={twelfthPercentage}
+                      onChange={(e) => setTwelfthPercentage(e.target.value)}
+                    />
+                    <label>BTech CGPA</label>
+                    <input
+                      type="number"
+                      className="btech-cgpa-input"
+                      placeholder="Enter BTech CGPA"
+                      value={btechCGPA}
+                      onChange={(e) => setBtechCGPA(e.target.value)}
+                    />
+                    {isBTech === "MTech" && (
+                      <>
+                        <label>MTech CGPA</label>
+                        <input
+                          type="number"
+                          className="mtech-cgpa-input"
+                          placeholder="Enter MTech CGPA"
+                          value={mtechCGPA}
+                          onChange={(e) => setMtechCGPA(e.target.value)}
+                        />
+                      </>
+                    )}
+                  </>
+                )}
+
+                {category === "Internship" && isStipendDependent && (
+                  <>
+                    <label>Stipend</label>
+                    <input
+                      type="text"
+                      className="stipend-input"
+                      value={stipend[index]}
+                      onChange={(e) => {
+                        const updated = [...stipend];
+                        updated[index] = e.target.value;
+                        setStipend(updated);
+                      }}
+                      placeholder="Enter stipend"
+                    />
+                  </>
+                )}
+
+                {category === "Internship" && isCTCDependent && (
+                  <>
+                    <label>CTC</label>
+                    <input
+                      type="text"
+                      className="CTC-input"
+                      value={ctc[index]}
+                      onChange={(e) => {
+                        const updated = [...ctc];
+                        updated[index] = e.target.value;
+                        setCTC(updated);
+                      }}
+                      placeholder="Enter CTC"
+                    />
+                  </>
+                )}
+
+                {category === "Internship" && isDurationDependent && (
+                  <>
+                    <label>Duration</label>
+                    <input
+                      type="text"
+                      className="duration-input"
+                      value={duration[index]}
+                      onChange={(e) => {
+                        const updated = [...duration];
+                        updated[index] = e.target.value;
+                        setDuration(updated);
+                      }}
+                      placeholder="Enter duration (months)"
+                    />
+                  </>
+                )}
+
+                {category === "Internship" && isLocationDependent && (
+                  <>
+                    <label>Location</label>
+                    <input
+                      type="text"
+                      className="location-input"
+                      value={location[index]}
+                      onChange={(e) => {
+                        const updated = [...location];
+                        updated[index] = e.target.value;
+                        setLocation(updated);
+                      }}
+                      placeholder="Enter location"
+                    />
+                  </>
+                )}
+              </div>
+            ))}
+
+          {category === "Internship" && profileCount > 1 && (
+            <>
+              <div className="checkbox-row">
+                <input
+                  type="checkbox"
+                  id="branch-dependent"
+                  className="checkbox-input"
+                  checked={isBranchDependent}
+                  onChange={(e) => setIsBranchDependent(e.target.checked)}
+                />
+                <label htmlFor="branch-dependent" className="checkbox-label">
+                  Is eligible branch(es) profile dependent?
+                </label>
+              </div>
+              <div className="checkbox-row">
+                <input
+                  type="checkbox"
+                  id="criteria-dependent"
+                  className="checkbox-input"
+                  checked={isCriteriaDependent}
+                  onChange={(e) => setIsCriteriaDependent(e.target.checked)}
+                />
+                <label htmlFor="criteria-dependent" className="checkbox-label">
+                  Is eligibility criteria profile dependent?
+                </label>
+              </div>
+              <div className="checkbox-row">
+                <input
+                  type="checkbox"
+                  id="stipend-dependent"
+                  className="checkbox-input"
+                  checked={isStipendDependent}
+                  onChange={(e) => setIsStipendDependent(e.target.checked)}
+                />
+                <label htmlFor="stipend-dependent" className="checkbox-label">
+                  Is stipend profile dependent?
+                </label>
+              </div>
+
+              <div className="checkbox-row">
+                <input
+                  type="checkbox"
+                  id="ctc-dependent"
+                  className="checkbox-input"
+                  checked={isCTCDependent}
+                  onChange={(e) => setIsCTCDependent(e.target.checked)}
+                />
+                <label htmlFor="ctc-dependent" className="checkbox-label">
+                  Is CTC profile dependent?
+                </label>
+              </div>
+
+              <div className="checkbox-row">
+                <input
+                  type="checkbox"
+                  id="duration-dependent"
+                  className="checkbox-input"
+                  checked={isDurationDependent}
+                  onChange={(e) => setIsDurationDependent(e.target.checked)}
+                />
+                <label htmlFor="duration-dependent" className="checkbox-label">
+                  Is duration profile dependent?
+                </label>
+              </div>
+              <div className="checkbox-row">
+                <input
+                  type="checkbox"
+                  id="location-dependent"
+                  className="checkbox-input"
+                  checked={isLocationDependent}
+                  onChange={(e) => setIsLocationDependent(e.target.checked)}
+                />
+                <label htmlFor="location-dependent" className="checkbox-label">
+                  Is location profile dependent?
+                </label>
+              </div>
+            </>
+          )}
+
+          {category === "Internship" && !isBranchDependent && (
+            <>
+              <label>{isBTech === "BTech" ? "Branch" : "Sub-branch"}</label>
+              {isBTech === "BTech" ? (
+                <div className="branch-checkbox-group">
+                  <div className="row-1">
+                    <label>
+                      <input type="checkbox" value="AIML" /> AIML
+                    </label>
+                    <label>
+                      <input type="checkbox" value="CSE" /> CSE
+                    </label>
+                    <label>
+                      <input type="checkbox" value="ECE" /> ECE
+                    </label>
+                  </div>
+                  <div className="row-2">
+                    <label>
+                      <input type="checkbox" value="EEE" /> EEE
+                    </label>
+                    <label>
+                      <input type="checkbox" value="ISE" /> ISE
+                    </label>
+                    <label>
+                      <input type="checkbox" value="Mech" /> Mech
+                    </label>
+                  </div>
+                  <div className="row-3">
+                    <label>
+                      <input type="checkbox" value="Civil" /> Civil
+                    </label>
+                  </div>
+                </div>
+              ) : (
+                <div className="branch-checkbox-group">
+                  {Object.entries(mtechBranchOptions).map(
+                    ([rowKey, branchList], i) => (
+                      <div className={`row-${i + 1}`} key={rowKey}>
+                        <label>
+                          <input
+                            type="checkbox"
+                            checked={isMtechAllChecked(rowKey)}
+                            onChange={() => handleMtechSelectAll(rowKey)}
+                          />{" "}
+                          {rowKey}
+                        </label>
+                        {branchList.map((branch) => (
+                          <label key={branch}>
+                            <input
+                              type="checkbox"
+                              value={branch}
+                              checked={isMtechChecked(rowKey, branch)}
+                              onChange={() =>
+                                handleMtechBranchChange(rowKey, branch)
+                              }
+                            />{" "}
+                            {branch}
+                          </label>
+                        ))}
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+            </>
+          )}
+          {category === "Internship" && !isCriteriaDependent && (
+            <>
+              <label>Tenth Percentage</label>
+              <input
+                type="number"
+                className="tenth-input"
+                placeholder="Enter tenth percentage"
+                value={tenthPercentage[0]}
+                onChange={(e) => {
+                  const updated = [...tenthPercentage];
+                  updated[0] = e.target.value;
+                  setTenthPercentage(updated);
+                }}
+              />
+              <label>Twelfth Percentage</label>
+              <input
+                type="number"
+                className="twelfth-input"
+                placeholder="Enter twelfth percentage"
+                value={twelfthPercentage[0]}
+                onChange={(e) => {
+                  const updated = [...twelfthPercentage];
+                  updated[0] = e.target.value;
+                  setTwelfthPercentage(updated);
+                }}
+              />
+              <label>BTech CGPA</label>
+              <input
+                type="number"
+                className="btech-cgpa-input"
+                placeholder="Enter BTech CGPA"
+                value={btechCGPA[0]}
+                onChange={(e) => {
+                  const updated = [...btechCGPA];
+                  updated[0] = e.target.value;
+                  setBtechCGPA(updated);
+                }}
+              />
+              {isBTech === "MTech" && (
+                <>
+                  <label>MTech CGPA</label>
+                  <input
+                    type="number"
+                    className="mtech-cgpa-input"
+                    placeholder="Enter MTech CGPA"
+                    value={mtechCGPA[0]}
+                    onChange={(e) => {
+                      const updated = [...mtechCGPA];
+                      updated[0] = e.target.value;
+                      setMtechCGPA(updated);
+                    }}
+                  />
+                </>
+              )}
+            </>
+          )}
+
+          {category === "Internship" && !isStipendDependent && (
+            <>
+              <label>Stipend</label>
+              <input
+                type="text"
+                value={stipend[0]}
+                onChange={(e) => {
+                  const updated = [...stipend];
+                  updated[0] = e.target.value;
+                  setStipend(updated);
+                }}
+                placeholder="Enter stipend"
+                className="stipend-input"
+              />
+            </>
+          )}
+
+          {category === "Internship" && !isCTCDependent && (
+            <>
+              <label>CTC</label>
+              <input
+                type="text"
+                placeholder="Enter CTC"
+                value={ctc[0]}
+                onChange={(e) => {
+                  const updated = [...ctc];
+                  updated[0] = e.target.value;
+                  setCTC(updated);
+                }}
+                className="CTC-input"
+              />
+            </>
+          )}
+
+          {category === "Internship" && !isDurationDependent && (
+            <>
+              <label>Internship Duration</label>
+              <input
+                type="text"
+                placeholder="Enter duration (months)"
+                value={duration[0]}
+                onChange={(e) => {
+                  const updated = [...duration];
+                  updated[0] = e.target.value;
+                  setDuration(updated);
+                }}
+                className="duration-input"
+              />
+            </>
+          )}
+
+          {category === "Internship" && (
+            <>
+              <label>Date of Drive</label>
+              <input
+                type="date"
+                className="date-input"
+                value={dod}
+                onChange={(e) => setDoD(e.target.value)}
+              />
+            </>
+          )}
+
+          {category === "Internship" && (
+            <>
+              <label>Mode of Drive</label>
+              <input
+                type="text"
+                placeholder="Enter mode of drive"
+                value={modeOfDrive}
+                onChange={(e) => setModeOfDrive(e.target.value)}
+                className="mode-input"
+              />
+            </>
+          )}
+
+          {category === "Internship" && (
+            <>
+              <label>Expected Date of Joining</label>
+              <input
+                type="date"
+                value={doj}
+                onChange={(e) => setDoj(e.target.value)}
+                className="date-input"
+              />
+            </>
+          )}
+
+          {category === "Internship" && (
+            <>
+              <label>Deadline for Registration</label>
+              <input
+                type="date"
+                value={deadline}
+                onChange={(e) => setDeadline(e.target.value)}
+                className="date-input"
+              />
+            </>
+          )}
+        </div>
+      )}
+
+      {broadcastType === "off-campus" && (
+        <div>
+          <label>Off-Campus Company Name</label>
+          <input type="text" placeholder="Enter company" />
+        </div>
+      )}
+
+      {broadcastType === "update" && (
+        <div>
+          <label>Update Message</label>
+          <input type="text" placeholder="Enter company" />
+        </div>
+      )}
+
+      {broadcastType === "results" && (
+        <div>
+          <label>Results Info</label>
+          <input type="text" placeholder="Enter result summary" />
+        </div>
+      )}
+      <button onClick={printAllStates}>Print All State Values</button>
+    </div>
+  );
+};
+
+export default Options;
