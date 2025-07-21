@@ -1,0 +1,17 @@
+.selector-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    height: max-content;
+    width: 300px;
+    background-color: #f0f0f0;
+}
+
+.options {
+    display: block;
+    border: 1px solid #ccc;
+    width: min-content;
+    min-height: unset;
+}
