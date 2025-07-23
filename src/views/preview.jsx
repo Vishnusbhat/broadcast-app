@@ -2,7 +2,8 @@ const Preview = ({ initForm, openForm, resultForm, broadcast }) => {
   return (
     <div className="preview-container">
       <h2>Preview</h2>
-      <p>Broadcast: {broadcast}</p>
+      <pre>Broadcast: <br />{broadcast}</pre>
+      <p>Is dependent: {openForm.isDependent ? "Yes" : "No"}</p>
       <p>Type: {initForm.type}</p>
       <p>Course: {initForm.course}</p>
       <p>Category: {initForm.category}</p>
@@ -23,6 +24,8 @@ const Preview = ({ initForm, openForm, resultForm, broadcast }) => {
       <p>Twelfth: {openForm.twelfth.join(", ")}</p>
       <p>BTech: {openForm.btech.join(", ")}</p>
       <p>MTech: {openForm.mtech.join(", ")}</p>
+      <p>Active Backlogs: {openForm.activeBacklog}</p>
+      <p>Is deadbacklog allowed? {openForm.isDeadBacklogAllowed ? "yes" : "no"}</p>
       <h4>Dependent Checks</h4>
       <p>Stipend: {openForm.checkDepentent.stipend ? "Yes" : "No"}</p>
       <p>CTC: {openForm.checkDepentent.ctc ? "Yes" : "No"}</p>

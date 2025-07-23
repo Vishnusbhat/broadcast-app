@@ -1,26 +1,23 @@
 import { useEffect } from "react";
-
 const ResultGenerator = ({ resultForm, company, setBroadcast }) => {
-  console.log(resultForm.result);
   useEffect(() => {
-    const message = gen(company, resultForm.result);
+    const message = gen(company, resultForm);
     setBroadcast(message, resultForm.result);
-  }, [resultForm.result, company, setBroadcast]);
-
-  useEffect(() => {
-    console.log("Inside useEffect. result =", resultForm.result);
-  }, [resultForm.result]);
-
+  }, [resultForm, company, setBroadcast]);
   return null;
 };
-const gen = (company, result) => {
+
+const gen = (company, resultForm) => {
   let message = `>>>>> ${company} <<<<<\n\n`;
-    if (!result) {
-        message += "No result available.";
-    }
-    else {
-       message += "No students selected.";
-    }
-    return <pre>{message}</pre>;
+  if (!resultForm.result) {
+    message += "Unfortunately, no student has been recruited by the company.";
+  } else {
+    message += `Congratulations!\n\nThe following students have been recruited by the company.\n\n`;
+    const students = resultForm.students
+      .map((name, idx) => `${idx + 1}. ${name}`)
+      .join("\n");
+    message += students;
+  }
+  return message;
 };
 export default ResultGenerator;

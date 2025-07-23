@@ -4,6 +4,8 @@ import CompanyInput from "./companyInput";
 import ProfileInput from "./profileInput";
 import Result from "./result";
 import CommonProfileInput from "./commonProfileInput";
+import CopyButton from "../copy";
+import OpenGenerator from "../generator/open";
 import { ImageOff } from "lucide-react";
 
 const Selector = ({
@@ -141,6 +143,12 @@ const Selector = ({
                 handleFormChange={handleOpenFormChange}
                 initForm={initForm}
               />
+              <OpenGenerator
+                initForm={initForm}
+                openForm={openForm}
+                setBroadcast={setBroadcast}
+              />
+              <CopyButton broadcast={broadcast} />
             </>
           )}
           {initForm.category === "Update" && <></>}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Selector from "./views/selector";
 import Preview from "./views/preview";
 
@@ -19,7 +19,7 @@ const Common = () => {
     profiles: [""],
     noOfProfiles: 1,
     stipends: [""],
-    branches: [[""]],
+    branches: [[]],
     ctcs: [""],
     locations: [""],
     durations: [""],
@@ -27,14 +27,28 @@ const Common = () => {
     twelfth: [""],
     btech: [""],
     mtech: [""],
+    activeBacklog: 0,
+    isDeadBacklogAllowed: true,
+    isDependent: false,
     checkDepentent: {
       stipend: false,
       ctc: false,
       location: false,
       durations: false,
-      criteria: false,
+      branch: false,
     },
   });
+
+  useEffect(() => {
+    const allFalse = Object.values(openForm.checkDepentent).every(
+      (v) => v === false
+    );
+
+    setOpenForm((prev) => ({
+      ...prev,
+      isDependent: !allFalse,
+    }));
+  }, [openForm.checkDepentent]);
 
   const [resultForm, setResultForm] = useState({
     students: [],

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
   const profiles = openForm.profiles;
@@ -20,7 +20,7 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
         ctc: false,
         location: false,
         durations: false,
-        criteria: false
+        criteria: false,
       });
     }
   };
@@ -42,14 +42,26 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
               onChange={(e) => handleChange(index, e.target.value)}
             />
             {index === profiles.length - 1 ? (
-              <button
-                type="button"
-                className="add-profile-button"
-                onClick={addProfile}
-                title="Add another profile"
-              >
-                +
-              </button>
+              <>
+                {index !== 0 && (
+                  <button
+                    type="button"
+                    className="remove-profile-button"
+                    onClick={() => removeProfile(index)}
+                    title="Remove this profile"
+                  >
+                    –
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className="add-profile-button"
+                  onClick={addProfile}
+                  title="Add another profile"
+                >
+                  +
+                </button>
+              </>
             ) : (
               <button
                 type="button"
@@ -167,9 +179,7 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
             <input
               type="checkbox"
               checked={openForm.checkDepentent.ctc}
-              onChange={(e) =>
-                handleOpenFormChange("ctc", e.target.checked)
-              }
+              onChange={(e) => handleOpenFormChange("ctc", e.target.checked)}
             />
           </label>
 
@@ -185,12 +195,12 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
           </label>
 
           <label>
-            Is criteria dependent on profile?
+            Is branch dependent on profile?
             <input
               type="checkbox"
-              checked={openForm.checkDepentent.criteria}
+              checked={openForm.checkDepentent.branch}
               onChange={(e) =>
-                handleOpenFormChange("criteria", e.target.checked)
+                handleOpenFormChange("branch", e.target.checked)
               }
             />
           </label>

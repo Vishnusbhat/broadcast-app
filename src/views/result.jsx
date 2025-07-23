@@ -1,8 +1,9 @@
 import SearchBox from "./searchBox";
 import { useState } from "react";
 import ResultGenerator from "../generator/result";
+import CopyButton from "../copy";
 
-const Result = ({ resultForm, handleResultFormChange, toggleResult, broadcast, setBroadcast }) => {
+const Result = ({ resultForm , handleResultFormChange, toggleResult, broadcast, setBroadcast }) => {
   const [company, setCompany] = useState("");
 
     return (
@@ -24,8 +25,7 @@ const Result = ({ resultForm, handleResultFormChange, toggleResult, broadcast, s
                 onChange={(e) => toggleResult(e.target.checked)}
             />
         </label>
-        {resultForm.result && (
-            <>
+        <CopyButton broadcast={broadcast} />
             <SearchBox handleResultFormChange={handleResultFormChange} />
             <ResultGenerator
                 resultForm={resultForm}
@@ -33,8 +33,6 @@ const Result = ({ resultForm, handleResultFormChange, toggleResult, broadcast, s
                 setBroadcast={setBroadcast}
                 broadcast={broadcast}
             />
-            </>
-        )}
     </div>
   );
 };
