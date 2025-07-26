@@ -1,4 +1,4 @@
-import Options from './components/options';
+
 import './App.css';
 import Common from './common';
 

@@ -6,6 +6,7 @@ import Result from "./result";
 import CommonProfileInput from "./commonProfileInput";
 import CopyButton from "../copy";
 import OpenGenerator from "../generator/open";
+import Dropdown from "../components/dropdown";
 
 const Selector = ({
   initForm,
@@ -17,14 +18,12 @@ const Selector = ({
   setBroadcast,
   broadcast,
 }) => {
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setInitForm((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
+const handleFormChangeDropDown = (value, name) => {
+  setInitForm((prevData) => ({
+    ...prevData,
+    [name]: value,
+  }));
+};
   const handleOpenFormChange = (key, value, index = null, toDelete = false) => {
     setOpenForm((prev) => {
       const updated = { ...prev };
@@ -88,45 +87,32 @@ const Selector = ({
     console.log("Current resultForm:", resultForm.result);
   };
 
-
   return (
     <div className="selector-container">
       <CopyButton broadcast={broadcast} />
       {/* <div className="options-container"> */}
       <>
-          <select
-            name="type"
-            value={initForm.type}
-            onChange={handleFormChange}
-            className="options"
-          >
-            <option value="">Select Type</option>
-            <option value="On-Campus">On-Campus</option>
-            <option value="Off-Campus">Off-Campus</option>
-          </select>
+        <Dropdown
+          label="Select Type"
+          options={["On-Campus", "Off-Campus"]}
+          value={initForm.type}
+          onChange={(val) => handleFormChangeDropDown(val, "type")}
+        />
 
-        <select
-          name="course"
+        <Dropdown
+          label="Select Course"
+          options={["BTech", "MTech"]}
           value={initForm.course}
-          onChange={handleFormChange}
-          className="options"
-        >
-          <option value="">Select Course</option>
-          <option value="BTech">BTech</option>
-          <option value="MTech">MTech</option>
-        </select>
+          onChange={(val) => handleFormChangeDropDown(val, "course")}
+        />
 
-        <select
-          name="category"
+        <Dropdown
+          label="Select Broadcast Category"
+          options={["Open", "Update", "Results"]}
           value={initForm.category}
-          onChange={handleFormChange}
-          className="options"
-        >
-          <option value="">Select Category</option>
-          <option value="Open">Open</option>
-          <option value="Update">Update</option>
-          <option value="Results">Results</option>
-        </select>
+          onChange={(val) => handleFormChangeDropDown(val, "category")}
+        />
+
       </>
       {/* </div> */}
 
