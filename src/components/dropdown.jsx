@@ -23,6 +23,7 @@ const Dropdown = ({ label = "Select", options = [], value, onChange }) => {
         {value || label}
         <div className="icon">
           <svg
+            style={isOpen ? { transform: "rotate(180deg)", transition: "transform 0.3s ease" } : { transition: "transform 0.3s ease" }}
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
