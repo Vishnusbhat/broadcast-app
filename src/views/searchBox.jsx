@@ -11,7 +11,7 @@ const SearchBox = ({ handleResultFormChange }) => {
   const suggestionsRef = useRef(null);
 
   useEffect(() => {
-    fetch("public/data/students.csv")
+    fetch("/data/students.csv")
       .then((res) => res.text())
       .then((csv) => {
         const result = Papa.parse(csv, { header: true });
