@@ -189,7 +189,7 @@ const Options = () => {
                 <div className="profile-input-header">
                   <input
                     type="text"
-                    className="profile-input"
+                    className="company-nam"
                     placeholder="Enter profile"
                     value={profile}
                     onChange={(e) => handleChange(index, e.target.value)}

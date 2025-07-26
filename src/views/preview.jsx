@@ -1,3 +1,4 @@
+import './preview.css'
 const Preview = ({ initForm, openForm, resultForm, broadcast }) => {
   return (
     <div className="preview-container">

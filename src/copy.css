@@ -1,0 +1,15 @@
+.copy-button-container {
+    width: 100%;
+    height: 20px;
+}
+
+.copy-button:hover {
+    background-color: #eaeaea;
+    border-color: #15307ebf;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.copy-button:hover .copy-svg {
+    stroke: #15307ebf;
+}

@@ -6,7 +6,6 @@ import Result from "./result";
 import CommonProfileInput from "./commonProfileInput";
 import CopyButton from "../copy";
 import OpenGenerator from "../generator/open";
-import { ImageOff } from "lucide-react";
 
 const Selector = ({
   initForm,
@@ -89,41 +88,47 @@ const Selector = ({
     console.log("Current resultForm:", resultForm.result);
   };
 
+
   return (
     <div className="selector-container">
-      <select
-        name="type"
-        value={initForm.type}
-        onChange={handleFormChange}
-        className="options"
-      >
-        <option value="">Select Type</option>
-        <option value="On-Campus">On-Campus</option>
-        <option value="Off-Campus">Off-Campus</option>
-      </select>
+      <CopyButton broadcast={broadcast} />
+      {/* <div className="options-container"> */}
+      <>
+          <select
+            name="type"
+            value={initForm.type}
+            onChange={handleFormChange}
+            className="options"
+          >
+            <option value="">Select Type</option>
+            <option value="On-Campus">On-Campus</option>
+            <option value="Off-Campus">Off-Campus</option>
+          </select>
 
-      <select
-        name="course"
-        value={initForm.course}
-        onChange={handleFormChange}
-        className="options"
-      >
-        <option value="">Select Course</option>
-        <option value="BTech">BTech</option>
-        <option value="MTech">MTech</option>
-      </select>
+        <select
+          name="course"
+          value={initForm.course}
+          onChange={handleFormChange}
+          className="options"
+        >
+          <option value="">Select Course</option>
+          <option value="BTech">BTech</option>
+          <option value="MTech">MTech</option>
+        </select>
 
-      <select
-        name="category"
-        value={initForm.category}
-        onChange={handleFormChange}
-        className="options"
-      >
-        <option value="">Select Category</option>
-        <option value="Open">Open</option>
-        <option value="Update">Update</option>
-        <option value="Results">Results</option>
-      </select>
+        <select
+          name="category"
+          value={initForm.category}
+          onChange={handleFormChange}
+          className="options"
+        >
+          <option value="">Select Category</option>
+          <option value="Open">Open</option>
+          <option value="Update">Update</option>
+          <option value="Results">Results</option>
+        </select>
+      </>
+      {/* </div> */}
 
       {initForm.type !== "" && initForm.course !== "" && (
         <>
@@ -148,13 +153,13 @@ const Selector = ({
                 openForm={openForm}
                 setBroadcast={setBroadcast}
               />
-              <CopyButton broadcast={broadcast} />
             </>
           )}
           {initForm.category === "Update" && <></>}
           {initForm.category === "Results" && (
             <>
               <Result
+                initForm={initForm}
                 resultForm={resultForm}
                 handleResultFormChange={handleResultFormChange}
                 toggleResult={toggleResult}

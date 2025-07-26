@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Papa from "papaparse";
+import "./selector.css";
 
 const SearchBox = ({ handleResultFormChange }) => {
   const [csvData, setCsvData] = useState([]);
@@ -33,7 +34,7 @@ const SearchBox = ({ handleResultFormChange }) => {
           name.toLowerCase().startsWith(input.toLowerCase()) &&
           !selectedNames.includes(name)
       )
-      .slice(0, 5);
+      .slice(0, 6);
     setSuggestions(filtered);
     setActiveIndex(-1);
   };
@@ -52,10 +53,12 @@ const SearchBox = ({ handleResultFormChange }) => {
   const handleKeyDown = (e) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActiveIndex((prev) => Math.min(prev + 1, suggestions.length - 1));
+      // setActiveIndex((prev) => Math.min(prev + 1, suggestions.length - 1));
+      setActiveIndex((prev) => prev === suggestions.length - 1 ? 0 : prev + 1 );
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setActiveIndex((prev) => Math.max(prev - 1, 0));
+      // setActiveIndex((prev) => Math.max(prev - 1, 0));
+      setActiveIndex((prev) => prev === 0 ? suggestions.length - 1 : prev - 1);
     } else if (e.key === "Enter") {
       if (activeIndex >= 0 && activeIndex < suggestions.length) {
         handleSuggestionClick(suggestions[activeIndex]);
@@ -85,45 +88,67 @@ const SearchBox = ({ handleResultFormChange }) => {
   }, [activeIndex]);
 
   return (
-    <div>
-      <input
-        type="text"
-        value={query}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder="Search name..."
-      />
+    <>
+      <div className="name-input">
+        <input
+          type="text"
+          value={query}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          className="company-name"
+          placeholder="Search student..."
+        />
+      </div>
       {suggestions.length > 0 && (
-        <ul ref={suggestionsRef}>
-          {suggestions.map((name, idx) => (
-            <li
-              key={name}
-              onClick={() => handleSuggestionClick(name)}
-              style={{
-                backgroundColor:
-                  idx === activeIndex ? "#e0e0e0" : "transparent",
-                cursor: "pointer",
-              }}
-            >
-              {name}
-            </li>
-          ))}
-        </ul>
-      )}
-      {selectedNames.length > 0 && (
-        <div>
-          <h4>Selected:</h4>
-          <ul>
-            {selectedNames.map((name) => (
-              <li key={name}>
+        <div className="suggestion">
+          <ul ref={suggestionsRef} style={{ padding: "0" }}>
+            {suggestions.map((name, idx) => (
+              <li
+                key={name}
+                onClick={() => handleSuggestionClick(name)}
+                style={{
+                  listStyle: "none",
+                  padding: "5px",
+                  backgroundColor:
+                    idx === activeIndex
+                      ? "rgba(226, 128, 0, 0.935)"
+                      : "transparent",
+                  cursor: "pointer",
+                  color: idx === activeIndex ? "white" : "black",
+                }}
+              >
                 {name}
-                <button onClick={() => handleRemoveName(name)}>Remove</button>
               </li>
             ))}
           </ul>
         </div>
       )}
-    </div>
+      {selectedNames.length > 0 && (
+        <div className="selected-students">
+          Selected Students:
+          <ul>
+            {selectedNames.map((name) => (
+              <div className="names">
+                <li key={name}>{name}</li>
+                <div
+                  className="button"
+                  key={name - "li"}
+                  onClick={() => handleRemoveName(name)}
+                >
+                  <svg className="close-svg" width="12" height="12" viewBox="0 0 24 24">
+                    <path
+                      d="M18 6L6 18M6 6l12 12"
+                      stroke="black"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                </div>
+              </div>
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
   );
 };
 

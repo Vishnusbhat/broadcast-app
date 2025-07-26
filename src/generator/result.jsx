@@ -1,14 +1,18 @@
 import { useEffect } from "react";
-const ResultGenerator = ({ resultForm, company, setBroadcast }) => {
+const ResultGenerator = ({ resultForm, company, setBroadcast, initForm }) => {
   useEffect(() => {
-    const message = gen(company, resultForm);
-    setBroadcast(message, resultForm.result);
-  }, [resultForm, company, setBroadcast]);
+    let message = gen(company, resultForm, initForm);
+    message += "\n\nRegards,\nTPO";
+    setBroadcast(message);
+  }, [resultForm, company, setBroadcast, initForm]);
   return null;
 };
 
-const gen = (company, resultForm) => {
-  let message = `>>>>> ${company} <<<<<\n\n`;
+const gen = (company, resultForm, initForm) => {
+  let message = "";
+  if (initForm.type === "On-Campus")
+  message += `>>>>> ${company} <<<<<\n\n`;
+else message += `>>>>> *${company} Off-Campus* <<<<<\n\n`;
   if (!resultForm.result) {
     message += "Unfortunately, no student has been recruited by the company.";
   } else {

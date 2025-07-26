@@ -1,0 +1,18 @@
+.output-container {
+    width: auto;
+    height: 100vh;
+    padding: 24px;
+    font-size: 16px;
+}
+
+.heading {
+    width: min-content;
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 36px;
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}

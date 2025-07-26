@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
 import Selector from "./views/selector";
 import Preview from "./views/preview";
+import Output from "./views/output";
 
 const Common = () => {
-  const [initForm, setInitForm] = useState({
-    type: "",
-    course: "",
-    category: "",
-  });
-
   const [broadcast, setBroadcast] = useState("");
 
   const [openForm, setOpenForm] = useState({
@@ -55,6 +50,55 @@ const Common = () => {
     result: true,
   });
 
+  const [initForm, setInitForm] = useState({
+    type: "",
+    course: "",
+    category: "",
+  });
+  useEffect(() => {
+    setBroadcast("");
+    setOpenForm({
+      companyName: "",
+      slab: "",
+      hasInternship: false,
+      hasFTE: false,
+      profiles: [""],
+      noOfProfiles: 1,
+      stipends: [""],
+      branches: [[]],
+      ctcs: [""],
+      locations: [""],
+      durations: [""],
+      tenth: [""],
+      twelfth: [""],
+      btech: [""],
+      mtech: [""],
+      activeBacklog: 0,
+      isDeadBacklogAllowed: true,
+      isDependent: false,
+      checkDepentent: {
+        stipend: false,
+        ctc: false,
+        location: false,
+        durations: false,
+        branch: false,
+      },
+    });
+  }, [initForm.category]);
+
+  useEffect(() => {
+    if (openForm.slab === "Internship")
+      setOpenForm((prev) => ({
+        ...prev,
+        hasInternship: false,
+      }));
+    if (openForm.slab !== "Internship")
+      setOpenForm((prev) => ({
+        ...prev,
+        hasFTE: false,
+      }));
+  }, [openForm.slab]);
+
   return (
     <>
       <Selector
@@ -67,12 +111,13 @@ const Common = () => {
         setBroadcast={setBroadcast}
         broadcast={broadcast}
       />
-      <Preview
+      {/* <Preview
         initForm={initForm}
         openForm={openForm}
         resultForm={resultForm}
         broadcast={broadcast}
-      />
+      /> */}
+      <Output broadcast={broadcast} />
     </>
   );
 };
