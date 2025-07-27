@@ -112,13 +112,13 @@ const Common = () => {
         setBroadcast={setBroadcast}
         broadcast={broadcast}
       />
-      <Preview
+      {/* <Preview
         initForm={initForm}
         openForm={openForm}
         resultForm={resultForm}
         broadcast={broadcast}
-      />
-      {/* <Output broadcast={broadcast} /> */}
+      /> */}
+      <Output broadcast={broadcast} />
     </>
   );
 };
