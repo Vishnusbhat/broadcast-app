@@ -26,6 +26,7 @@ const ProfileInput = ({
         location: false,
         durations: false,
         criteria: false,
+        branch: false,
       });
       setOpenForm((prev) => {
         const update = { ...prev };

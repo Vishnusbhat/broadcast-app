@@ -38,7 +38,7 @@ const Common = () => {
     const allFalse = Object.values(openForm.checkDepentent).every(
       (v) => v === false
     );
-
+    console.log('branches state:', openForm.checkDepentent.branch);
     setOpenForm((prev) => ({
       ...prev,
       isDependent: !allFalse,
