@@ -142,11 +142,11 @@ const gen = ({ initForm, openForm }) => {
   if (!openForm.checkDepentent.branch) {
     if (initForm.type === "On-Campus") {
       result += "Eligible Branch";
-      if (openForm.branches.length > 1) result += "es: ";
+      if (openForm.branches[0].length > 1) result += "es: ";
       else result += ": ";
     } else {
       result += "*Eligible Branch";
-      if (openForm.branches.length > 1) result += "es:* ";
+      if (openForm.branches[0].length > 1) result += "es:* ";
       else result += ":* ";
     }
     if (openForm.branches[0].length > 1) {

@@ -50,9 +50,9 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="black"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <line x1="12" y1="5" x2="12" y2="19" />
             <line x1="5" y1="12" x2="19" y2="12" />
@@ -89,9 +89,9 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
                       <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
@@ -112,15 +112,88 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
               </div>
             )}
           </div>
+          {openForm.checkDepentent.branch && (
+            <div className="branch-container">
+              <div className="branch-heading">Eligible Branches</div>
+              <div className="branch-list">
+                <div
+                  className={`${
+                    openForm.branches[index]?.includes("Civil")
+                      ? "branch-clicked add-background-color"
+                      : "branch"
+                  }`}
+                  onClick={() =>
+                    handleOpenFormChange("branches", "Civil", index)
+                  }
+                >
+                  Civil
+                </div>
+                <div
+                  className={`${
+                    openForm.branches[index]?.includes("CSE")
+                      ? `branch-clicked add-background-color`
+                      : `branch`
+                  }`}
+                  onClick={() => handleOpenFormChange("branches", "CSE", index)}
+                >
+                  CSE
+                </div>
+                <div
+                  className={`${
+                    openForm.branches[index]?.includes("ECE")
+                      ? `branch-clicked add-background-color`
+                      : `branch`
+                  }`}
+                  onClick={() => handleOpenFormChange("branches", "ECE", index)}
+                >
+                  ECE
+                </div>
+              </div>
+              <div className="branch-list">
+                <div
+                  className={`${
+                    openForm.branches[index]?.includes("EEE")
+                      ? `branch-clicked add-background-color`
+                      : `branch`
+                  }`}
+                  onClick={() => handleOpenFormChange("branches", "EEE", index)}
+                >
+                  EEE
+                </div>
+                {initForm.course === "BTech" &&(<div
+                  className={`${
+                    openForm.branches[index]?.includes("ISE")
+                      ? `branch-clicked add-background-color`
+                      : `branch`
+                  }`}
+                  onClick={() => handleOpenFormChange("branches", "ISE", index)}
+                >
+                  ISE
+                </div>)}
+                <div
+                  className={`${
+                    openForm.branches[index]?.includes("Mech")
+                      ? `branch-clicked add-background-color`
+                      : `branch`
+                  }`}
+                  onClick={() =>
+                    handleOpenFormChange("branches", "Mech", index)
+                  }
+                >
+                  Mech
+                </div>
+              </div>
+            </div>
+          )}
           {openForm.checkDepentent.stipend && (
             <input
               type="text"

@@ -22,7 +22,7 @@ const CopyButton = ({ broadcast }) => {
           height="20"
           fill="none"
           stroke="white"
-          stroke-width="2"
+          strokeWidth="2"
           viewBox="0 0 24 24"
         >
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />

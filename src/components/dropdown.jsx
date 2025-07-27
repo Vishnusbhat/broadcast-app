@@ -33,9 +33,9 @@ const Dropdown = ({ label = "Select", options = [], value, onChange }) => {
             <path
               d="M6 9l6 6 6-6"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </div>

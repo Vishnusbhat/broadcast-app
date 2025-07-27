@@ -41,17 +41,20 @@ const Selector = ({
       } else if (Array.isArray(prev[key])) {
         const copy = [...prev[key]];
         if (key === "branches") {
-          const nested = [...copy[index]];
+          const nested = Array.isArray(copy[index]) ? [...copy[index]] : [];
           if (!nested.includes(value)) {
             nested.push(value);
-            nested.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+            nested.sort((a, b) =>
+              a.toLowerCase().localeCompare(b.toLowerCase())
+            );
             copy[index] = nested;
           } else {
-          const filtered = nested.filter((v) => v !== value);
-          filtered.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-          copy[index] = filtered;
-        } 
-
+            const filtered = nested.filter((v) => v !== value);
+            filtered.sort((a, b) =>
+              a.toLowerCase().localeCompare(b.toLowerCase())
+            );
+            copy[index] = filtered;
+          }
         } else {
           copy[index] = value;
         }
@@ -91,6 +94,21 @@ const Selector = ({
     }));
     console.log("Current resultForm:", resultForm.result);
   };
+
+  // useEffect(() => {
+  //   setOpenForm((prevForm) => {
+  //     const updated = { ...prevForm };
+
+  //     if (prevForm.checkDepentent.branch) {
+  //       const length = prevForm.profiles.length || 1;
+  //       updated.branches = Array.from({ length }, () => []);
+  //     } else {
+  //       updated.branches = [prevForm.branches[0] || []];
+  //     }
+
+  //     return updated;
+  //   });
+  // }, [openForm.checkDepentent.branch, openForm.profiles.length]);
 
   return (
     <div className="selector-container">

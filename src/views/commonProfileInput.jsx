@@ -49,16 +49,18 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
             >
               EEE
             </div>
-            <div
-              className={`${
-                openForm.branches[0].includes("ISE")
-                  ? `branch-clicked add-background-color`
-                  : `branch`
-              }`}
-              onClick={() => handleFormChange("branches", "ISE", 0)}
-            >
-              ISE
-            </div>
+            {initForm.course === "BTech" && (
+              <div
+                className={`${
+                  openForm.branches[0].includes("ISE")
+                    ? `branch-clicked add-background-color`
+                    : `branch`
+                }`}
+                onClick={() => handleFormChange("branches", "ISE", 0)}
+              >
+                ISE
+              </div>
+            )}
             <div
               className={`${
                 openForm.branches[0].includes("Mech")
