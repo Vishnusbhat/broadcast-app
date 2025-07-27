@@ -38,6 +38,7 @@ const Preview = ({ initForm, openForm, resultForm, broadcast }) => {
       <p>Location: {openForm.checkDepentent.location ? "Yes" : "No"}</p>
       <p>Criteria: {openForm.checkDepentent.criteria ? "Yes" : "No"}</p>
       <p>Branch: {openForm.checkDepentent.branch ? "Yes" : "No"}</p>
+      <p>Duration: {openForm.checkDepentent.durations ? "Yes" : "No"}</p>
       <p>Durations: {openForm.durations.join(", ")}</p>
       <h3>Result Form</h3>
       <p>Students: {resultForm.students.join(", ")}</p>

@@ -151,6 +151,7 @@ const Selector = ({
                 initForm={initForm}
                 openForm={openForm}
                 handleOpenFormChange={handleOpenFormChange}
+                setOpenForm={setOpenForm}
               />
               <CommonProfileInput
                 openForm={openForm}

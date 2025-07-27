@@ -1,6 +1,11 @@
 import "./selector.css";
 
-const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
+const ProfileInput = ({
+  initForm,
+  openForm,
+  handleOpenFormChange,
+  setOpenForm,
+}) => {
   const profiles = openForm.profiles;
 
   const addProfile = () => {
@@ -21,6 +26,23 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
         location: false,
         durations: false,
         criteria: false,
+      });
+      setOpenForm((prev) => {
+        const update = { ...prev };
+        if (index !== 0) {
+          if (update.branches?.[index]) {
+            update.branches[index].length = 0;
+          }
+          update.stipends.splice(index, 1);
+          update.ctcs.splice(index, 1);
+          update.locations.splice(index, 1);
+          update.durations.splice(index, 1);
+          update.tenth.splice(index, 1);
+          update.twelfth.splice(index, 1);
+          update.btech.splice(index, 1);
+          update.mtech.splice(index, 1);
+        }
+        return update;
       });
     }
   };
@@ -169,16 +191,20 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
                 >
                   EEE
                 </div>
-                {initForm.course === "BTech" &&(<div
-                  className={`${
-                    openForm.branches[index]?.includes("ISE")
-                      ? `branch-clicked add-background-color`
-                      : `branch`
-                  }`}
-                  onClick={() => handleOpenFormChange("branches", "ISE", index)}
-                >
-                  ISE
-                </div>)}
+                {initForm.course === "BTech" && (
+                  <div
+                    className={`${
+                      openForm.branches[index]?.includes("ISE")
+                        ? `branch-clicked add-background-color`
+                        : `branch`
+                    }`}
+                    onClick={() =>
+                      handleOpenFormChange("branches", "ISE", index)
+                    }
+                  >
+                    ISE
+                  </div>
+                )}
                 <div
                   className={`${
                     openForm.branches[index]?.includes("Mech")
