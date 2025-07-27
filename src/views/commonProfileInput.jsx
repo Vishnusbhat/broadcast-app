@@ -3,6 +3,75 @@ import "./selector.css";
 const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
   return (
     <>
+      {!openForm.checkDepentent.branch && (
+        <div className="branch-container">
+          <div className="branch-heading">Eligible Branches</div>
+          <div className="branch-list">
+            <div
+              className={`${
+                openForm.branches[0].includes("Civil")
+                  ? `branch-clicked add-background-color`
+                  : `branch`
+              }`}
+              onClick={() => handleFormChange("branches", "Civil", 0)}
+            >
+              Civil
+            </div>
+            <div
+              className={`${
+                openForm.branches[0].includes("CSE")
+                  ? `branch-clicked add-background-color`
+                  : `branch`
+              }`}
+              onClick={() => handleFormChange("branches", "CSE", 0)}
+            >
+              CSE
+            </div>
+            <div
+              className={`${
+                openForm.branches[0].includes("ECE")
+                  ? `branch-clicked add-background-color`
+                  : `branch`
+              }`}
+              onClick={() => handleFormChange("branches", "ECE", 0)}
+            >
+              ECE
+            </div>
+          </div>
+          <div className="branch-list">
+            <div
+              className={`${
+                openForm.branches[0].includes("EEE")
+                  ? `branch-clicked add-background-color`
+                  : `branch`
+              }`}
+              onClick={() => handleFormChange("branches", "EEE", 0)}
+            >
+              EEE
+            </div>
+            <div
+              className={`${
+                openForm.branches[0].includes("ISE")
+                  ? `branch-clicked add-background-color`
+                  : `branch`
+              }`}
+              onClick={() => handleFormChange("branches", "ISE", 0)}
+            >
+              ISE
+            </div>
+            <div
+              className={`${
+                openForm.branches[0].includes("Mech")
+                  ? `branch-clicked add-background-color`
+                  : `branch`
+              }`}
+              onClick={() => handleFormChange("branches", "Mech", 0)}
+            >
+              Mech
+            </div>
+          </div>
+        </div>
+      )}
       {!openForm.checkDepentent.stipend &&
         (openForm.slab === "Internship" || openForm.hasInternship) && (
           <input
@@ -49,7 +118,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
       <input
         type="text"
         name="tenth"
-        placeholder="Tenth Percentage"
+        placeholder="10th Percentage"
         className="company-name"
         value={openForm.tenth[0] || ""}
         onChange={(e) => handleFormChange("tenth", e.target.value, 0)}
@@ -57,7 +126,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
       <input
         type="text"
         name="twelfth"
-        placeholder="Twelfth Percentage"
+        placeholder="12th Percentage"
         className="company-name"
         value={openForm.twelfth[0] || ""}
         onChange={(e) => handleFormChange("twelfth", e.target.value, 0)}

@@ -159,7 +159,7 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
               <input
                 type="text"
                 className="profile-name"
-                placeholder={`Enter tenth percentage (Profile ${index + 1})`}
+                placeholder={`Enter 10th percentage (Profile ${index + 1})`}
                 value={openForm.tenth[index] || ""}
                 onChange={(e) =>
                   handleOpenFormChange("tenth", e.target.value, index)
@@ -168,7 +168,7 @@ const ProfileInput = ({ initForm, openForm, handleOpenFormChange }) => {
               <input
                 type="text"
                 className="profile-name"
-                placeholder={`Enter twelfth percentage (Profile ${index + 1})`}
+                placeholder={`Enter 12th percentage (Profile ${index + 1})`}
                 value={openForm.twelfth[index] || ""}
                 onChange={(e) =>
                   handleOpenFormChange("twelfth", e.target.value, index)

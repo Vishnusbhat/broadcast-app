@@ -73,7 +73,7 @@ const gen = ({ initForm, openForm }) => {
       } else {
         result += "*Job ";
       }
-      result += `Profiles:* `;
+      result += `Profiles:*\n`;
     }
     openForm.profiles.map((profile, index) => {
       result += `${index + 1}. ${profile}\n`;

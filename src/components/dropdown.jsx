@@ -45,19 +45,21 @@ const Dropdown = ({ label = "Select", options = [], value, onChange }) => {
         // <div className="dropdown-menu">
 
         <>
-          {options.map((option) => {
-            const val = typeof option === "string" ? option : option.value;
-            const label = typeof option === "string" ? option : option.label;
+          {options
+          .filter((option) => {
+            return option !== value;
+          })
+          .map((option) => {
             return (
               <div
-                key={val}
+                key={option}
                 className="dropdown-item"
                 onClick={() => {
-                  onChange(val);
+                  onChange(option);
                   setIsOpen(false);
                 }}
               >
-                {label}
+                {option}
               </div>
             );
           })}

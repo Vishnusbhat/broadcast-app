@@ -1,5 +1,12 @@
 import "./selector.css";
-const CompanyInput = ({ openForm, handleFormChange }) => {
+import Dropdown from "../components/dropdown";
+const CompanyInput = ({ openForm, setOpenForm, handleFormChange }) => {
+  const handleFormChangeDropDown = (value, name) => {
+    setOpenForm((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   return (
     <>
       <>
@@ -11,19 +18,12 @@ const CompanyInput = ({ openForm, handleFormChange }) => {
           className="company-name"
           placeholder="Company Name"
         />
-        <select
-          name="slab"
+        <Dropdown
+          label="Select Slab"
+          options={["Internship", "DIT", "ODC", "OD", "GOD"]}
           value={openForm.slab}
-          onChange={(e) => handleFormChange("slab", e.target.value)}
-          className="options"
-        >
-          <option value="">Select Slab</option>
-          <option value="Internship">Internship</option>
-          <option value="DIT">DIT</option>
-          <option value="ODC">ODC</option>
-          <option value="OD">OD</option>
-          <option value="GOD">GOD</option>
-        </select>
+          onChange={(val) => handleFormChangeDropDown(val, "slab")}
+        />
         {openForm.slab === "Internship" && (
           <div className="has-internship">
             <label>Has PBC?</label>

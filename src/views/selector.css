@@ -217,14 +217,14 @@ input {
 
 .row {
     width: 100%;
-    color:black;
+    color: black;
     display: flex;
     justify-content: space-between;
 }
 
 .row-2 {
     width: 100%;
-    color:black;
+    color: black;
     display: flex;
     justify-content: space-between;
 }
@@ -241,4 +241,71 @@ input {
     color: black;
     font-size: medium;
     background-color: #eaeaea;
+}
+
+.branch-container {
+    width: 100%;
+    height: auto;
+
+}
+
+.branch-heading {
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.branch-list {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: start;
+    margin-bottom: 8px;
+}
+
+.branch {
+    display: flex;
+    border: black 1px solid;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    width: 50px;
+    height: 28px;
+    border-radius: 32px;
+    margin-right: 16px;
+    font-size: 14px;
+
+}
+
+.branch-clicked {
+    display: flex;
+    border: white 1px solid;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 50px;
+    height: 28px;
+    border-radius: 32px;
+    margin-right: 16px;
+    font-size: 14px;
+}
+
+.branch-clicked:hover {
+    background-color: #445c9fc4;
+    border: white 1px solid;
+    color: white;
+    cursor: pointer;
+}
+
+.add-background-color {
+    background-color: #445c9f;
+
+}
+
+.branch:hover {
+    background-color: #445c9f4e;
+    cursor: pointer;
 }

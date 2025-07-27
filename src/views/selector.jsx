@@ -18,13 +18,14 @@ const Selector = ({
   setBroadcast,
   broadcast,
 }) => {
-const handleFormChangeDropDown = (value, name) => {
-  setInitForm((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
-};
-  const handleOpenFormChange = (key, value, index = null, toDelete = false) => {
+  const handleFormChangeDropDown = (value, name) => {
+    setInitForm((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleOpenFormChange = (key, value, index = null) => {
     setOpenForm((prev) => {
       const updated = { ...prev };
 
@@ -39,14 +40,18 @@ const handleFormChangeDropDown = (value, name) => {
         }
       } else if (Array.isArray(prev[key])) {
         const copy = [...prev[key]];
-        if (key === "branches" && !toDelete) {
+        if (key === "branches") {
           const nested = [...copy[index]];
-          nested.push(value);
-          copy[index] = nested;
-        } else if (key === "branches" && toDelete) {
-          const nested = [...copy[index]];
+          if (!nested.includes(value)) {
+            nested.push(value);
+            nested.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+            copy[index] = nested;
+          } else {
           const filtered = nested.filter((v) => v !== value);
+          filtered.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
           copy[index] = filtered;
+        } 
+
         } else {
           copy[index] = value;
         }
@@ -112,7 +117,6 @@ const handleFormChangeDropDown = (value, name) => {
           value={initForm.category}
           onChange={(val) => handleFormChangeDropDown(val, "category")}
         />
-
       </>
       {/* </div> */}
 
@@ -123,6 +127,7 @@ const handleFormChangeDropDown = (value, name) => {
               <CompanyInput
                 openForm={openForm}
                 handleFormChange={handleOpenFormChange}
+                setOpenForm={setOpenForm}
               />
               <ProfileInput
                 initForm={initForm}
