@@ -39,7 +39,7 @@ const gen = ({ initForm, openForm }) => {
       }
     }
     {
-      openForm.hasInternship ? (result += " + Internship\n") : (null);
+      openForm.hasInternship ? (result += " + Internship\n") : null;
     }
   }
   //single profile
@@ -80,11 +80,31 @@ const gen = ({ initForm, openForm }) => {
 
       if (openForm.checkDepentent.branch && openForm.branches[index]) {
         if (initForm.type === "On-Campus") {
-          result += "-> Eligible Branch";
-          result += openForm.branches[index].length > 1 ? "es: " : ": ";
+          if (initForm.course === "BTech") {
+            result += "-> Eligible Branch";
+            result += openForm.branches[index].length > 1 ? "es: " : ": ";
+          } else if (
+            initForm.course === "MTech" &&
+            openForm.branches[index].length === 1 &&
+            openForm.branches[index][0] === "ECE"
+          ) {
+            result += "-> Eligible Branch: ";
+          } else {
+            result += "-> Eligible Branches: All sub-branches of ";
+          }
         } else {
-          result += "-> *Eligible Branch";
-          result += openForm.branches[index].length > 1 ? "es:* " : ":* ";
+          if (initForm.course === "BTech") {
+            result += "-> *Eligible Branch:* ";
+            result += openForm.branches[index].length > 1 ? "es:* " : ":* ";
+          } else if (
+            initForm.course === "MTech" &&
+            openForm.branches[index].length === 1 &&
+            openForm.branches[index][0] === "ECE"
+          ) {
+            result += "-> *Eligible Branch:* ";
+          } else {
+            result += "-> *Eligible Branches:* All sub-branches of ";
+          }
         }
 
         const arr = openForm.branches[index];
@@ -141,13 +161,33 @@ const gen = ({ initForm, openForm }) => {
   //Eligible Branches
   if (!openForm.checkDepentent.branch) {
     if (initForm.type === "On-Campus") {
-      result += "Eligible Branch";
-      if (openForm.branches[0].length > 1) result += "es: ";
-      else result += ": ";
+      if (initForm.course === "BTech") {
+        result += "Eligible Branch";
+        if (openForm.branches[0].length > 1) result += "es: ";
+        else result += ": ";
+      } else if (
+            initForm.course === "MTech" &&
+            openForm.branches[0].length === 1 &&
+            openForm.branches[0][0] === "ECE"
+          ) {
+            result += "-> Eligible Branch: ";
+          } else {
+        result += "Eligible Branches: All sub-branches of";
+      }
     } else {
-      result += "*Eligible Branch";
-      if (openForm.branches[0].length > 1) result += "es:* ";
-      else result += ":* ";
+      if (initForm.course === "BTech") {
+        result += "*Eligible Branch";
+        if (openForm.branches[0].length > 1) result += "es:* ";
+        else result += ":* ";
+      } else if (
+            initForm.course === "MTech" &&
+            openForm.branches[0].length === 1 &&
+            openForm.branches[0][0] === "ECE"
+          ) {
+            result += "-> *Eligible Branch:* ";
+          } else {
+        result += "*Eligible Branches:* All sub-branches of";
+      }
     }
     if (openForm.branches[0].length > 1) {
       result += `${openForm.branches[0].slice(0, -1).join(", ")} and ${
