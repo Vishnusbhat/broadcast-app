@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./notesection.css";
-import { resolveConfig } from "vite";
 
 const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
   const [restoreNotes, setRestoreNotes] = useState([]);
