@@ -3,5 +3,10 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: './broadcast-app/'
+  base: './broadcast-app/',
+  build: {
+    rollupOptions: {
+      external: ['fsevents', 'fs', 'node:fs/promises'],
+    },
+  },
 });
