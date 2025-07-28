@@ -113,3 +113,8 @@
     cursor: pointer;
     background: #e0e0e0;
 }
+
+.edit-input {
+    width: 100%;
+    height: auto;
+}

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+
 import "./notesection.css";
 
 const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
@@ -6,6 +7,9 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [newNote, setNewNote] = useState("");
   const [showRestore, setShowRestore] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+  const [editText, setEditText] = useState("");
+  const editDivRef = useRef(null);
 
   useEffect(() => {
     fetch(`/notes/${filename}`)
@@ -52,6 +56,12 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
     });
   };
 
+  useEffect(() => {
+    if (editDivRef.current && editIndex !== null) {
+      editDivRef.current.focus();
+    }
+  }, [editIndex]);
+
   const handleDragStart = (index) => setDraggedIndex(index);
 
   const handleDrop = (index) => {
@@ -65,14 +75,39 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
     setShowRestore(!showRestore);
   };
 
-useEffect(() => {
-  console.log("Show Restore Notes: ", restoreNotes);
-  if (restoreNotes.length === 0) setShowRestore(false);
-}, [restoreNotes]);
+  const handleEditStart = (index) => {
+    setEditIndex(index);
+    setEditText(notes[index]);
+  };
 
-useEffect(() => {
-  console.log("Updated showRestore:", showRestore);
-}, [showRestore]);
+  const handleEditChange = (e) => {
+    setEditText(e.target.innerText);
+  };
+
+  const handleEditSave = () => {
+    setNotes((prev) => {
+      const updated = [...prev];
+      updated[editIndex] = editText;
+      return updated;
+    });
+    setEditIndex(null);
+    setEditText("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleEditSave();
+    }
+  };
+
+  useEffect(() => {
+    console.log("Show Restore Notes: ", restoreNotes);
+    if (restoreNotes.length === 0) setShowRestore(false);
+  }, [restoreNotes]);
+
+  useEffect(() => {
+    console.log("Updated showRestore:", showRestore);
+  }, [showRestore]);
 
   return (
     <div className="note-container">
@@ -87,13 +122,23 @@ useEffect(() => {
             onDragOver={(e) => e.preventDefault()}
             onDrop={() => handleDrop(index)}
           >
-            {note}
-            <div
-              className="cross-button"
-              onClick={() => {
-                deleteNote(index);
-              }}
-            >
+            {editIndex === index ? (
+              <div
+                contentEditable
+                suppressContentEditableWarning={true}
+                onBlur={handleEditSave}
+                onInput={handleEditChange}
+                onKeyDown={handleKeyDown}
+                className="edit-input"
+                ref={editDivRef} // optional if you want to control focus
+              >
+                {editText}
+              </div>
+            ) : (
+              <span onClick={() => handleEditStart(index)}>{note}</span>
+            )}
+
+            <div className="cross-button" onClick={() => deleteNote(index)}>
               <svg
                 className="close-svg"
                 width="14"
@@ -123,6 +168,7 @@ useEffect(() => {
         <div className="note-list">
           {restoreNotes.map((note, index) => (
             <div
+              key={index}
               className="restore-note-item"
               onClick={() => {
                 restoreNote(index);
