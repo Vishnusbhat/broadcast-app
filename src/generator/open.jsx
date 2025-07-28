@@ -1,9 +1,18 @@
 import { useEffect } from "react";
-const OpenGenerator = ({ initForm, openForm, setBroadcast }) => {
+const OpenGenerator = ({ initForm, openForm, setBroadcast, notes }) => {
   useEffect(() => {
-    const message = gen({ initForm, openForm });
+    let message = gen({ initForm, openForm });
+    if (initForm.type === "On-Campus") {
+      message += "\nNote:\n";
+    } else {
+      message += "\n*Note:*\n";
+    }
+    notes.map((note, index) => {
+      message += `${index + 1}. ${note}\n`;
+    });
+    message += "\n\nRegards,\nTPO";
     setBroadcast(message);
-  }, [initForm, openForm, setBroadcast]);
+  }, [initForm, openForm, setBroadcast, notes]);
 
   return null;
 };
@@ -166,12 +175,12 @@ const gen = ({ initForm, openForm }) => {
         if (openForm.branches[0].length > 1) result += "es: ";
         else result += ": ";
       } else if (
-            initForm.course === "MTech" &&
-            openForm.branches[0].length === 1 &&
-            openForm.branches[0][0] === "ECE"
-          ) {
-            result += "-> Eligible Branch: ";
-          } else {
+        initForm.course === "MTech" &&
+        openForm.branches[0].length === 1 &&
+        openForm.branches[0][0] === "ECE"
+      ) {
+        result += "-> Eligible Branch: ";
+      } else {
         result += "Eligible Branches: All sub-branches of";
       }
     } else {
@@ -180,12 +189,12 @@ const gen = ({ initForm, openForm }) => {
         if (openForm.branches[0].length > 1) result += "es:* ";
         else result += ":* ";
       } else if (
-            initForm.course === "MTech" &&
-            openForm.branches[0].length === 1 &&
-            openForm.branches[0][0] === "ECE"
-          ) {
-            result += "-> *Eligible Branch:* ";
-          } else {
+        initForm.course === "MTech" &&
+        openForm.branches[0].length === 1 &&
+        openForm.branches[0][0] === "ECE"
+      ) {
+        result += "-> *Eligible Branch:* ";
+      } else {
         result += "*Eligible Branches:* All sub-branches of";
       }
     }

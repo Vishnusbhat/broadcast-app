@@ -165,6 +165,7 @@ const Selector = ({
                 initForm={initForm}
                 openForm={openForm}
                 setBroadcast={setBroadcast}
+                notes={notes}
               />
               <NoteSection filename="open.txt" notes={notes} setNotes={setNotes}/>
             </>
