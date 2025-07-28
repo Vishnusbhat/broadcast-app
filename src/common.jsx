@@ -5,7 +5,7 @@ import Output from "./views/output";
 
 const Common = () => {
   const [broadcast, setBroadcast] = useState("");
-
+  const [notes, setNotes] = useState([]);
   const [openForm, setOpenForm] = useState({
     companyName: "",
     slab: "",
@@ -38,7 +38,7 @@ const Common = () => {
     const allFalse = Object.values(openForm.checkDepentent).every(
       (v) => v === false
     );
-    console.log('branches state:', openForm.checkDepentent.branch);
+    console.log("branches state:", openForm.checkDepentent.branch);
     setOpenForm((prev) => ({
       ...prev,
       isDependent: !allFalse,
@@ -99,7 +99,6 @@ const Common = () => {
       }));
   }, [openForm.slab]);
 
-
   return (
     <>
       <Selector
@@ -111,6 +110,8 @@ const Common = () => {
         setResultForm={setResultForm}
         setBroadcast={setBroadcast}
         broadcast={broadcast}
+        notes={notes}
+        setNotes={setNotes}
       />
       {/* <Preview
         initForm={initForm}

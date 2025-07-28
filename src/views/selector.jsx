@@ -7,6 +7,7 @@ import CommonProfileInput from "./commonProfileInput";
 import CopyButton from "../copy";
 import OpenGenerator from "../generator/open";
 import Dropdown from "../components/dropdown";
+import NoteSection from "../components/notesection";
 
 const Selector = ({
   initForm,
@@ -17,6 +18,8 @@ const Selector = ({
   setResultForm,
   setBroadcast,
   broadcast,
+  notes,
+  setNotes,
 }) => {
   const handleFormChangeDropDown = (value, name) => {
     setInitForm((prevData) => ({
@@ -163,6 +166,7 @@ const Selector = ({
                 openForm={openForm}
                 setBroadcast={setBroadcast}
               />
+              <NoteSection filename="open.txt" notes={notes} setNotes={setNotes}/>
             </>
           )}
           {initForm.category === "Update" && <></>}
