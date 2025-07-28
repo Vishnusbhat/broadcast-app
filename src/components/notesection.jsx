@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./notesection.css";
+import { resolveConfig } from "vite";
 
 const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
-//   const [notes, setNotes] = useState([]);
+  const [restoreNotes, setRestoreNotes] = useState([]);
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [newNote, setNewNote] = useState("");
+  const [showRestore, setShowRestore] = useState(false);
 
   useEffect(() => {
     fetch(`/notes/${filename}`)
@@ -24,10 +26,30 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
     }
   };
   const deleteNote = (index) => {
+    const deletedNote = notes[index];
     setNotes((prevNotes) => {
       const updatedNotes = [...prevNotes];
       updatedNotes.splice(index, 1);
       return updatedNotes;
+    });
+    setRestoreNotes((prevRestore) => {
+      if (!prevRestore.includes(deletedNote)) {
+        return [...prevRestore, deletedNote];
+      }
+      return prevRestore;
+    });
+  };
+  const restoreNote = (index) => {
+    const restored = restoreNotes[index];
+    setRestoreNotes((prev) => {
+      const restore = [...prev];
+      restore.splice(index, 1);
+      return restore;
+    });
+    setNotes((prev) => {
+      const notes = [...prev];
+      notes.push(restored);
+      return notes;
     });
   };
 
@@ -39,6 +61,19 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
     updated.splice(index, 0, movedNote);
     setNotes(updated);
   };
+
+  const handleShowRestore = () => {
+    setShowRestore(!showRestore);
+  };
+
+useEffect(() => {
+  console.log("Show Restore Notes: ", restoreNotes);
+  if (restoreNotes.length === 0) setShowRestore(false);
+}, [restoreNotes]);
+
+useEffect(() => {
+  console.log("Updated showRestore:", showRestore);
+}, [showRestore]);
 
   return (
     <div className="note-container">
@@ -81,6 +116,23 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
           placeholder="Add a new note..."
         />
         <button onClick={handleAddNote}>Add</button>
+      </div>
+      <div className={`recycle-bin ${showRestore ? "recycle-bin-open" : ""}`}>
+        <div className="restore-button" onClick={handleShowRestore}>
+          Restore Notes
+        </div>
+        <div className="note-list">
+          {restoreNotes.map((note, index) => (
+            <div
+              className="restore-note-item"
+              onClick={() => {
+                restoreNote(index);
+              }}
+            >
+              {note}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

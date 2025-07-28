@@ -1,21 +1,21 @@
 .note-container {
-  max-width: 300px;
-  margin: auto;
-  padding: 16px;
-  border: 1px solid #000000;
-  font-family: Arial, sans-serif;
-  color: black;
-  font: inherit;
+    max-width: 300px;
+    margin: auto;
+    padding: 16px;
+    border: 1px solid #000000;
+    color: black;
+    font: inherit;
 }
 
 .note-list {
-  margin-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 .note-heading {
-    font-size: 32px;
+    font-size: 18px;
     margin-bottom: 12px;
 }
+
 .cross-button {
     width: 14px;
     height: 14px;
@@ -29,39 +29,87 @@
     border: black 1px solid;
     background-color: #f0f0f0;
     z-index: 999;
-    
+
 }
+
 .cross-button:hover {
     background-color: white;
     cursor: pointer;
 }
 
 .note-item {
-  background: #f0f0f0;
-  padding: 8px 12px;
-  margin-bottom: 10px;
-  border: 1px solid #aaa;
-  cursor: grab;
-  position: relative;
-  transition: background 0.2s;
+    background: #f0f0f0;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border: 1px solid #aaa;
+    cursor: grab;
+    position: relative;
+    transition: background 0.2s;
 }
 
 .note-item:hover {
-  background: #e0e0e0;
+    background: #e0e0e0;
 }
 
 .add-note {
-  display: flex;
-  gap: 8px;
+    display: flex;
+    gap: 8px;
 }
 
 .add-note input {
-  flex: 1;
-  padding: 6px;
-  border: 1px solid #ccc;
+    flex: 1;
+    padding: 6px;
+    border: 1px solid #ccc;
+    font: inherit;
 }
 
 .add-note button {
-  padding: 6px 12px;
-  cursor: pointer;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.recycle-bin {
+    display: flex;
+    flex-direction: column;
+    color: black;
+    width: 100%;
+    margin-top: 8px;
+    border-radius: 4px;
+    font: inherit;
+    overflow: hidden;
+    transition: max-height 0.7s ease;
+    max-height: 24px;
+}
+
+.recycle-bin.recycle-bin-open {
+    max-height: 1500px;
+}
+
+.recycle-bin-close {
+    height: 24px;
+}
+
+.restore-button {
+    background-color: #15307ebf;
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.restore-button:hover {
+    cursor: pointer;
+}
+
+.restore-note-item {
+    background: #f0f0f0;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border: 1px solid #aaa;
+    transition: background 0.2s;
+}
+
+.restore-note-item:hover {
+    cursor: pointer;
+    background: #e0e0e0;
 }
