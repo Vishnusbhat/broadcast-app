@@ -8,7 +8,6 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
   const [newNote, setNewNote] = useState("");
   const [showRestore, setShowRestore] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
-  const [editText, setEditText] = useState("");
   const editDivRef = useRef(null);
 
   useEffect(() => {
@@ -77,26 +76,21 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
 
   const handleEditStart = (index) => {
     setEditIndex(index);
-    setEditText(notes[index]);
   };
 
-  const handleEditChange = (e) => {
-    setEditText(e.target.innerText);
-  };
-
-  const handleEditSave = () => {
-    setNotes((prev) => {
-      const updated = [...prev];
-      updated[editIndex] = editText;
-      return updated;
-    });
+  const handleEditSave = (index) => {
+    if (editDivRef.current) {
+      const updatedNotes = [...notes];
+      updatedNotes[index] = editDivRef.current.innerText;
+      setNotes(updatedNotes);
+    }
     setEditIndex(null);
-    setEditText("");
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e, index) => {
     if (e.key === "Enter") {
-      handleEditSave();
+      e.preventDefault();
+      handleEditSave(index);
     }
   };
 
@@ -125,17 +119,16 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
             {editIndex === index ? (
               <div
                 contentEditable
+                ref={editDivRef}
+                className="edit-div"
+                onBlur={() => handleEditSave(index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
                 suppressContentEditableWarning={true}
-                onBlur={handleEditSave}
-                onInput={handleEditChange}
-                onKeyDown={handleKeyDown}
-                className="edit-input"
-                ref={editDivRef} // optional if you want to control focus
               >
-                {editText}
+                {notes[index]}
               </div>
             ) : (
-              <span onClick={() => handleEditStart(index)}>{note}</span>
+              <div onDoubleClick={() => handleEditStart(index)}>{note}</div>
             )}
 
             <div className="cross-button" onClick={() => deleteNote(index)}>
