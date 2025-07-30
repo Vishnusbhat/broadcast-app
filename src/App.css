@@ -6,3 +6,7 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   overflow-x: hidden;
 }
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
