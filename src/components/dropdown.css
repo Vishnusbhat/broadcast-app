@@ -11,6 +11,7 @@
     background-color: #eaeaea;
     transition: max-height 5s ease, opacity 0.3s ease;
 }
+
 .gap {
     height: 8px;
 }
@@ -28,13 +29,11 @@
 
 }
 
-.dropdown-toggle:hover {
-    cursor: pointer;
-}
 .icon {
     width: 18px;
     height: 18px;
 }
+
 .dropdown-item {
     display: flex;
     align-items: center;
@@ -52,9 +51,21 @@
     cursor: pointer;
 }
 
+@media (min-width: 480px) {
+    .dropdown-toggle:hover {
+        cursor: pointer;
+    }
+
+    .dropdown-toggle:hover {
+        cursor: pointer;
+    }
+}
 
 @media (max-width: 480px) {
     .dropdown-toggle {
-        height: 28px;
+        height: 40px;
+    }
+    .dropdown-item {
+        height: 40px;
     }
 }

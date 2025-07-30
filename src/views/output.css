@@ -5,6 +5,15 @@
     font-size: 16px;
 }
 
+.output-container pre {
+  white-space: pre-wrap; /* 🔑 This allows the text to wrap */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-family: inherit; /* Optional: makes it look like the rest of the app */
+  width: 100%;
+}
+
+
 .heading {
     width: min-content;
     font-family: "Merriweather", serif;

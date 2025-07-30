@@ -12,5 +12,17 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+  document.addEventListener("blur", function (e) {
+    const target = e.target;
+    if (
+      (target.tagName === "INPUT" && target.type === "text") ||
+      target.tagName === "TEXTAREA"
+    ) {
+      target.value = target.value.trimEnd();
+    }
+  }, true);
+</script>
+
   </body>
 </html>
