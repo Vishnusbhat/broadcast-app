@@ -11,7 +11,6 @@
     /* overflow-y: auto; */
     background-color: #cae3ff;
 }
-
 .options-container {
     display: flex;
     flex-direction: column;
@@ -308,4 +307,14 @@ input {
 .branch:hover {
     background-color: #445c9f4e;
     cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .selector-container {
+        width: 480px;
+    }
+    .company-name {
+        width: 468px;
+        height: 30px;
+    }
 }
