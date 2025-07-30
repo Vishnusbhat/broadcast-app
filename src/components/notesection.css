@@ -106,7 +106,7 @@
     padding: 8px 12px;
     margin-bottom: 10px;
     border: 1px solid #aaa;
-    transition: background 0.2s;
+    transition: background 0.1s;
 }
 
 .restore-note-item:hover {
@@ -117,4 +117,13 @@
 .edit-input {
     width: 100%;
     height: auto;
+}
+
+@media screen and (max-width: 480px) {
+    .note-container {
+        max-width: 100vw;
+    }
+        .add-note {
+        height: 40px;
+    }
 }
