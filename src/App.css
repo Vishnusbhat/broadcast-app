@@ -4,4 +4,5 @@
   height: 100vh;
   flex-direction: row;
   font-family: Georgia, 'Times New Roman', Times, serif;
+  overflow: hidden;
 }
