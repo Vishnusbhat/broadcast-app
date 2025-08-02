@@ -204,7 +204,8 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
         Expected Date of Joining
         <DatePicker
           selected={openForm.expectedDateOfJoining}
-          popperPlacement="top-end"
+          // popperPlacement="top-end"
+          onFocus={(e) => e.target.blur()}
           onChange={(date) =>
             handleFormChange("expectedDateOfJoining", date, null)
           }
@@ -222,6 +223,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           timeFormat="HH:mm"
           timeIntervals={30}
           timeCaption="Time"
+          onFocus={(e) => e.target.blur()}
           dateFormat="Pp"
           value={getLabel(openForm.deadlineForRegistration)}
           popperPlacement="bottom-start"
