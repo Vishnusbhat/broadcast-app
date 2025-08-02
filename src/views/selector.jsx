@@ -38,6 +38,16 @@ const Selector = ({
             ...prev.checkDepentent,
             [key]: value,
           };
+        } else if (key === "expectedDateOfJoining") {
+          setOpenForm((prev) => ({
+            ...prev,
+            expectedDateOfJoining: new Date(value),
+          }));
+        } else if (key === "deadlineForRegistration") {
+          setOpenForm((prev) => ({
+            ...prev,
+            deadlineForRegistration: new Date(value),
+          }));
         } else {
           updated[key] = value;
         }
@@ -67,20 +77,6 @@ const Selector = ({
     });
   };
 
-  //   const handleResultFormChange = (name, toDelete = false) => {
-  //     setResultForm((prev) => {
-  //       const updated = { ...prev };
-  //       if (toDelete) {
-  // updated.students = updated.students.filter((student) => student !== name);
-  //       } else {
-  //         if (!updated.students.includes(name)) {
-  //           updated.students.push(name);
-  //         }
-  //       }
-  //       return updated;
-  //     });
-  //   };
-
   const handleResultFormChange = (list) => {
     setResultForm((prev) => ({
       ...prev,
@@ -97,21 +93,6 @@ const Selector = ({
     }));
     console.log("Current resultForm:", resultForm.result);
   };
-
-  // useEffect(() => {
-  //   setOpenForm((prevForm) => {
-  //     const updated = { ...prevForm };
-
-  //     if (prevForm.checkDepentent.branch) {
-  //       const length = prevForm.profiles.length || 1;
-  //       updated.branches = Array.from({ length }, () => []);
-  //     } else {
-  //       updated.branches = [prevForm.branches[0] || []];
-  //     }
-
-  //     return updated;
-  //   });
-  // }, [openForm.checkDepentent.branch, openForm.profiles.length]);
 
   return (
     <div className="selector-container">
@@ -167,7 +148,13 @@ const Selector = ({
                 setBroadcast={setBroadcast}
                 notes={notes}
               />
-              <NoteSection filename="open.txt" notes={notes} setNotes={setNotes}/>
+              <NoteSection
+                initForm={initForm}
+                openForm={openForm}
+                filename="open.txt"
+                notes={notes}
+                setNotes={setNotes}
+              />
             </>
           )}
           {initForm.category === "Update" && <></>}

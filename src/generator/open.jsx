@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { format, isToday, isTomorrow } from "date-fns";
+
 const OpenGenerator = ({ initForm, openForm, setBroadcast, notes }) => {
   useEffect(() => {
     let message = gen({ initForm, openForm });
@@ -10,12 +12,33 @@ const OpenGenerator = ({ initForm, openForm, setBroadcast, notes }) => {
     notes.map((note, index) => {
       message += `${index + 1}. ${note}\n`;
     });
-    message += "\n\nRegards,\nTPO";
+    message += "\nRegards,\nTPO";
     setBroadcast(message);
   }, [initForm, openForm, setBroadcast, notes]);
 
   return null;
 };
+const formatWithLabel = (date, wantTime = false) => {
+  const d = new Date(date);
+
+  if (!date || isNaN(d)) return "";
+
+  // Assign formatted string to baseFormat
+  let baseFormat = wantTime
+    ? format(d, "do MMMM yyyy (EEEE), h:mm a")
+    : format(d, "do MMMM yyyy (EEEE)");
+
+  // Add "Today"/"Tomorrow" label if needed
+  if (isToday(d)) {
+    return baseFormat.replace(/\(.*?\)/, `(Today)`);
+  } else if (isTomorrow(d)) {
+    return baseFormat.replace(/\(.*?\)/, `(Tomorrow)`);
+  }
+
+  return baseFormat;
+};
+
+
 const gen = ({ initForm, openForm }) => {
   let result = ``;
   //company name
@@ -181,7 +204,7 @@ const gen = ({ initForm, openForm }) => {
       ) {
         result += "-> Eligible Branch: ";
       } else {
-        result += "Eligible Branches: All sub-branches of";
+        result += "Eligible Branches: All sub-branches of ";
       }
     } else {
       if (initForm.course === "BTech") {
@@ -195,7 +218,7 @@ const gen = ({ initForm, openForm }) => {
       ) {
         result += "-> *Eligible Branch:* ";
       } else {
-        result += "*Eligible Branches:* All sub-branches of";
+        result += "*Eligible Branches:* All sub-branches of ";
       }
     }
     if (openForm.branches[0].length > 1) {
@@ -282,19 +305,22 @@ const gen = ({ initForm, openForm }) => {
     }
   }
 
-  //profile
-  //Eligible Branches
-  //Eligibility Criteria
-  //Stipend
-  //CTC Offered
-  //Internship Duration
-  //Internship Location/Job Location
-  //Date of Drive
-  //Mode of Drive
-  //Registration Link
-  //Deadline for Registration
+  //expected date of joining
+  if (openForm.expectedDateOfJoining) {
+    initForm.type === "On-Campus"
+      ? (result += `Expected Date of Joining: `)
+      : (result += `*Expected Date of Joining:* `);
+    result += formatWithLabel(openForm.expectedDateOfJoining);
+    result += "\n";
+  }
 
-  //Note
+  if (openForm.deadlineForRegistration) {
+    initForm.type === "On-Campus"
+      ? (result += `Deadline for Registration: `)
+      : (result += `*Deadline for Registration:* `);
+    result += formatWithLabel(openForm.deadlineForRegistration, true);
+    result += "\n";
+  }
 
   return result;
 };

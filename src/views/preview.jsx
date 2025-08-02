@@ -43,6 +43,7 @@ const Preview = ({ initForm, openForm, resultForm, broadcast }) => {
       <h3>Result Form</h3>
       <p>Students: {resultForm.students.join(", ")}</p>
       <p>Result: {resultForm.result ? "Yes" : "No"}</p>
+      <p>Expected DoJ: {openForm.expectedDateOfJoining?.toLocaleString()}</p>
     </div>
   );
 };

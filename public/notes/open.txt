@@ -1,5 +1,6 @@
-⁠PFA the JD.
-⁠Interested and eligible candidates are required to register through campusuvce.in.
-⁠Conversion to FTE will be based on the performance of the candidate during internship.
-⁠It is mandatory to complete the full duration of the internship upon selection.
+[On-Campus:0]⁠PFA the JD.
+[Off-Campus:0]⁠PFB the JD.
+[On-Campus:1]⁠Interested and eligible candidates are required to register through campusuvce.in.
 ⁠Candidates should prepare as per the company's needs.
+[HasPBChasCTC:2]Conversion to FTE will be based on the performance of the candidate during internship.
+[HasPBCnoCTC:2]Conversion to FTE will be based on the performance of the candidate during internship and the CTC will be discussed with the candidates post conversion.

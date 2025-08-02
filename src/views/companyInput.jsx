@@ -46,6 +46,19 @@ const CompanyInput = ({ openForm, setOpenForm, handleFormChange }) => {
             />
           </div>
         )}
+        {openForm.slab === "Internship" && openForm.hasFTE && (
+          <div className="has-internship">
+            <label>Has CTC?</label>
+           { console.log("hasCTC", openForm.hasCTC)}
+            <input
+              type="checkbox"
+              checked={openForm.hasCTC}
+              onChange={(e) =>
+                handleFormChange("hasCTC", e.target.checked)
+              }
+            />
+          </div>
+        )}
       </>
     </>
   );

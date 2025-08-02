@@ -1,12 +1,39 @@
 import "./selector.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format, isTomorrow, isToday, isValid } from "date-fns";
 
 const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
+  const getLabel = (date, wantTime = true) => {
+    if (!date || !isValid(new Date(date))) return "";
+    if (wantTime) {
+      if (isToday(date)) return format(date, "do MMMM yyyy '(Today)', h:mm aa");
+      if (isTomorrow(date))
+        return format(date, "do MMMM yyyy '(Tomorrow)', h:mm aa");
+    } else {
+      if (isToday(date)) return format(date, "do MMMM yyyy '(Today)'");
+      if (isTomorrow(date)) return format(date, "do MMMM yyyy '(Tomorrow)'");
+    }
+    return format(date, "do MMMM yyyy (EEEE), h:mm aa");
+  };
   return (
     <>
       {!openForm.checkDepentent.branch && (
         <div className="branch-container">
           <div className="branch-heading">Eligible Branches</div>
           <div className="branch-list">
+            {initForm.course === "BTech" && (
+              <div
+                className={`${
+                  openForm.branches[0].includes("AIML")
+                    ? `branch-clicked add-background-color`
+                    : `branch`
+                }`}
+                onClick={() => handleFormChange("branches", "AIML", 0)}
+              >
+                AIML
+              </div>
+            )}
             <div
               className={`${
                 openForm.branches[0].includes("Civil")
@@ -158,7 +185,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           name="activeBacklog"
           value={openForm.activeBacklog}
           onChange={(e) =>
-            handleFormChange("activeBacklog", Number(e.target.value), null)
+            handleFormChange("activeBacklog", e.target.value, null)
           }
         />
       </div>
@@ -171,6 +198,33 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           onChange={(e) =>
             handleFormChange("isDeadBacklogAllowed", e.target.checked, null)
           }
+        />
+      </div>
+      <div className="row-3">
+        Expected Date of Joining
+        <DatePicker
+          selected={openForm.expectedDateOfJoining}
+          popperPlacement="top-end"
+          onChange={(date) =>
+            handleFormChange("expectedDateOfJoining", date, null)
+          }
+          value={getLabel(openForm.expectedDateOfJoining, false)}
+        />
+      </div>
+      <div className="row-3">
+        Deadline for Registration
+        <DatePicker
+          selected={openForm.deadlineForRegistration}
+          onChange={(date) =>
+            handleFormChange("deadlineForRegistration", date, null)
+          }
+          showTimeSelect
+          timeFormat="HH:mm"
+          timeIntervals={30}
+          timeCaption="Time"
+          dateFormat="Pp"
+          value={getLabel(openForm.deadlineForRegistration)}
+          popperPlacement="bottom-start"
         />
       </div>
     </>

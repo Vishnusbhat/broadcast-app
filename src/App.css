@@ -6,7 +6,15 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   overflow-x: hidden;
 }
+
 * {
   box-sizing: border-box;
   max-width: 100%;
+}
+
+@media screen and (min-width: 480px) {
+  .app-container {
+    display: flex;
+    height: auto;
+  }
 }

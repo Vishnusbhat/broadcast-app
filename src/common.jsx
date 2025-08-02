@@ -11,6 +11,7 @@ const Common = () => {
     slab: "",
     hasInternship: false,
     hasFTE: false,
+    hasCTC: true,
     profiles: [""],
     noOfProfiles: 1,
     stipends: [""],
@@ -32,6 +33,8 @@ const Common = () => {
       durations: false,
       branch: false,
     },
+    expectedDateOfJoining: new Date,
+    deadlineForRegistration: new Date
   });
 
   useEffect(() => {
@@ -61,6 +64,7 @@ const Common = () => {
       slab: "",
       hasInternship: false,
       hasFTE: false,
+      hasCTC: true,
       profiles: [""],
       noOfProfiles: 1,
       stipends: [""],
@@ -98,6 +102,14 @@ const Common = () => {
       }));
   }, [openForm.slab]);
 
+  useEffect(() => {
+    setOpenForm((prev) => {
+      const p = {...prev};
+      p.branches = [[]];
+      return p;
+    })
+  }, [initForm.course])
+
   return (
     <>
       <Selector
@@ -112,13 +124,13 @@ const Common = () => {
         notes={notes}
         setNotes={setNotes}
       />
-      {/* <Preview
+      <Preview
         initForm={initForm}
         openForm={openForm}
         resultForm={resultForm}
         broadcast={broadcast}
-      /> */}
-      <Output broadcast={broadcast} />
+      />
+      {/* <Output broadcast={broadcast} /> */}
     </>
   );
 };

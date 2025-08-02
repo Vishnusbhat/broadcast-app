@@ -1,6 +1,6 @@
 .note-container {
     max-width: 300px;
-    margin: auto;
+    /* margin: auto; */
     padding: 16px;
     border: 1px solid #000000;
     color: black;
@@ -28,7 +28,7 @@
     border-radius: 7px;
     border: black 1px solid;
     background-color: #f0f0f0;
-    z-index: 999;
+    /* z-index: 9; */
 
 }
 

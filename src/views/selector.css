@@ -234,6 +234,19 @@ input {
     width: 16px;
 }
 
+.row-3 {
+    width: 100%;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* .row-3 input {
+    height: 16px;
+    width: 16px;
+} */
+
 .row input {
     width: 42px;
     text-align: center;
@@ -332,3 +345,24 @@ input {
         padding-left: 14px;
     }
 }
+
+.react-datepicker-wrapper{
+   display: flex !important;
+   align-items: center;
+}
+
+.react-datepicker__input-container{
+    height: 32px;
+}
+
+.react-datepicker__input-container input{
+    width: 260px;
+    /* width: fit-content; */
+    height: 32px;
+    font-family: inherit;
+    text-align: center;
+    font-size: 14px;
+    background-color: #eaeaea;
+    color: #000;
+}
+

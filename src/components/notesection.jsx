@@ -2,7 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 
 import "./notesection.css";
 
-const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
+const NoteSection = ({
+  filename = "default.txt",
+  notes,
+  setNotes,
+  initForm,
+  openForm,
+}) => {
   const [restoreNotes, setRestoreNotes] = useState([]);
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [newNote, setNewNote] = useState("");
@@ -16,10 +22,66 @@ const NoteSection = ({ filename = "default.txt", notes, setNotes }) => {
       .then((data) => {
         const usualNotes = data
           .split("\n")
-          .filter((line) => line.trim() !== "");
+          .filter(
+            (line) =>
+              line.trim() !== "" && !/^\[([^\]:]+):?(\d*)\]\s*(.+)$/.test(line)
+          );
         setNotes(usualNotes);
       });
   }, [filename]);
+
+  useEffect(() => {
+    appendNotes(initForm.type);
+  }, [initForm.type]);
+
+  useEffect(() => {
+    appendNotes(initForm.course);
+  }, [initForm.course]);
+
+  useEffect(() => {
+    if (openForm.slab === "Internship")
+      if (openForm.hasFTE)
+        if (!openForm.hasCTC) appendNotes("HasPBCnoCTC");
+        else appendNotes("HasPBChasCTC");
+  }, [openForm.slab, openForm.hasFTE, openForm.hasCTC]);
+
+  const appendNotes = (label) => {
+    fetch(`/notes/${filename}`)
+      .then((res) => res.text())
+      .then((data) => {
+        const lines = data.split("\n").map((line) => line.trim());
+
+        const extracted = lines
+          .map((line) => {
+            const match = line.match(/^\[([^\]:]+):?(\d*)\]\s*(.+)$/);
+            if (match && match[1] === label) {
+              const index = match[2] !== "" ? parseInt(match[2], 10) : null;
+              return { text: match[3], index };
+            }
+            return null;
+          })
+          .filter((entry) => entry !== null);
+
+        console.log("Appending notes from label:", label);
+        console.log("Extracted notes with positions:", extracted);
+
+        setNotes((prev) => {
+          const notes = [...prev];
+
+          extracted.forEach(({ text, index }) => {
+            if (!notes.includes(text)) {
+              if (index !== null && index >= 0 && index <= notes.length) {
+                notes.splice(index, 0, text);
+              } else {
+                notes.push(text);
+              }
+            }
+          });
+
+          return notes;
+        });
+      });
+  };
 
   const handleAddNote = () => {
     if (newNote.trim()) {
