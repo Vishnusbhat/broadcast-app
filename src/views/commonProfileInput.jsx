@@ -12,7 +12,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
       value={value}
       readOnly
       ref={ref}
-      className="your-input-class"
+      className="company-name"
     />
   ));
 
@@ -221,6 +221,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
               ? new Date(openForm.expectedDateOfJoining)
               : null
           }
+          showIcon
           onChange={(date) =>
             handleFormChange(
               "expectedDateOfJoining",
@@ -247,6 +248,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
         Deadline for Registration
         <DatePicker
           selected={new Date(openForm.deadlineForRegistration)}
+          showIcon
           onChange={(date) =>
             handleFormChange(
               "deadlineForRegistration",
