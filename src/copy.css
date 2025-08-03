@@ -2,9 +2,7 @@
     height: 20px;
 }
 
-
-
-/* @media screen and (min-width: 480px) {
+@media screen and (min-width: 480px) {
     .copy-button:hover {
         background-color: #eaeaea;
         border-color: #15307ebf;
@@ -15,7 +13,7 @@
     .copy-button:hover .copy-svg {
         stroke: #15307ebf;
     }
-} */
+}
 
 @media screen and (max-width: 480px) {
     .copy-button svg {
@@ -26,6 +24,6 @@
 
 .copy-button {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 24px;
+    top: 16px;
 }
