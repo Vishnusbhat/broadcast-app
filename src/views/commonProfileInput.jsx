@@ -228,7 +228,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
             )
           }
           dateFormat="Pp"
-          value={getLabel(new Date(openForm.deadlineForRegistration), false)}
+          value={getLabel(new Date(openForm.expectedDateOfJoining), false)}
           customInput={
             <CustomDateInput
               value={
