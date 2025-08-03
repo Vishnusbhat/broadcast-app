@@ -39,15 +39,9 @@ const Selector = ({
             [key]: value,
           };
         } else if (key === "expectedDateOfJoining") {
-          setOpenForm((prev) => ({
-            ...prev,
-            expectedDateOfJoining: new Date(value),
-          }));
+          updated.expectedDateOfJoining = value;
         } else if (key === "deadlineForRegistration") {
-          setOpenForm((prev) => ({
-            ...prev,
-            deadlineForRegistration: new Date(value),
-          }));
+          updated.deadlineForRegistration = value;
         } else {
           updated[key] = value;
         }

@@ -33,8 +33,8 @@ const Common = () => {
       durations: false,
       branch: false,
     },
-    expectedDateOfJoining: new Date,
-    deadlineForRegistration: new Date
+    expectedDateOfJoining: Date.now(),
+    deadlineForRegistration: Date.now(),
   });
 
   useEffect(() => {
@@ -53,9 +53,9 @@ const Common = () => {
   });
 
   const [initForm, setInitForm] = useState({
-    type: "",
-    course: "",
-    category: "",
+    type: "On-Campus",
+    course: "BTech",
+    category: "Open",
   });
   useEffect(() => {
     setBroadcast("");
@@ -86,6 +86,8 @@ const Common = () => {
         durations: false,
         branch: false,
       },
+      expectedDateOfJoining: Date.now(),
+      deadlineForRegistration: Date.now(),
     });
   }, [initForm.category]);
 
@@ -104,11 +106,11 @@ const Common = () => {
 
   useEffect(() => {
     setOpenForm((prev) => {
-      const p = {...prev};
+      const p = { ...prev };
       p.branches = [[]];
       return p;
-    })
-  }, [initForm.course])
+    });
+  }, [initForm.course]);
 
   return (
     <>

@@ -212,28 +212,40 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           }
         />
       </div>
-      <div className="row-3">
-        Expected Date of Joining
-        <DatePicker
-          selected={openForm.expectedDateOfJoining}
-          // popperPlacement="top-end"
-          // onFocus={(e) => e.target.blur()}
-          onChange={(date) =>
-            handleFormChange("expectedDateOfJoining", date, null)
-          }
-          customInput={
-            <CustomDateInput
-              value={getLabel(openForm.deadlineForRegistration)}
-            />
-          }
-        />
-      </div>
+      <DatePicker
+        selected={
+          openForm.expectedDateOfJoining
+            ? new Date(openForm.expectedDateOfJoining)
+            : null
+        }
+        onChange={(date) =>
+          handleFormChange(
+            "expectedDateOfJoining",
+            date?.getTime() ?? null,
+            null
+          )
+        }
+        customInput={
+          <CustomDateInput
+            value={
+              openForm.expectedDateOfJoining
+                ? getLabel(new Date(openForm.expectedDateOfJoining))
+                : ""
+            }
+          />
+        }
+      />
+
       <div className="row-3">
         Deadline for Registration
         <DatePicker
-          selected={openForm.deadlineForRegistration}
+          selected={new Date(openForm.deadlineForRegistration)}
           onChange={(date) =>
-            handleFormChange("deadlineForRegistration", date, null)
+            handleFormChange(
+              "deadlineForRegistration",
+              date?.getTime() ?? null,
+              null
+            )
           }
           showTimeSelect
           timeFormat="HH:mm"
@@ -241,10 +253,10 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           timeCaption="Time"
           // onFocus={(e) => e.target.blur()}
           dateFormat="Pp"
-          value={getLabel(openForm.deadlineForRegistration)}
+          value={getLabel(new Date(openForm.deadlineForRegistration))}
           customInput={
             <CustomDateInput
-              value={getLabel(openForm.deadlineForRegistration)}
+              value={getLabel(new Date(openForm.deadlineForRegistration))}
             />
           }
           popperPlacement="bottom-start"
