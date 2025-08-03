@@ -212,29 +212,34 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           }
         />
       </div>
-      <DatePicker
-        selected={
-          openForm.expectedDateOfJoining
-            ? new Date(openForm.expectedDateOfJoining)
-            : null
-        }
-        onChange={(date) =>
-          handleFormChange(
-            "expectedDateOfJoining",
-            date?.getTime() ?? null,
-            null
-          )
-        }
-        customInput={
-          <CustomDateInput
-            value={
-              openForm.expectedDateOfJoining
-                ? getLabel(new Date(openForm.expectedDateOfJoining))
-                : ""
-            }
-          />
-        }
-      />
+      <div className="row-3">
+        Deadline for Registration
+        <DatePicker
+          selected={
+            openForm.expectedDateOfJoining
+              ? new Date(openForm.expectedDateOfJoining)
+              : null
+          }
+          onChange={(date) =>
+            handleFormChange(
+              "expectedDateOfJoining",
+              date?.getTime() ?? null,
+              null
+            )
+          }
+          dateFormat="Pp"
+          value={getLabel(new Date(openForm.deadlineForRegistration))}
+          customInput={
+            <CustomDateInput
+              value={
+                openForm.expectedDateOfJoining
+                  ? getLabel(new Date(openForm.expectedDateOfJoining))
+                  : ""
+              }
+            />
+          }
+        />
+      </div>
 
       <div className="row-3">
         Deadline for Registration
