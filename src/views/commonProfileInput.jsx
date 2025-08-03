@@ -241,7 +241,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           timeCaption="Time"
           // onFocus={(e) => e.target.blur()}
           dateFormat="Pp"
-          // value={getLabel(openForm.deadlineForRegistration)}
+          value={getLabel(openForm.deadlineForRegistration)}
           customInput={
             <CustomDateInput
               value={getLabel(openForm.deadlineForRegistration)}

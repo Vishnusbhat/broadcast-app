@@ -8,5 +8,6 @@ export default defineConfig({
     rollupOptions: {
       external: ['fsevents', 'fs', 'node:fs/promises'],
     },
+    minify: false,
   },
 });
