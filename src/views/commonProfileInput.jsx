@@ -19,14 +19,15 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
   const getLabel = (date, wantTime = true) => {
     if (!date || !isValid(new Date(date))) return "";
     if (wantTime) {
-      if (isToday(date)) return format(date, "do MMMM yyyy '(Today)', h:mm aa");
+      if (isToday(date)) return format(date, "do MMMM yyyy, h:mm aa '(Today)'");
       if (isTomorrow(date))
-        return format(date, "do MMMM yyyy '(Tomorrow)', h:mm aa");
+        return format(date, "do MMMM yyyy, h:mm aa '(Tomorrow)'");
+      return format(date, "do MMMM yyyy, h:mm aa (EEEE)");
     } else {
       if (isToday(date)) return format(date, "do MMMM yyyy '(Today)'");
       if (isTomorrow(date)) return format(date, "do MMMM yyyy '(Tomorrow)'");
+      return format(date, "do MMMM yyyy (EEEE)");
     }
-    return format(date, "do MMMM yyyy (EEEE), h:mm aa");
   };
   return (
     <>
@@ -229,6 +230,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           }
           dateFormat="Pp"
           value={getLabel(new Date(openForm.expectedDateOfJoining), false)}
+          highlightDates={[new Date()]}
           customInput={
             <CustomDateInput
               value={
@@ -252,6 +254,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
               null
             )
           }
+          highlightDates={[new Date()]}
           showTimeSelect
           timeFormat="HH:mm"
           timeIntervals={30}
