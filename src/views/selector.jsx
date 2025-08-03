@@ -90,7 +90,6 @@ const Selector = ({
 
   return (
     <div className="selector-container">
-      <CopyButton broadcast={broadcast} />
       {/* <div className="options-container"> */}
       <>
         <Dropdown

@@ -86,7 +86,7 @@ const Common = () => {
         durations: false,
         branch: false,
       },
-      expectedDateOfJoining: Date.now(),
+      expectedDateOfJoining: new Date("January 1, 2026").getTime(),
       deadlineForRegistration: Date.now(),
     });
   }, [initForm.category]);
