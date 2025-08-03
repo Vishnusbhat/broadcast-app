@@ -1,5 +1,6 @@
 import './output.css'
 import CopyButton from '../copy';
+import Whatsapp from '../whatsapp';
 
 const Output = ({ broadcast }) => {
   //   return ;
@@ -7,6 +8,7 @@ const Output = ({ broadcast }) => {
     
     <div className="output-container">
          <CopyButton broadcast={broadcast} />
+         <Whatsapp broadcast={broadcast} />
       <div className='heading'>SwiftCast</div>
       {broadcast === "" ? (
         <></>
