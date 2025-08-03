@@ -2,8 +2,20 @@ import "./selector.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, isTomorrow, isToday, isValid } from "date-fns";
+import React from "react";
 
 const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
+  const CustomDateInput = React.forwardRef(({ value, onClick }, ref) => (
+    <input
+      type="text"
+      onClick={onClick}
+      value={value}
+      readOnly
+      ref={ref}
+      className="your-input-class"
+    />
+  ));
+
   const getLabel = (date, wantTime = true) => {
     if (!date || !isValid(new Date(date))) return "";
     if (wantTime) {
@@ -205,11 +217,15 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
         <DatePicker
           selected={openForm.expectedDateOfJoining}
           // popperPlacement="top-end"
-          onFocus={(e) => e.target.blur()}
+          // onFocus={(e) => e.target.blur()}
           onChange={(date) =>
             handleFormChange("expectedDateOfJoining", date, null)
           }
-          value={getLabel(openForm.expectedDateOfJoining, false)}
+          customInput={
+            <CustomDateInput
+              value={getLabel(openForm.deadlineForRegistration)}
+            />
+          }
         />
       </div>
       <div className="row-3">
@@ -223,9 +239,14 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           timeFormat="HH:mm"
           timeIntervals={30}
           timeCaption="Time"
-          onFocus={(e) => e.target.blur()}
+          // onFocus={(e) => e.target.blur()}
           dateFormat="Pp"
-          value={getLabel(openForm.deadlineForRegistration)}
+          // value={getLabel(openForm.deadlineForRegistration)}
+          customInput={
+            <CustomDateInput
+              value={getLabel(openForm.deadlineForRegistration)}
+            />
+          }
           popperPlacement="bottom-start"
         />
       </div>
