@@ -233,7 +233,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
             <CustomDateInput
               value={
                 openForm.expectedDateOfJoining
-                  ? getLabel(new Date(openForm.expectedDateOfJoining))
+                  ? getLabel(new Date(openForm.expectedDateOfJoining), false)
                   : ""
               }
             />
