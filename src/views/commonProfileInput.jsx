@@ -213,7 +213,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
         />
       </div>
       <div className="row-3">
-        Deadline for Registration
+        Expected Date of Joining
         <DatePicker
           selected={
             openForm.expectedDateOfJoining
@@ -228,7 +228,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
             )
           }
           dateFormat="Pp"
-          value={getLabel(new Date(openForm.deadlineForRegistration))}
+          value={getLabel(new Date(openForm.deadlineForRegistration), false)}
           customInput={
             <CustomDateInput
               value={
