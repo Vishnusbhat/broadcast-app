@@ -25,7 +25,7 @@ const formatWithLabel = (date, wantTime = false) => {
 
   // Assign formatted string to baseFormat
   let baseFormat = wantTime
-    ? format(d, "do MMMM yyyy h:mm a, (EEEE)")
+    ? format(d, "do MMMM yyyy, h:mm a (EEEE)")
     : format(d, "do MMMM yyyy (EEEE)");
 
   // Add "Today"/"Tomorrow" label if needed
