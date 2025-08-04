@@ -23,12 +23,10 @@ const formatWithLabel = (date, wantTime = false) => {
 
   if (!date || isNaN(d)) return "";
 
-  // Assign formatted string to baseFormat
   let baseFormat = wantTime
     ? format(d, "do MMMM yyyy, h:mm a (EEEE)")
     : format(d, "do MMMM yyyy (EEEE)");
 
-  // Add "Today"/"Tomorrow" label if needed
   if (isToday(d)) {
     return baseFormat.replace(/\(.*?\)/, `(Today)`);
   } else if (isTomorrow(d)) {
@@ -251,13 +249,13 @@ const gen = ({ initForm, openForm }) => {
     result += `${openForm.btech[0]} CGPA in BTech, MTech (`;
   }
 
-  if (openForm.activeBacklog === 0) {
+  if (openForm.activeBacklog === "0") {
     if (openForm.isDeadBacklogAllowed) {
       result += "No active backlogs allowed)\n";
     } else {
       result += "No active/dead backlogs allowed)\n";
     }
-  } else if (openForm.activeBacklog === 1) {
+  } else if (openForm.activeBacklog === "1") {
     result += "1 active backlog allowed)\n";
   } else {
     result += `${openForm.activeBacklog} active backlogs allowed)\n`;
