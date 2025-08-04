@@ -67,8 +67,6 @@ const gen = ({ initForm, openForm }) => {
           result += "Category: Golden Open Dream";
           break;
       }
-    }
-    {
       openForm.hasInternship ? (result += " + Internship\n") : (result += "\n");
     }
   }

@@ -1,13 +1,6 @@
 @media screen and (min-width: 480px) {
-    .whatsapp-button:hover {
-        background-color: #eaeaea;
-        border-color: #15307ebf;
-        border-style: solid;
-        border-width: 1px;
-    }
-
-    .whatsapp-button:hover .whatsapp-svg {
-        stroke: #15307ebf;
+    .whatsapp-button:hover svg {
+        fill: #25D366;
     }
 }
 

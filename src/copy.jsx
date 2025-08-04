@@ -18,8 +18,8 @@ const CopyButton = ({ broadcast }) => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="copy-svg"
-          width="20"
-          height="20"
+          width="32"
+          height="32"
           fill="none"
           stroke="white"
           strokeWidth="2"
