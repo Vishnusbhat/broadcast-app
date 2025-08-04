@@ -168,26 +168,10 @@ const ProfileInput = ({
               {!openForm.onlySubBranchesAllowed[index] && (
                 <>
                   <div className="branch-list">
-                    {["Civil", "CSE", "ECE"].map((branch) => (
-                      <div
-                        key={branch}
-                        className={`${
-                          openForm.branches[index].includes(branch)
-                            ? "branch-clicked add-background-color"
-                            : "branch"
-                        }`}
-                        onClick={() =>
-                          handleOpenFormChange("branches", branch, index)
-                        }
-                      >
-                        {branch}
-                      </div>
-                    ))}
-
                     {initForm.course === "BTech" && (
                       <div
                         className={`${
-                          openForm.branches[index].includes("AIML")
+                          openForm.branches[index]?.includes("AIML")
                             ? "branch-clicked add-background-color"
                             : "branch"
                         }`}
@@ -198,6 +182,21 @@ const ProfileInput = ({
                         AIML
                       </div>
                     )}
+                    {["Civil", "CSE", "ECE"].map((branch) => (
+                      <div
+                        key={branch}
+                        className={`${
+                          openForm.branches[index]?.includes(branch)
+                            ? "branch-clicked add-background-color"
+                            : "branch"
+                        }`}
+                        onClick={() =>
+                          handleOpenFormChange("branches", branch, index)
+                        }
+                      >
+                        {branch}
+                      </div>
+                    ))}
                   </div>
 
                   <div className="branch-list">
@@ -205,7 +204,7 @@ const ProfileInput = ({
                       <div
                         key={branch}
                         className={`${
-                          openForm.branches[index].includes(branch)
+                          openForm.branches[index]?.includes(branch)
                             ? "branch-clicked add-background-color"
                             : "branch"
                         }`}
@@ -220,7 +219,7 @@ const ProfileInput = ({
                     {initForm.course === "BTech" && (
                       <div
                         className={`${
-                          openForm.branches[index].includes("ISE")
+                          openForm.branches[index]?.includes("ISE")
                             ? "branch-clicked add-background-color"
                             : "branch"
                         }`}
@@ -241,7 +240,7 @@ const ProfileInput = ({
                       <div
                         key={branch}
                         className={`${
-                          openForm.branches[index].includes(branch)
+                          openForm.branches[index]?.includes(branch)
                             ? "branch-clicked add-background-color"
                             : "branch"
                         }`}
@@ -259,7 +258,7 @@ const ProfileInput = ({
                       <div
                         key={branch}
                         className={`${
-                          openForm.branches[index].includes(branch)
+                          openForm.branches[index]?.includes(branch)
                             ? "branch-clicked add-background-color"
                             : "branch"
                         }`}
@@ -276,7 +275,7 @@ const ProfileInput = ({
                       <div
                         key={branch}
                         className={`${
-                          openForm.branches[index].includes(branch)
+                          openForm.branches[index]?.includes(branch)
                             ? "branch-clicked add-background-color"
                             : "branch"
                         }`}
@@ -293,7 +292,7 @@ const ProfileInput = ({
                       <div
                         key={branch}
                         className={`${
-                          openForm.branches[index].includes(branch)
+                          openForm.branches[index]?.includes(branch)
                             ? "branch-clicked add-background-color"
                             : "branch"
                         }`}
@@ -310,7 +309,7 @@ const ProfileInput = ({
                       <div
                         key={branch}
                         className={`${
-                          openForm.branches[index].includes(branch)
+                          openForm.branches[index]?.includes(branch)
                             ? "branch-clicked add-background-color"
                             : "branch"
                         }`}
@@ -345,6 +344,30 @@ const ProfileInput = ({
               value={openForm.ctcs[index] || ""}
               onChange={(e) =>
                 handleOpenFormChange("ctcs", e.target.value, index)
+              }
+            />
+          )}
+          {openForm.checkDepentent.bondDuration && (
+            <input
+              type="text"
+              name="bondDuration"
+              placeholder={`Bond Duration (Profile ${index + 1})`}
+              className="profile-name"
+              value={openForm.bondDuration[index] || ""}
+              onChange={(e) =>
+                handleOpenFormChange("bondDuration", e.target.value, index)
+              }
+            />
+          )}
+          {openForm.checkDepentent.bondPenalty && (
+            <input
+              type="text"
+              name="bondPenalty"
+              placeholder={`Bond Penalty (Profile ${index + 1})`}
+              className="profile-name"
+              value={openForm.bondPenalty[index] || ""}
+              onChange={(e) =>
+                handleOpenFormChange("bondPenalty", e.target.value, index)
               }
             />
           )}
@@ -433,6 +456,26 @@ const ProfileInput = ({
               type="checkbox"
               checked={openForm.checkDepentent.ctc}
               onChange={(e) => handleOpenFormChange("ctc", e.target.checked)}
+            />
+          </div>
+          <div className="row">
+            Is Bond Penalty on profile?
+            <input
+              type="checkbox"
+              checked={openForm.checkDepentent.bondPenalty}
+              onChange={(e) =>
+                handleOpenFormChange("bondPenalty", e.target.checked)
+              }
+            />
+          </div>
+          <div className="row">
+            Is Bond Duration dependent on profile?
+            <input
+              type="checkbox"
+              checked={openForm.checkDepentent.bondDuration}
+              onChange={(e) =>
+                handleOpenFormChange("bondDuration", e.target.checked)
+              }
             />
           </div>
 

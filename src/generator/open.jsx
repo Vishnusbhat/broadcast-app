@@ -121,7 +121,7 @@ const gen = ({ initForm, openForm }) => {
                 result += "-> Eligible Branches: All sub-branches of ";
               }
             } else {
-              result += "Eligible Sub-Branch";
+              result += "-> Eligible Sub-Branch";
               if (openForm.branches[index].length > 1) result += "es: ";
               else result += ": ";
             }
@@ -174,6 +174,24 @@ const gen = ({ initForm, openForm }) => {
             : (result += `-> *CTC Offered:* `);
           result += `${openForm.ctcs[index]} LPA\n`;
         }
+      }
+      if (
+        openForm.checkDepentent.bondDuration &&
+        openForm.bondDuration[index] !== ""
+      ) {
+        initForm.type === "On-Campus"
+          ? (result += `Service Bond Duration: `)
+          : (result += `*Service Bond Duration:* `);
+        result += `${openForm.bondDuration[index]}\n`;
+      }
+      if (
+        openForm.checkDepentent.bondPenalty &&
+        openForm.bondPenalty[index] !== ""
+      ) {
+        initForm.type === "On-Campus"
+          ? (result += `Service Bond Penalty: `)
+          : (result += `*Service Bond Penalty:* `);
+        result += `${openForm.bondPenalty[index]}\n`;
       }
       if (openForm.checkDepentent.durations) {
         if (openForm.slab === "Internship" || openForm.hasInternship) {
@@ -304,6 +322,25 @@ const gen = ({ initForm, openForm }) => {
       result += `${openForm.ctcs[0]} LPA\n`;
     }
   }
+
+  //bond duration
+  if (
+    !openForm.checkDepentent.bondDuration &&
+    openForm.bondDuration[0] !== ""
+  ) {
+    initForm.type === "On-Campus"
+      ? (result += `Service Bond Duration: `)
+      : (result += `*Service Bond Duration:* `);
+    result += `${openForm.bondDuration[0]}\n`;
+  }
+  //bond penalty
+  if (!openForm.checkDepentent.bondPenalty && openForm.bondPenalty[0] !== "") {
+    initForm.type === "On-Campus"
+      ? (result += `Service Bond Penalty: `)
+      : (result += `*Service Bond Penalty:* `);
+    result += `${openForm.bondPenalty[0]}\n`;
+  }
+
   //Internship Duration
   if (!openForm.checkDepentent.durations) {
     if (openForm.slab === "Internship" || openForm.hasInternship) {
@@ -328,12 +365,34 @@ const gen = ({ initForm, openForm }) => {
     }
   }
 
+  //date of drive
+  initForm.type === "On-Campus"
+    ? (result += `Date of Drive: `)
+    : (result += `*Date of Drive:* `);
+  if (openForm.dod == "-- Pick Date --") {
+    result += formatWithLabel(openForm.dateOfDrive);
+  } else {
+    result += openForm.dod;
+  }
+  result += "\n";
+
+  //mode of drive
+  initForm.type === "On-Campus"
+    ? (result += `Mode of Drive: `)
+    : (result += `*Mode of Drive:* `);
+  result += openForm.modeOfDrive;
+  result += "\n";
+
   //expected date of joining
-  if (openForm.expectedDateOfJoining) {
+  if (openForm.doj !== "") {
     initForm.type === "On-Campus"
       ? (result += `Expected Date of Joining: `)
       : (result += `*Expected Date of Joining:* `);
-    result += formatWithLabel(openForm.expectedDateOfJoining);
+    if (openForm.doj == "-- Pick Date --") {
+      result += formatWithLabel(openForm.expectedDateOfJoining);
+    } else {
+      result += openForm.doj;
+    }
     result += "\n";
   }
 
