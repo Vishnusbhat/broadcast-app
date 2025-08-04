@@ -31,8 +31,17 @@ const NoteSection = ({
   }, [filename]);
 
   useEffect(() => {
-    if (initForm.category === "Open") appendNotes(initForm.type);
+    if (initForm.category === "Open") {
+      appendNotes(initForm.type);
+    }
   }, [initForm.type]);
+
+  useEffect(() => {
+    if (initForm.category === "Open" && openForm.profiles.length > 1) {
+      if (openForm.hasProfileChoice) appendNotes("Choice-Multiprofile");
+      else appendNotes("No-Choice-Multiprofile");
+    }
+  }, [openForm.hasProfileChoice]);
 
   useEffect(() => {
     if (initForm.category === "Open") appendNotes(initForm.course);

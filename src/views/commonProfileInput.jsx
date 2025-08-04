@@ -307,6 +307,17 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
           }}
         />
       </div>
+      {(openForm.profiles.length > 1) && (<div className="row-2">
+        Can the profiles be chosen?
+        <input
+          type="checkbox"
+          name="hasProfileChoice"
+          checked={openForm.hasProfileChoice}
+          onChange={(e) =>
+            handleFormChange("hasProfileChoice", e.target.checked, null)
+          }
+        />
+      </div>)}
       <div className="row-2">
         Is deadbacklogs allowed?
         <input
@@ -412,13 +423,27 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
       <div className="row-3">
         Mode of Drive
         <Dropdown
-          // label="Select Mode of Drive"
+          label="Select Mode of Drive"
           options={["Hybrid", "Virtual"]}
           value={openForm.modeOfDrive}
           onChange={(value) => handleFormChange("modeOfDrive", value, null)}
         />
       </div>
-
+      {initForm.type === "Off-Campus" && (
+        <div className="row-3">
+          Registration Link
+          <input
+            type="text"
+            name="registrationLink"
+            placeholder="Paste the Google Form Link"
+            className="company-name"
+            value={openForm.registrationLink || ""}
+            onChange={(e) =>
+              handleFormChange("registrationLink", e.target.value, null)
+            }
+          />
+        </div>
+      )}
       <div className="row-3">
         Deadline for Registration
         <DatePicker
