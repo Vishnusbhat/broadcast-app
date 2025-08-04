@@ -69,7 +69,7 @@ const gen = ({ initForm, openForm }) => {
       }
     }
     {
-      openForm.hasInternship ? (result += " + Internship\n") : null;
+      openForm.hasInternship ? (result += " + Internship\n") : (result += "\n");
     }
   }
   //single profile
