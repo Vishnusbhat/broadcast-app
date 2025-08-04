@@ -38,10 +38,12 @@ const Selector = ({
             ...prev.checkDepentent,
             [key]: value,
           };
-        } else if (key === "expectedDateOfJoining") {
-          updated.expectedDateOfJoining = value;
-        } else if (key === "deadlineForRegistration") {
-          updated.deadlineForRegistration = value;
+        } else if (
+          key === "expectedDateOfJoining" ||
+          key === "dateOfDrive" ||
+          key === "deadlineForRegistration"
+        ) {
+          updated[key] = value;
         } else {
           updated[key] = value;
         }

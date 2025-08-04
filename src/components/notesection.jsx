@@ -31,15 +31,24 @@ const NoteSection = ({
   }, [filename]);
 
   useEffect(() => {
-    appendNotes(initForm.type);
+    if (initForm.category === "Open") {
+      appendNotes(initForm.type);
+    }
   }, [initForm.type]);
 
   useEffect(() => {
-    appendNotes(initForm.course);
+    if (initForm.category === "Open" && openForm.profiles.length > 1) {
+      if (openForm.hasProfileChoice) appendNotes("Choice-Multiprofile");
+      else appendNotes("No-Choice-Multiprofile");
+    }
+  }, [openForm.hasProfileChoice]);
+
+  useEffect(() => {
+    if (initForm.category === "Open") appendNotes(initForm.course);
   }, [initForm.course]);
 
   useEffect(() => {
-    if (openForm.slab === "Internship")
+    if (initForm.category === "Open" && openForm.slab === "Internship")
       if (openForm.hasFTE)
         if (!openForm.hasCTC) appendNotes("HasPBCnoCTC");
         else appendNotes("HasPBChasCTC");
