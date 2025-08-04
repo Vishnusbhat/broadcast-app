@@ -6,7 +6,7 @@
     padding: 20px;
     min-height: 100vh;
     height: auto;
-    width: 400px;
+    width: 333px;
     gap: 12px;
     /* overflow-y: auto; */
     background-color: #cae3ff;
@@ -227,6 +227,14 @@ input {
     color: black;
     display: flex;
     justify-content: space-between;
+}
+
+.row-4 {
+    width: 100%;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
 }
 
 .row-2 input {

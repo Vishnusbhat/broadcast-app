@@ -34,84 +34,165 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
       {!openForm.checkDepentent.branch && (
         <div className="branch-container">
           <div className="branch-heading">Eligible Branches</div>
-          <div className="branch-list">
-            {initForm.course === "BTech" && (
-              <div
-                className={`${
-                  openForm.branches[0].includes("AIML")
-                    ? `branch-clicked add-background-color`
-                    : `branch`
-                }`}
-                onClick={() => handleFormChange("branches", "AIML", 0)}
-              >
-                AIML
+          {initForm.course === "MTech" && (
+            <div className="row-4">
+              Are only some sub-branches eligible?
+              <input
+                type="checkbox"
+                name="onlySubBranchesAllowed"
+                checked={openForm.onlySubBranchesAllowed[0]}
+                onChange={(e) =>
+                  handleFormChange(
+                    "onlySubBranchesAllowed",
+                    e.target.checked,
+                    0
+                  )
+                }
+              />
+            </div>
+          )}
+
+          {!openForm.onlySubBranchesAllowed[0] && (
+            <>
+              <div className="branch-list">
+                {["Civil", "CSE", "ECE"].map((branch) => (
+                  <div
+                    key={branch}
+                    className={`${
+                      openForm.branches[0].includes(branch)
+                        ? "branch-clicked add-background-color"
+                        : "branch"
+                    }`}
+                    onClick={() => handleFormChange("branches", branch, 0)}
+                  >
+                    {branch}
+                  </div>
+                ))}
+
+                {initForm.course === "BTech" && (
+                  <div
+                    className={`${
+                      openForm.branches[0].includes("AIML")
+                        ? "branch-clicked add-background-color"
+                        : "branch"
+                    }`}
+                    onClick={() => handleFormChange("branches", "AIML", 0)}
+                  >
+                    AIML
+                  </div>
+                )}
               </div>
-            )}
-            <div
-              className={`${
-                openForm.branches[0].includes("Civil")
-                  ? `branch-clicked add-background-color`
-                  : `branch`
-              }`}
-              onClick={() => handleFormChange("branches", "Civil", 0)}
-            >
-              Civil
-            </div>
-            <div
-              className={`${
-                openForm.branches[0].includes("CSE")
-                  ? `branch-clicked add-background-color`
-                  : `branch`
-              }`}
-              onClick={() => handleFormChange("branches", "CSE", 0)}
-            >
-              CSE
-            </div>
-            <div
-              className={`${
-                openForm.branches[0].includes("ECE")
-                  ? `branch-clicked add-background-color`
-                  : `branch`
-              }`}
-              onClick={() => handleFormChange("branches", "ECE", 0)}
-            >
-              ECE
-            </div>
-          </div>
-          <div className="branch-list">
-            <div
-              className={`${
-                openForm.branches[0].includes("EEE")
-                  ? `branch-clicked add-background-color`
-                  : `branch`
-              }`}
-              onClick={() => handleFormChange("branches", "EEE", 0)}
-            >
-              EEE
-            </div>
-            {initForm.course === "BTech" && (
-              <div
-                className={`${
-                  openForm.branches[0].includes("ISE")
-                    ? `branch-clicked add-background-color`
-                    : `branch`
-                }`}
-                onClick={() => handleFormChange("branches", "ISE", 0)}
-              >
-                ISE
+
+              <div className="branch-list">
+                {["EEE", "Mech"].map((branch) => (
+                  <div
+                    key={branch}
+                    className={`${
+                      openForm.branches[0].includes(branch)
+                        ? "branch-clicked add-background-color"
+                        : "branch"
+                    }`}
+                    onClick={() => handleFormChange("branches", branch, 0)}
+                  >
+                    {branch}
+                  </div>
+                ))}
+
+                {initForm.course === "BTech" && (
+                  <div
+                    className={`${
+                      openForm.branches[0].includes("ISE")
+                        ? "branch-clicked add-background-color"
+                        : "branch"
+                    }`}
+                    onClick={() => handleFormChange("branches", "ISE", 0)}
+                  >
+                    ISE
+                  </div>
+                )}
               </div>
-            )}
-            <div
-              className={`${
-                openForm.branches[0].includes("Mech")
-                  ? `branch-clicked add-background-color`
-                  : `branch`
-              }`}
-              onClick={() => handleFormChange("branches", "Mech", 0)}
-            >
-              Mech
-            </div>
-          </div>
+            </>
+          )}
+          {openForm.onlySubBranchesAllowed[0] && (
+            <>
+              <div className="branch-list">
+                {["CSE", "IT", "CN", "WT", "CyS", "IoT"].map((branch) => (
+                  <div
+                    key={branch}
+                    className={`${
+                      openForm.branches[0].includes(branch)
+                        ? "branch-clicked add-background-color"
+                        : "branch"
+                    }`}
+                    onClick={() => handleFormChange("branches", branch, 0)}
+                  >
+                    {branch}
+                  </div>
+                ))}
+              </div>
+
+              <div className="branch-list">
+                {["ECE", "PES", "PE", "CIE"].map((branch) => (
+                  <div
+                    key={branch}
+                    className={`${
+                      openForm.branches[0].includes(branch)
+                        ? "branch-clicked add-background-color"
+                        : "branch"
+                    }`}
+                    onClick={() => handleFormChange("branches", branch, 0)}
+                  >
+                    {branch}
+                  </div>
+                ))}
+              </div>
+              <div className="branch-list">
+                {["MD", "MSE", "TSE", "AMT"].map((branch) => (
+                  <div
+                    key={branch}
+                    className={`${
+                      openForm.branches[0].includes(branch)
+                        ? "branch-clicked add-background-color"
+                        : "branch"
+                    }`}
+                    onClick={() => handleFormChange("branches", branch, 0)}
+                  >
+                    {branch}
+                  </div>
+                ))}
+              </div>
+              <div className="branch-list">
+                {["EnV", "HE", "GE", "PSE"].map((branch) => (
+                  <div
+                    key={branch}
+                    className={`${
+                      openForm.branches[0].includes(branch)
+                        ? "branch-clicked add-background-color"
+                        : "branch"
+                    }`}
+                    onClick={() => handleFormChange("branches", branch, 0)}
+                  >
+                    {branch}
+                  </div>
+                ))}
+              </div>
+              <div className="branch-list">
+                {["CT", "WRE", "StE", "EaE"].map((branch) => (
+                  <div
+                    key={branch}
+                    className={`${
+                      openForm.branches[0].includes(branch)
+                        ? "branch-clicked add-background-color"
+                        : "branch"
+                    }`}
+                    onClick={() => handleFormChange("branches", branch, 0)}
+                  >
+                    {branch}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
       {!openForm.checkDepentent.stipend &&

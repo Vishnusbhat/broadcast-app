@@ -35,6 +35,8 @@ const Common = () => {
     },
     expectedDateOfJoining: new Date("January 1, 2026").getTime(),
     deadlineForRegistration: Date.now(),
+    onlySubBranchesAllowed: [],
+    backupSubBranchCompare: [],
   });
 
   useEffect(() => {
@@ -88,6 +90,8 @@ const Common = () => {
       },
       expectedDateOfJoining: new Date("January 1, 2026").getTime(),
       deadlineForRegistration: Date.now(),
+      onlySubBranchesAllowed: [],
+      backupSubBranchCompare: [],
     });
   }, [initForm.category]);
 
@@ -107,10 +111,24 @@ const Common = () => {
   useEffect(() => {
     setOpenForm((prev) => {
       const p = { ...prev };
+      if (initForm.course === "BTech") p.onlySubBranchesAllowed.fill(false);
       p.branches = [[]];
       return p;
     });
   }, [initForm.course]);
+
+  useEffect(() => {
+    setOpenForm((prev) => {
+      const p = { ...prev };
+      for (let i = 0; i < p.onlySubBranchesAllowed.length; i++) {
+        if (p.onlySubBranchesAllowed[i] !== p.backupSubBranchCompare[i]) {
+          p.backupSubBranchCompare[i] = p.onlySubBranchesAllowed[i];
+          p.branches[i] = [];
+        }
+      }
+      return p;
+    });
+  }, [openForm.onlySubBranchesAllowed]);
 
   return (
     <>
@@ -126,13 +144,13 @@ const Common = () => {
         notes={notes}
         setNotes={setNotes}
       />
-      {/* <Preview
+      <Preview
         initForm={initForm}
         openForm={openForm}
         resultForm={resultForm}
         broadcast={broadcast}
-      /> */}
-      <Output broadcast={broadcast} />
+      />
+      {/* <Output broadcast={broadcast} /> */}
     </>
   );
 };

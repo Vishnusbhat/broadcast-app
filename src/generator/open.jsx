@@ -36,7 +36,6 @@ const formatWithLabel = (date, wantTime = false) => {
   return baseFormat;
 };
 
-
 const gen = ({ initForm, openForm }) => {
   let result = ``;
   //company name
@@ -111,27 +110,41 @@ const gen = ({ initForm, openForm }) => {
           if (initForm.course === "BTech") {
             result += "-> Eligible Branch";
             result += openForm.branches[index].length > 1 ? "es: " : ": ";
-          } else if (
-            initForm.course === "MTech" &&
-            openForm.branches[index].length === 1 &&
-            openForm.branches[index][0] === "ECE"
-          ) {
-            result += "-> Eligible Branch: ";
           } else {
-            result += "-> Eligible Branches: All sub-branches of ";
+            if (!openForm.onlySubBranchesAllowed[index]) {
+              if (
+                openForm.branches[index].length === 1 &&
+                openForm.branches[index][0] === "ECE"
+              ) {
+                result += "-> Eligible Branch: ";
+              } else {
+                result += "-> Eligible Branches: All sub-branches of ";
+              }
+            } else {
+              result += "Eligible Sub-Branch";
+              if (openForm.branches[index].length > 1) result += "es: ";
+              else result += ": ";
+            }
           }
         } else {
           if (initForm.course === "BTech") {
             result += "-> *Eligible Branch:* ";
             result += openForm.branches[index].length > 1 ? "es:* " : ":* ";
-          } else if (
-            initForm.course === "MTech" &&
-            openForm.branches[index].length === 1 &&
-            openForm.branches[index][0] === "ECE"
-          ) {
-            result += "-> *Eligible Branch:* ";
           } else {
-            result += "-> *Eligible Branches:* All sub-branches of ";
+            if (!openForm.onlySubBranchesAllowed[index]) {
+              if (
+                openForm.branches[index].length === 1 &&
+                openForm.branches[index][0] === "ECE"
+              ) {
+                result += "-> *Eligible Branch:* ";
+              } else {
+                result += "-> *Eligible Branches:* All sub-branches of ";
+              }
+            } else {
+              result += "-> *Eligible Sub-Branch";
+              if (openForm.branches[index].length > 1) result += "es:* ";
+              else result += ":* ";
+            }
           }
         }
 
@@ -193,28 +206,42 @@ const gen = ({ initForm, openForm }) => {
         result += "Eligible Branch";
         if (openForm.branches[0].length > 1) result += "es: ";
         else result += ": ";
-      } else if (
-        initForm.course === "MTech" &&
-        openForm.branches[0].length === 1 &&
-        openForm.branches[0][0] === "ECE"
-      ) {
-        result += "-> Eligible Branch: ";
       } else {
-        result += "Eligible Branches: All sub-branches of ";
+        if (!openForm.onlySubBranchesAllowed[0]) {
+          if (
+            openForm.branches[0].length === 1 &&
+            openForm.branches[0][0] === "ECE"
+          ) {
+            result += "Eligible Branch: ";
+          } else {
+            result += "Eligible Branches: All sub-branches of ";
+          }
+        } else {
+          result += "Eligible Sub-Branch";
+          if (openForm.branches[0].length > 1) result += "es: ";
+          else result += ": ";
+        }
       }
     } else {
       if (initForm.course === "BTech") {
         result += "*Eligible Branch";
         if (openForm.branches[0].length > 1) result += "es:* ";
         else result += ":* ";
-      } else if (
-        initForm.course === "MTech" &&
-        openForm.branches[0].length === 1 &&
-        openForm.branches[0][0] === "ECE"
-      ) {
-        result += "-> *Eligible Branch:* ";
       } else {
-        result += "*Eligible Branches:* All sub-branches of ";
+        if (!openForm.onlySubBranchesAllowed[0]) {
+          if (
+            openForm.branches[0].length === 1 &&
+            openForm.branches[0][0] === "ECE"
+          ) {
+            result += "*Eligible Branch:* ";
+          } else {
+            result += "*Eligible Branches:* All sub-branches of ";
+          }
+        } else {
+          result += "*Eligible Sub-Branch";
+          if (openForm.branches[0].length > 1) result += "es:* ";
+          else result += ":* ";
+        }
       }
     }
     if (openForm.branches[0].length > 1) {

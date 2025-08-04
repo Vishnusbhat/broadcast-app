@@ -8,6 +8,7 @@ const Preview = ({ initForm, openForm, resultForm, broadcast }) => {
         {broadcast}
       </pre>
       <p>Is dependent: {openForm.isDependent ? "Yes" : "No"}</p>
+      <p>Only subbranches allowed: {openForm.onlySubBranchesAllowed.join(', ')}</p>
       <p>Type: {initForm.type}</p>
       <p>Course: {initForm.course}</p>
       <p>Category: {initForm.category}</p>
