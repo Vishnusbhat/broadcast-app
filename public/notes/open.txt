@@ -1,7 +1,7 @@
 [On-Campus:0]⁠PFA the JD.
 [Off-Campus:0]⁠PFB the JD.
 [On-Campus:1]⁠Interested and eligible candidates are required to register through campusuvce.in.
-[On-Campus:1]Interested and eligible candidates are required to register through the above mentioned link.
+[Off-Campus:1]Interested and eligible candidates are required to register through the above mentioned link.
 [No-Choice-Multiprofile:2]The role will be assigned based on the performance of the candidate during the interview process.
 [Choice-Multiprofile:2]Candidates are strictly instructed to choose any one profile based on their interest and skill set.
 ⁠Candidates should prepare as per the company's needs.
