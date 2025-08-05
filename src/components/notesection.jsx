@@ -71,9 +71,6 @@ const NoteSection = ({
           })
           .filter((entry) => entry !== null);
 
-        console.log("Appending notes from label:", label);
-        console.log("Extracted notes with positions:", extracted);
-
         setNotes((prev) => {
           const notes = [...prev];
 
@@ -166,13 +163,8 @@ const NoteSection = ({
   };
 
   useEffect(() => {
-    console.log("Show Restore Notes: ", restoreNotes);
     if (restoreNotes.length === 0) setShowRestore(false);
   }, [restoreNotes]);
-
-  useEffect(() => {
-    console.log("Updated showRestore:", showRestore);
-  }, [showRestore]);
 
   return (
     <div className="note-container">

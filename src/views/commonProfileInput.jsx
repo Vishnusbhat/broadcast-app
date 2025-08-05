@@ -16,7 +16,7 @@ const CommonProfileInput = ({ openForm, handleFormChange, initForm }) => {
       className="company-name"
     />
   ));
-
+  // console.log(getDeadline(new Date(Date.now() + 20 * 60 * 1000)));
   const getLabel = (date, wantTime = true) => {
     if (!date || !isValid(new Date(date))) return "";
     if (wantTime) {
