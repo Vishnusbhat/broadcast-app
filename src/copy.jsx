@@ -1,14 +1,29 @@
 import './copy.css'
+import { modifyDeadline, getDeadline, fetchCurrentDBState } from './components/utils/deadline';
+import { toast } from 'react-toastify';
 
-const CopyButton = ({ broadcast }) => {
+const CopyButton = ({ broadcast, setOpenForm }) => {
   const handleCopy = () => {
     if (navigator.clipboard && broadcast) {
+      setOpenForm((prev) => {
+            const p = { ...prev };
+            const isolated = getDeadline(Date.now());
+            const current_state = fetchCurrentDBState();
+            const finalDeadline = modifyDeadline(
+              isolated,
+              p.branches,
+              current_state
+            );
+      
+            p.deadlineForRegistration = finalDeadline;
+            return p;
+          });
       navigator.clipboard
         .writeText(broadcast)
-        .then(() => alert("Copied to clipboard!"))
+        .then(() => toast.success("Copied to clipboard!"))
         .catch((err) => console.error("Copy failed: ", err));
     } else {
-      alert("Nothing to copy!");
+      toast.info("Nothing to copy!");
     }
   };
 

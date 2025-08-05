@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import "./selector.css";
 const ProfileInput = ({
   initForm,
@@ -9,7 +10,7 @@ const ProfileInput = ({
 
   const addProfile = () => {
     if (profiles[profiles.length - 1] === "") {
-      alert("Please fill the last profile before adding a new one.");
+      toast.warning("Please fill the last profile before adding a new one.");
       return;
     }
     handleOpenFormChange("profiles", "", profiles.length);

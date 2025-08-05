@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Selector from "./views/selector";
 import Preview from "./views/preview";
 import Output from "./views/output";
-import { getDeadline } from "./components/utils/deadline";
+import { fetchCurrentDBState, getDeadline, modifyDeadline } from "./components/utils/deadline";
 
 const Common = () => {
   const [broadcast, setBroadcast] = useState("");
@@ -153,10 +153,20 @@ const Common = () => {
 
   useEffect(() => {
     setOpenForm((prev) => {
-      const p = {...prev};
-      p.deadlineForRegistration = getDeadline(Date.now());
+      const p = { ...prev };
+      const isolated = getDeadline(Date.now());
+      console.log('original deadline: ' + isolated);
+      const current_state = fetchCurrentDBState();
+      const finalDeadline = modifyDeadline(
+        isolated,
+        p.branches,
+        current_state
+      );
+
+      p.deadlineForRegistration = finalDeadline;
+      // p.deadlineForRegistration = isolated;
       return p;
-    })
+    });
   }, []);
 
   return (
@@ -179,7 +189,7 @@ const Common = () => {
         resultForm={resultForm}
         broadcast={broadcast}
       /> */}
-      <Output broadcast={broadcast} />
+      <Output broadcast={broadcast} setOpenForm={setOpenForm}/>
     </>
   );
 };

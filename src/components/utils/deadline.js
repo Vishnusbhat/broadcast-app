@@ -10,11 +10,15 @@ let db_btech = {
   Mech: 0,
 };
 
-export function fetchCurrentDBState () {
-    return db_btech;
+export function fetchCurrentDBState() {
+  return db_btech;
 }
 
-export function modifyDeadline(currentDeadline, eligibleBranches, current_state) {
+export function modifyDeadline(
+  currentDeadline,
+  eligibleBranches,
+  current_state
+) {
   let branchSet = new Set();
   for (const profiles of eligibleBranches) {
     for (const branch of profiles) {
@@ -24,12 +28,16 @@ export function modifyDeadline(currentDeadline, eligibleBranches, current_state)
       }
     }
   }
-  for (const branch of branchSet){
-    let newDeadline = new Date(currentDeadline);
-    newDeadline.setHours(newDeadline.getHours() + 2);
+  console.log('Deadline after referring db: ' + new Date(currentDeadline));
+  let newDeadline = new Date(currentDeadline);
+  newDeadline.setHours(newDeadline.getHours() + 1);
+  console.log('Value updating db: ' + newDeadline);
+  newDeadline = newDeadline.getTime();
+  for (const branch of branchSet) {
     current_state[branch] = newDeadline;
   }
-  return current_state;
+  console.log(fetchCurrentDBState());
+  return currentDeadline;
 }
 
 export function getDeadline(date) {
@@ -72,7 +80,6 @@ export function getDeadline(date) {
 //       }
 //     }
 //   }
-
 
 // // Map → Object
 // const obj = Object.fromEntries(myMap);
