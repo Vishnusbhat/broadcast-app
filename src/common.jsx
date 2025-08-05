@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Selector from "./views/selector";
 import Preview from "./views/preview";
 import Output from "./views/output";
+import { getDeadline } from "./components/utils/deadline";
 
 const Common = () => {
   const [broadcast, setBroadcast] = useState("");
@@ -109,7 +110,7 @@ const Common = () => {
       registrationLink: "",
       hasProfileChoice: false,
       expectedDateOfJoining: new Date("January 1, 2026").getTime(),
-      deadlineForRegistration: Date.now(),
+      deadlineForRegistration: getDeadline(Date.now()),
       onlySubBranchesAllowed: [],
       backupSubBranchCompare: [],
     });
@@ -149,6 +150,14 @@ const Common = () => {
       return p;
     });
   }, [openForm.onlySubBranchesAllowed]);
+
+  useEffect(() => {
+    setOpenForm((prev) => {
+      const p = {...prev};
+      p.deadlineForRegistration = getDeadline(Date.now());
+      return p;
+    })
+  }, []);
 
   return (
     <>

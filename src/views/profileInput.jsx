@@ -1,5 +1,4 @@
 import "./selector.css";
-
 const ProfileInput = ({
   initForm,
   openForm,
@@ -47,7 +46,6 @@ const ProfileInput = ({
       });
     }
   };
-
   const handleChange = (index, value) => {
     handleOpenFormChange("profiles", value, index);
   };
@@ -489,7 +487,6 @@ const ProfileInput = ({
               }
             />
           </div>
-
           <div className="row">
             Is branch dependent on profile?
             <input
