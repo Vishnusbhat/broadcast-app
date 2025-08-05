@@ -30,7 +30,7 @@ export function modifyDeadline(
   }
   console.log('Deadline after referring db: ' + new Date(currentDeadline));
   let newDeadline = new Date(currentDeadline);
-  newDeadline.setHours(newDeadline.getHours() + 1);
+  newDeadline.setHours(newDeadline.getHours() + 2);
   console.log('Value updating db: ' + newDeadline);
   newDeadline = newDeadline.getTime();
   for (const branch of branchSet) {
