@@ -1,6 +1,8 @@
 import Common from "../common";
 import "./login.css";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -8,6 +10,7 @@ const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   const [visible, setVisible] = useState(false);
 
+  const toggleVisibility = () => setVisible((prev) => !prev);
 
   const handleSubmit = () => {
     setSubmitted(true);
@@ -41,7 +44,29 @@ const Login = () => {
             className="text-input"
             placeholder="Password"
           /> */}
-          
+
+          <div className="password-container">
+            <input
+              type={visible ? "text" : "password"}
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="text-input"
+              placeholder="Password"
+            />
+            <div
+              onClick={toggleVisibility}
+              className="eye"
+              aria-label="Toggle password visibility"
+            >
+              {visible ? (
+                <FontAwesomeIcon icon={faEye} />
+              ) : (
+                <FontAwesomeIcon icon={faEyeSlash} />
+              )}
+            </div>
+          </div>
+
           <input
             type="text"
             name="phoneNumber"
