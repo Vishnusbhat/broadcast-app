@@ -1,7 +1,9 @@
 import "./whatsapp.css";
 
 const Whatsapp = ({ broadcast }) => {
-  const phoneNumber = "+919483025608";
+  const code = "+91";
+  const number = localStorage.getItem('phoneNumber');
+  const phoneNumber = code + number;
   const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
     broadcast
   )}`;
