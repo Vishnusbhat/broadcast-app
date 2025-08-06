@@ -1,0 +1,116 @@
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #cae3ff;
+    display: flex;
+    position: relative;
+}
+
+.login-form {
+    width: 350px;
+    height: 480px;
+    background-color: #152f7e7d;
+    border: rgb(255, 255, 255) 2px solid;
+    border-radius: 5px;
+    box-shadow: 20px 20px 50px rgb(255, 255, 255);
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translate(-50%, 0);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+}
+
+.login-shadow {
+    background-color: transparent;
+    box-shadow: -20px 20px 50px rgb(255, 255, 255);
+
+}
+
+.logo {
+    width: min-content;
+    font-family: "Merriweather", serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 56px;
+    background: linear-gradient(90deg, #000000, #722b95);
+    -webkit-background-clip: text;
+    -webkit-text-stroke: 0.3px rgb(152, 152, 152);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: auto;
+    height: 300px;
+    /* background-color: antiquewhite; */
+}
+
+.text-input {
+    font-style: inherit;
+    font-family: inherit;
+    border-radius: 2px;
+    color: black;
+    font-size: medium;
+    margin-bottom: 36px;
+    background-color: #eaeaeacd;
+    width: 300px;
+    height: 40px;
+    min-height: unset;
+    padding-left: 16px;
+}
+
+.submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    /* color: black; */
+    width: 100px;
+    height: 36px;
+    font-weight: bold;
+    border: white 0.5px solid;
+    background: linear-gradient(100deg, #000000, #544a58);
+    opacity: 0.7;
+    /* background-color: #4facfe; */
+}
+
+.clicked {
+    width: 101px;
+    height: 37px;
+    border: none;
+}
+
+#eye-toggle:hover {
+  opacity: 0.8;
+}
+
+.eye-closed #slash {
+  opacity: 1;
+}
+
+
+
+
+
+
+@media screen and (min-width: 480px) {
+    .login-form {
+        width: 700px;
+    }
+
+    .text-input {
+        width: 420px;
+    }
+
+    .submit-button {
+        cursor: pointer;
+    }
+}

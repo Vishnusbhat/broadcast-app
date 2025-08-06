@@ -6,13 +6,13 @@
 
 @media screen and (max-width: 480px) {
     .whatsapp-button svg {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
     }
 }
 
 .whatsapp-button {
     position: absolute;
-    right: 20px;
+    right: 22px;
     top: 77px;
 }
