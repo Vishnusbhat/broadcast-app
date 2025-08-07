@@ -4,7 +4,7 @@ import {
   modifyDeadline,
   getDeadline,
   fetchCurrentDBState,
-} from "./components/utils/deadline";
+} from "./utils/deadline";
 import { toast } from "react-toastify";
 
 const DBButton = ({ setOpenForm }) => {

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Selector from "./views/selector";
 import Preview from "./views/preview";
 import Output from "./views/output";
-import { fetchCurrentDBState, getDeadline, modifyDeadline } from "./components/utils/deadline";
+import { fetchCurrentDBState, getDeadline, modifyDeadline } from "./utils/deadline";
 
 const Common = () => {
   const [broadcast, setBroadcast] = useState("");

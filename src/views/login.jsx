@@ -3,6 +3,9 @@ import "./login.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
+
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -12,11 +15,21 @@ const Login = () => {
 
   const toggleVisibility = () => setVisible((prev) => !prev);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted((prev) => !prev);
     }, 100);
+    try {
+      await addDoc(collection(db, "users"), {
+        userName,
+        phoneNumber,
+        timestamp: new Date(),
+      });
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      setSubmitted(false);
+    }
     localStorage.setItem("userName", userName);
     localStorage.setItem("phoneNumber", phoneNumber);
     window.location.reload();

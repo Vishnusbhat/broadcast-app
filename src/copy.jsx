@@ -1,5 +1,5 @@
 import './copy.css'
-import { modifyDeadline, getDeadline, fetchCurrentDBState } from './components/utils/deadline';
+import { modifyDeadline, getDeadline, fetchCurrentDBState } from './utils/deadline';
 import { toast } from 'react-toastify';
 
 const CopyButton = ({ broadcast, setOpenForm }) => {
