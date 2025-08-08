@@ -3,28 +3,35 @@ import "./App.css";
 import Common from "./common";
 import { ToastContainer } from "react-toastify";
 import Login from "./views/login";
-import Navbar from "./components/navbar";
-import { useEffect, useState } from "react";
+import { useView } from "./context/useView";
+import { ViewProvider } from "./context/viewcontext";
+import { useEffect } from "react";
+
+function AppContent() {
+  const { currentView, pushView } = useView();
+
+  useEffect(() => {
+    if (localStorage.getItem('userName') && localStorage.getItem('phoneNumber')){
+      pushView('broadcast');
+    } else {
+      pushView('login');
+    }
+  }, []);
+
+  return (
+    <>
+      {currentView === "broadcast" && <Common />}
+      {currentView === "login" && <Login />}
+    </>
+  );
+}
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {
-    if (localStorage.getItem("userName") && localStorage.getItem("phoneNumber"))
-      setLoggedIn(true);
-  }, []);
   return (
-    <div className="app-container">
-      {loggedIn ? (
-        <>
-          <Common />
-        </>
-      ) : (
-        <Login />
-      )}
-
-      {/* <Common />
-      <Login /> */}
-      <ToastContainer position="top-right" autoClose="3000" />
-    </div>
+    <ViewProvider>
+      <div className="app-container">
+        <AppContent />
+      </div>
+    </ViewProvider>
   );
 }

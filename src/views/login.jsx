@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
+import { useView } from "../context/useView";
 
 const Login = () => {
+  const { pushView } = useView();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -32,7 +34,8 @@ const Login = () => {
     }
     localStorage.setItem("userName", userName);
     localStorage.setItem("phoneNumber", phoneNumber);
-    window.location.reload();
+    pushView('broadcast');
+    // window.location.reload();
   };
 
   return (
