@@ -13,6 +13,8 @@
   box-sizing: border-box;
   max-width: 100%;
   user-select: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 @media screen and (min-width: 480px) {
@@ -20,4 +22,8 @@
     display: flex;
     height: auto;
   }
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
