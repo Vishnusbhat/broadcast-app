@@ -87,6 +87,9 @@
     padding-bottom: 16px;
     opacity: 0;
     transform: translateY(-10px);
+
+}
+.drawer.close > * {
     pointer-events: none;
 }
 .drawer.open {
