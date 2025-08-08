@@ -13,7 +13,7 @@ export default defineConfig({
         start_url: ".",
         display: "standalone",
         background_color: "#ffffff",
-        theme_color: "#00f2fe",
+        theme_color: "#ffffff",
         description: "Generate formatted broadcasts easily.",
         icons: [
           {
