@@ -1,4 +1,3 @@
-import Common from "../common";
 import "./login.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,10 +7,8 @@ import { db } from "../firebase";
 import { useView } from "../context/useView";
 
 const Login = () => {
-  const { pushView } = useView();
-  const [userName, setUserName] = useState("");
+  const { userName, phoneNumber, pushView, setUserName, setUserPhoneNumber } = useView();
   const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -24,8 +21,8 @@ const Login = () => {
     }, 100);
     try {
       await addDoc(collection(db, "users"), {
-        userName,
-        phoneNumber,
+        userName: userName,
+        phoneNumber: phoneNumber,
         timestamp: new Date(),
       });
     } catch (error) {
@@ -35,7 +32,6 @@ const Login = () => {
     localStorage.setItem("userName", userName);
     localStorage.setItem("phoneNumber", phoneNumber);
     pushView('broadcast');
-    // window.location.reload();
   };
 
   return (
@@ -52,15 +48,6 @@ const Login = () => {
             className="text-input"
             placeholder="User Name"
           />
-          {/* <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="text-input"
-            placeholder="Password"
-          /> */}
-
           <div className="password-container">
             <input
               type={visible ? "text" : "password"}
@@ -87,7 +74,7 @@ const Login = () => {
             type="text"
             name="phoneNumber"
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={(e) => setUserPhoneNumber(e.target.value)}
             className="text-input"
             placeholder="Phone Number"
           />
