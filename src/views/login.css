@@ -2,7 +2,7 @@
     width: 100vw;
     height: 100vh;
     /* background-color: #cae3ff; */
-    background-image: url(Images/Landscape.png);
+    background-image: url('/Images/Landscape.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -131,7 +131,7 @@
 @media screen and (max-width: 480px) {
     
     .login-container {
-        background-image: url(Images/portrait.jpeg);
+        background-image: url('/Images/portrait.jpeg');
     }
     .submit-button {
         width: 300px;
