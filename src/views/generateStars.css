@@ -1,0 +1,32 @@
+.stars-container {
+    position: absolute;
+    /* relative to nearest positioned ancestor */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 1066px;
+    /* min-height: 80; */
+    pointer-events: none;
+    overflow: visible;
+    background-color: black;
+    overscroll-behavior: contain;
+}
+
+.star {
+    background: white;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 2px white);
+    animation: twinkle 3s infinite alternate;
+    z-index: 1;
+    filter: blur(1px);
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

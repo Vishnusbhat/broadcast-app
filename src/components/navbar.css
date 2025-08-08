@@ -1,22 +1,48 @@
 .nav-container {
     width: 100vw;
     height: 48px;
-    /* background-color: #152f7e; */
-    background-color: #000000;
+    /* background-color: #0d203d; */
+    /* background-color: #202a38d2; */
+    /* background-color: #b9e0e835; */
+    background-color: black;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100000;
+    /* background-color: aqua; */
 }
 
 .profile {
     width: 40px;
     height: 40px;
-    border: 2px rgb(255, 255, 255) solid;
+    border: 2px rgba(255, 255, 255, 0.633) solid;
     border-radius: 20px;
     background: linear-gradient(-45deg, #361010, rgb(141, 141, 141));
     position: absolute;
     top: 50%;
-    left: 6px;
+    left: 12px;
     transform: translate(0, -50%);
+}
+
+.options-container {
+    position: absolute;
+    top: 50%;
+    left: 70px;
+    transform: translate(0, -50%);
+    width: 100%;
+    /* background-color: rgb(84, 75, 75); */
+    height: inherit;
+    flex-direction: row;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.navbar-options {
+    width: 80px;
+    height: 36px;
+    border-radius: 40px;
+    margin-right: 12px;
+    /* background-color: aqua; */
+    border: rgba(255, 255, 255, 0.65) 2px solid;
 }

@@ -7,7 +7,8 @@ import { db } from "../firebase";
 import { useView } from "../context/useView";
 
 const Login = () => {
-  const { userName, phoneNumber, pushView, setUserName, setUserPhoneNumber } = useView();
+  const { userName, phoneNumber, pushView, setUserName, setUserPhoneNumber } =
+    useView();
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -31,7 +32,7 @@ const Login = () => {
     }
     localStorage.setItem("userName", userName);
     localStorage.setItem("phoneNumber", phoneNumber);
-    pushView('broadcast');
+    pushView("home");
   };
 
   return (
