@@ -172,7 +172,7 @@ const Common = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Selector
         initForm={initForm}
         setInitForm={setInitForm}

@@ -2,7 +2,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgb(39, 39, 39);
-    margin-top: -48px;
+    /* margin-top: -48px; */
     position: absolute;
     top: 0;
 }

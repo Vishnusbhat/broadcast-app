@@ -1,16 +1,13 @@
 .app-container {
   /* display: flex; */
   width: 100%;
-  padding-top: 48px;
+  /* padding-top: 48px; */
   height: 100vh;
   flex-direction: row;
   /* font-family: Georgia, 'Times New Roman', Times, serif; */
-  font-family: "Merriweather", serif;
+  /* font-family: "Merriweather", serif; */
+  font-family: "Poppins", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
   overscroll-behavior: contain; 
 }
 
