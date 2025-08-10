@@ -3,12 +3,48 @@ import { useView } from "../context/useView";
 
 const Home = () => {
   const { user, role } = useView();
+  const pendingVerification = [
+    { companyName: "Google", createdBy: "Vishnu", createdAt: "10 minutes ago" },
+    {
+      companyName: "Microsoft",
+      createdBy: "Anita",
+      createdAt: "5 minutes ago",
+    },
+    { companyName: "Amazon", createdBy: "Rahul", createdAt: "20 minutes ago" },
+    { companyName: "Apple", createdBy: "Priya", createdAt: "30 minutes ago" },
+    { companyName: "Tesla", createdBy: "Arjun", createdAt: "1 hour ago" },
+  ];
+
+  const urgentVerification = [
+    { companyName: "Adobe", createdBy: "Kiran", createdAt: "15 minutes ago" },
+    { companyName: "Spotify", createdBy: "Leena", createdAt: "25 minutes ago" },
+    { companyName: "Airbnb", createdBy: "Manish", createdAt: "40 minutes ago" },
+    { companyName: "Slack", createdBy: "Neha", createdAt: "2 hours ago" },
+    { companyName: "Dropbox", createdBy: "Amit", createdAt: "3 hours ago" },
+    { companyName: "GitHub", createdBy: "Suresh", createdAt: "yesterday" },
+    { companyName: "Zoom", createdBy: "Ravi", createdAt: "2 days ago" },
+  ];
+
+  const verifiedBroadcasts = [
+    { companyName: "Twitter", createdBy: "Shreya", createdAt: "5 minutes ago" },
+    {
+      companyName: "PayPal",
+      createdBy: "Santosh",
+      createdAt: "12 minutes ago",
+    },
+    { companyName: "Uber", createdBy: "Mohit", createdAt: "1 hour ago" },
+    { companyName: "Intel", createdBy: "Nikita", createdAt: "2 hours ago" },
+    { companyName: "Samsung", createdBy: "Varun", createdAt: "yesterday" },
+    { companyName: "Oracle", createdBy: "Deepa", createdAt: "2 days ago" },
+    { companyName: "Cisco", createdBy: "Arvind", createdAt: "last week" },
+  ];
+
   return (
     <div className="home-container">
       <div className="home-heading-container">
         <div className="home-text">
           <div className="home-name">
-            Good Morning, Vishnu!
+            Hello Vishnu!
             <div className="home-profile-container">
               <div className="home-profile"></div>
             </div>
@@ -48,22 +84,55 @@ const Home = () => {
       <div className="urgent-verifications-container">
         <div className="uv-heading">Urgent Verifications</div>
         <div className="uv-broadcasts">
-          <div className="uv-broadcast"></div>
-          <div className="uv-broadcast"></div>
+          {urgentVerification.map((value, index) => (
+            <div className="uv-broadcast" key={index}>
+              <div className="uv-details">
+                <div className="uv-company-name">{value.companyName}</div>
+                <div className="uv-created-by">{value.createdBy}</div>
+                <div className="uv-created-at">{value.createdAt}</div>
+              </div>
+              <div className="uv-labels">
+                <div className="uv-label">Open</div>
+                <div className="uv-button">Verify</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <div className="pending-verifications-container">
         <div className="pv-heading">Pending Verifications</div>
         <div className="pv-broadcasts">
-          <div className="pv-broadcast"></div>
-          <div className="pv-broadcast"></div>
+          {pendingVerification.map((value, index) => (
+            <div className="pv-broadcast" key={index}>
+              <div className="pv-details">
+                <div className="pv-company-name">{value.companyName}</div>
+                <div className="pv-created-by">{value.createdBy}</div>
+                <div className="pv-created-at">{value.createdAt}</div>
+              </div>
+              <div className="pv-labels">
+                <div className="pv-label">Open</div>
+                <div className="pv-button">Verify</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <div className="verified-broad-container">
         <div className="v-heading">Latest Verified Broadcasts</div>
         <div className="v-broadcasts">
-          <div className="v-broadcast"></div>
-          <div className="v-broadcast"></div>
+          {verifiedBroadcasts.map((value, index) => (
+            <div className="v-broadcast" key={index}>
+              <div className="pv-details">
+                <div className="pv-company-name">{value.companyName}</div>
+                <div className="pv-created-by">{value.createdBy}</div>
+                <div className="pv-created-at">{value.createdAt}</div>
+              </div>
+              <div className="pv-labels">
+                <div className="pv-label">Open</div>
+                <div className="pv-button">Verify</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <div className="offline-profiles-container">

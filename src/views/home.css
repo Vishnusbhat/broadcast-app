@@ -3,8 +3,21 @@
     width: 100vw;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom right, #60a5fa, #dbeafe);
+    background: linear-gradient(to bottom right, #60a5fa, #99c5ff);
     overflow-y: auto;
+}
+
+.op-profiles,
+.ofp-profiles,
+.v-broadcasts,
+.pv-broadcasts,
+.uv-broadcasts {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+    touch-action: pan-x;
 }
 
 .home-heading-container {
@@ -67,16 +80,16 @@
 
 .op-profiles {
     display: flex;
-    overflow: auto;
+    /* overflow: auto; */
 }
 
 .op-profile {
     flex: 0 0 auto;
     width: 80px;
-    height: 90px;
-    background-color: #ffffffe6;
+    height: 95px;
+    /* background-color: #ffffffe6; */
     border-radius: 10px;
-    margin-right: 16px;
+    /* margin-right: 16px; */
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -104,11 +117,12 @@
     width: 59px;
     height: 59px;
     border-radius: 36px;
-    border: 3px solid rgb(86 207 0);
+    /* border: 3px solid rgb(86 207 0); */
+    border: 3px solid rgb(110 255 0);
 }
 
 .op-profiles-name {
-    color: black;
+    color: white;
     font-size: 14px;
 }
 
@@ -131,15 +145,84 @@
 
 .uv-broadcast {
     flex: 0 0 auto;
-    width: 250px;
-    height: 100px;
+    display: flex;
+    min-width: 250px;
+    max-width: 300px;
+    height: auto;
     margin-right: 16px;
-    background: linear-gradient(to bottom right, #ffe0e0, #fff7ed);
+    /* background: linear-gradient(to bottom right, #ffe0e0, #fff7ed); */
+    background: linear-gradient(to bottom right,
+            rgba(255, 224, 224, 0.4),
+            rgba(255, 247, 237, 0.4));
+
     border: 1px solid #fecaca;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
+    color: black;
+}
+
+
+.uv-details {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.uv-company-name {
+    max-width: 150px;
+    overflow: hidden;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 2px;
+}
+
+.uv-created-by {
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.uv-created-at {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.uv-labels {
+    width: 120px;
+    height: 100%;
+    /* background-color: red; */
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.uv-label {
+    width: 64px;
+    height: 30px;
+    background-color: #60a5fa;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.uv-button {
+    width: 88px;
+    height: 30px;
+    font-weight: 500;
+    background-color: #ffffff96;
+    font-size: 18px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    border: #50ff00 1px solid;
 }
 
 .pending-verifications-container {
@@ -161,15 +244,86 @@
 
 .pv-broadcast {
     flex: 0 0 auto;
-    width: 250px;
-    height: 100px;
+    display: flex;
+    min-width: 250px;
+    max-width: 300px;
+    height: auto;
+    max-height: 130px;
     margin-right: 16px;
-    background: linear-gradient(to bottom right, #fefce8, #fffbeb);
+    color: black;
+    /* background: linear-gradient(to bottom right, #fefce8, #fffbeb); */
+    background: linear-gradient(to bottom right,
+            rgba(254, 252, 232, 0.4),
+            rgba(255, 251, 235, 0.4));
+
     border: 1px solid #fef08a;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
+}
+
+.pv-details {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pv-company-name {
+    max-width: 150px;
+    overflow: hidden;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 2px;
+}
+
+.pv-created-by {
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.pv-created-at {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.pv-labels {
+    width: 120px;
+    height: 100%;
+    /* background-color: red; */
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+.pv-label {
+    width: 64px;
+    height: 30px;
+    background-color: #60a5fa;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.pv-button {
+    width: 88px;
+    height: 30px;
+    font-weight: 500;
+    background-color: white;
+    font-size: 18px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    border: #50ff00 1px solid;
 }
 
 .verified-broad-container {
@@ -191,16 +345,86 @@
 
 .v-broadcast {
     flex: 0 0 auto;
-    width: 250px;
-    height: 100px;
+    color: black;
+    height: auto;
+    display: flex;
+    min-width: 250px;
+    max-width: 300px;
     margin-right: 16px;
-    background: linear-gradient(to bottom right, #eff6ff, #f0f9ff);
+    /* background: linear-gradient(to bottom right, #eff6ff, #f0f9ff); */
+    background: linear-gradient(to bottom right,
+            rgba(239, 246, 255, 0.4),
+            rgba(240, 249, 255, 0.4));
+
     /* blue-50 → sky-50 */
     border: 1px solid #bfdbfe;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
+}
+
+
+.v-details {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.v-company-name {
+    max-width: 150px;
+    overflow: hidden;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 2px;
+}
+
+.v-created-by {
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.v-created-at {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.v-labels {
+    width: 120px;
+    height: 100%;
+    /* background-color: red; */
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+.v-label {
+    width: 64px;
+    height: 30px;
+    background-color: #60a5fa;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.v-button {
+    width: 88px;
+    height: 30px;
+    font-weight: 500;
+    background-color: white;
+    font-size: 18px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    border: #50ff00 1px solid;
 }
 
 .offline-profiles-container {
@@ -225,10 +449,10 @@
 .ofp-profile {
     flex: 0 0 auto;
     width: 80px;
-    height: 90px;
-    background-color: #ffffffe6;
+    height: 95px;
+    /* background-color: #ffffffe6; */
     border-radius: 10px;
-    margin-right: 16px;
+    /* margin-right: 16px; */
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -256,10 +480,11 @@
     width: 59px;
     height: 59px;
     border-radius: 36px;
-    border: 3px solid #ababab;
+    /* border: 3px solid #ababab; */
+    border: 3px solid #e2dddd;
 }
 
 .ofp-profiles-name {
-    color: black;
+    color: white;
     font-size: 14px;
 }
