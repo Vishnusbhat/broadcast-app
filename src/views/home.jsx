@@ -1,5 +1,6 @@
 import "./home.css";
 import { useView } from "../context/useView";
+import BottomNav from "./bottomNav";
 
 const Home = () => {
   const { user, role } = useView();
@@ -41,6 +42,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <BottomNav />
       <div className="home-heading-container">
         <div className="home-text">
           <div className="home-name">
@@ -122,14 +124,13 @@ const Home = () => {
         <div className="v-broadcasts">
           {verifiedBroadcasts.map((value, index) => (
             <div className="v-broadcast" key={index}>
-              <div className="pv-details">
-                <div className="pv-company-name">{value.companyName}</div>
-                <div className="pv-created-by">{value.createdBy}</div>
-                <div className="pv-created-at">{value.createdAt}</div>
+              <div className="v-details">
+                <div className="v-company-name">{value.companyName}</div>
+                <div className="v-created-by">{value.createdBy}</div>
+                <div className="v-created-at">{value.createdAt}</div>
               </div>
-              <div className="pv-labels">
-                <div className="pv-label">Open</div>
-                <div className="pv-button">Verify</div>
+              <div className="v-labels">
+                <div className="v-label">Open</div>
               </div>
             </div>
           ))}
