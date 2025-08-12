@@ -8,6 +8,7 @@ import { ViewProvider } from "./context/viewcontext";
 import { useEffect } from "react";
 import Home from "./views/home";
 import BottomNav from "./views/bottomNav";
+import Chat from "./views/chat";
 
 function AppContent() {
   const { currentView, pushView } = useView();
@@ -25,10 +26,11 @@ function AppContent() {
 
   return (
     <>
-      <BottomNav />
+      {currentView !== "chat" && <BottomNav />}
       {currentView === "login" && <Login />}
       {currentView === "home" && <Home />}
       {currentView === "create" && <Common />}
+      {currentView === "chat" && <Chat />}
     </>
   );
 }

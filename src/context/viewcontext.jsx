@@ -10,10 +10,12 @@ export const ViewProvider = ({ children }) => {
   const [userObj, setUserObj] = useState({
     userName: "",
     role: "",
-    phoneNumber: ""
+    phoneNumber: "",
   });
   const pushView = (view) => {
-    setViewStack((prev) => [...prev, view]);
+    if (view !== currentView) {
+      setViewStack((prev) => [...prev, view]);
+    }
   };
   const popView = () => {
     setViewStack((prev) => {
@@ -33,6 +35,7 @@ export const ViewProvider = ({ children }) => {
   };
   useEffect(() => {
     setCurrentView(viewStack[viewStack.length - 1]);
+    console.log(viewStack);
   }, [viewStack]);
 
   return (
@@ -44,7 +47,7 @@ export const ViewProvider = ({ children }) => {
         popView,
         setUserName,
         setUserRole,
-        setUserPhoneNumber
+        setUserPhoneNumber,
       }}
     >
       {children}
