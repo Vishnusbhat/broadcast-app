@@ -6,7 +6,7 @@
     justify-content: space-between;
     background: linear-gradient(to bottom right, #60a5fa, #99c5ff);
     overflow-y: hidden;
-    position: absolute;
+    position: fixed;
     inset: 0;
 }
 
