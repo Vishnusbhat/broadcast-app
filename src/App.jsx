@@ -7,6 +7,7 @@ import { useView } from "./context/useView";
 import { ViewProvider } from "./context/viewcontext";
 import { useEffect } from "react";
 import Home from "./views/home";
+import BottomNav from "./views/bottomNav";
 
 function AppContent() {
   const { currentView, pushView } = useView();
@@ -24,9 +25,10 @@ function AppContent() {
 
   return (
     <>
+      <BottomNav />
       {currentView === "login" && <Login />}
       {currentView === "home" && <Home />}
-      {currentView === "broadcast" && <Common />}
+      {currentView === "create" && <Common />}
     </>
   );
 }

@@ -74,18 +74,19 @@
     width: 100%;
     height: auto;
     /* background-color: #85858e; */
-    padding: 16px
 }
 
 .op-heading {
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
+    padding-left: 16px;
 }
 
 .op-profiles {
     display: flex;
     /* overflow: auto; */
+    padding-left: 8px;
 }
 
 .op-profile {
@@ -134,18 +135,19 @@
 .urgent-verifications-container {
     width: 100%;
     height: auto;
-    padding: 16px
 }
 
 .uv-heading {
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
+    padding-left: 16px;
 }
 
 .uv-broadcasts {
     display: flex;
     overflow-x: auto;
+    padding-left: 16px;
 }
 
 .uv-broadcast {
@@ -234,18 +236,19 @@
 .pending-verifications-container {
     width: 100%;
     height: auto;
-    padding: 16px
 }
 
 .pv-heading {
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
+    padding-left: 16px;
 }
 
 .pv-broadcasts {
     display: flex;
     overflow-x: auto;
+    padding-left: 16px;
 }
 
 .pv-broadcast {
@@ -336,18 +339,19 @@
 .verified-broad-container {
     width: 100%;
     height: auto;
-    padding: 16px
 }
 
 .v-heading {
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
+    padding-left: 16px;
 }
 
 .v-broadcasts {
     display: flex;
     overflow-x: auto;
+    padding-left: 16px;
 }
 
 .v-broadcast {
@@ -438,7 +442,6 @@
 .offline-profiles-container {
     width: 100%;
     height: auto;
-    padding: 16px;
     margin-bottom: 50px;
 }
 
@@ -447,11 +450,13 @@
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
+    padding-left: 16px;
 }
 
 .ofp-profiles {
     display: flex;
     overflow: auto;
+    padding-left: 8px;
 }
 
 .ofp-profile {

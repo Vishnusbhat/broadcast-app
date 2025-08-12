@@ -1,6 +1,5 @@
 import "./home.css";
 import { useView } from "../context/useView";
-import BottomNav from "./bottomNav";
 
 const Home = () => {
   const { user, role } = useView();
@@ -42,7 +41,6 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <BottomNav />
       <div className="home-heading-container">
         <div className="home-text">
           <div className="home-name">
