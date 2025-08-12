@@ -80,7 +80,7 @@
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
-    padding-left: 16px;
+    padding: 16px 16px 0 16px;
 }
 
 .op-profiles {
@@ -141,7 +141,7 @@
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
-    padding-left: 16px;
+    padding: 16px 16px 0 16px;
 }
 
 .uv-broadcasts {
@@ -242,7 +242,7 @@
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
-    padding-left: 16px;
+    padding: 16px 16px 0 16px;
 }
 
 .pv-broadcasts {
@@ -345,7 +345,7 @@
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
-    padding-left: 16px;
+    padding: 16px 16px 0 16px;
 }
 
 .v-broadcasts {
@@ -450,7 +450,7 @@
     color: white;
     font-weight: 500;
     margin-bottom: 8px;
-    padding-left: 16px;
+    padding: 16px 16px 0 16px;
 }
 
 .ofp-profiles {
