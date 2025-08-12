@@ -55,6 +55,7 @@ const Chat = () => {
             <FontAwesomeIcon
               icon={faPaperPlane}
               size="2x"
+              className="ct-icon"
               style={{ color: "#003679" }}
             />
           </div>
