@@ -2,16 +2,17 @@ import "./login.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { getDocs, collection, query, where } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db, ref, set, rtdb } from "../firebase";
 import { useView } from "../context/useView";
-import { toast } from "react-toastify";
 
 const Login = () => {
   const {
     userName,
+    phoneNumber,
     pushView,
     setUserName,
+    setUserPhoneNumber,
     setUserID,
   } = useView();
   const [password, setPassword] = useState("");
@@ -20,42 +21,39 @@ const Login = () => {
 
   const toggleVisibility = () => setVisible((prev) => !prev);
 
-  const handleLogin = async () => {
+  const handleSubmit = async () => {
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted((prev) => !prev);
     }, 100);
     try {
-      const usersRef = collection(db, "users");
-      const q = query(usersRef, where("userName", "==", userName));
-      const querySnapshot = await getDocs(q);
-
-      if (querySnapshot.empty) {
-        toast.error("User not found");
-        return;
-      }
-
-      const userDoc = querySnapshot.docs[0].data();
-
-      if (userDoc.password !== password) {
-        toast.error("Incorrect Password!");
-        setSubmitted(false);
-        return;
-      }
-      const userId = querySnapshot.docs[0].id;
-      console.log("user id: " + userId);
-      setUserID(userId);
-      await set(ref(rtdb, `status/${userId}`), {
-        state: "online",
-        last_changed: Date.now()
+      // setUserID(1);
+      await addDoc(collection(db, "users"), {
+        userName: userName,
+        phoneNumber: phoneNumber,
+        timestamp: new Date(),
       });
-
-      localStorage.setItem("userName", userDoc.userName);
-      pushView("home");
+      // await set(ref(rtdb, `status/${userId}`), {
     } catch (error) {
-      console.error("Login error:", error.message);
+      console.error("Error adding document: ", error);
       setSubmitted(false);
     }
+    try {
+      console.log("About to set RTDB status");
+      await set(ref(rtdb, `status/1`), {
+        state: "online",
+        last_changed: Date.now(),
+        userName,
+        phoneNumber,
+      });
+      console.log("RTDB status set completed");
+      console.log("Status set success");
+    } catch (error) {
+      console.error("Failed to set status:", error);
+    }
+    localStorage.setItem("userName", userName);
+    localStorage.setItem("phoneNumber", phoneNumber);
+    pushView("home");
   };
 
   return (
@@ -94,19 +92,19 @@ const Login = () => {
             </div>
           </div>
 
-          {/* <input
+          <input
             type="text"
             name="phoneNumber"
             value={phoneNumber}
             onChange={(e) => setUserPhoneNumber(e.target.value)}
             className="text-input"
             placeholder="Phone Number"
-          /> */}
+          />
           <div
             className={`submit-button ${submitted && "clicked"}`}
-            onClick={handleLogin}
+            onClick={handleSubmit}
           >
-            Login
+            Submit
           </div>
         </div>
       </div>

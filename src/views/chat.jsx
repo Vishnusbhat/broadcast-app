@@ -3,7 +3,59 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useView } from "../context/useView";
 
+import {
+  getDatabase,
+  ref,
+  onValue,
+} from "firebase/database";
+import { useState, useEffect } from "react";
+
 const Chat = () => {
+  const [users, setUsers] = useState([{}]);
+  const db = getDatabase();
+
+  useEffect(() => {
+    const statusRef = ref(db, "status");
+    const usersRef = ref(db, "users");
+
+    const unsubscribe = onValue(statusRef, (snapshot) => {
+      const statusData = snapshot.val();
+      if (statusData) {
+        const userIds = Object.keys(statusData);
+
+        onValue(
+          usersRef,
+          (userSnapshot) => {
+            const usersData = userSnapshot.val();
+
+            const combinedUsers = userIds.map((uid) => {
+              const userStatus = statusData[uid];
+              const userDetails = usersData ? usersData[uid] : null;
+
+              return {
+                id: uid,
+                userName: userDetails?.userName || "Unknown User",
+                status:
+                  userStatus.state === "online"
+                    ? "Online"
+                    : `Last active: ${new Date(
+                        userStatus.last_changed
+                      ).toLocaleString()}`,
+              };
+            });
+
+            setUsers(combinedUsers);
+          },
+          { onlyOnce: true }
+        );
+      } else {
+        setUsers([]);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [db]);
+
   const handleInputHeight = (component) => {
     component.style.height = "30px";
     const newHeight = component.scrollHeight;
@@ -38,7 +90,17 @@ const Chat = () => {
           <span className="chat-label">Group Chat</span>
         </div>
       </div>
-      <div className="chat-message-area"></div>
+      <div className="chat-message-area">
+        {users.length > 0 ? (
+          users.map((user) => (
+            <div key={user.id}>
+              {user.userName}: {user.status}
+            </div>
+          ))
+        ) : (
+          <p>No users found</p>
+        )}
+      </div>
       <div className="chat-text-area">
         <div className="ct-container">
           <div className="ct-textbox">
