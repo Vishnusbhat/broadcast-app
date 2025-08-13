@@ -98,8 +98,20 @@
 .chat-message-area {
     width: 100%;
     flex: 1;
+    overflow-y: scroll;
     /* background-color: red; */
 }
+
+.cm-chat-container {
+    width: 100%;
+    min-height: fit-content;
+    width: 100%;
+}
+
+
+
+
+
 
 .chat-text-area {
     width: 100%;

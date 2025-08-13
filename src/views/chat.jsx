@@ -13,6 +13,7 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const db = getDatabase();
   const messagesEndRef = useRef(null);
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     const statusRef = ref(db, "status");
@@ -64,14 +65,14 @@ const Chat = () => {
     if (message.trim()) {
       sendChat(message, userName);
       setMessage("");
+      textareaRef.current.style.height = "30px";
     }
   };
 
   const handleInputHeight = (component) => {
     component.style.height = "30px";
     const newHeight = component.scrollHeight;
-    component.style.height =
-      newHeight < 150 ? `${newHeight}px` : "150px";
+    component.style.height = newHeight < 150 ? `${newHeight}px` : "150px";
   };
 
   const { popView, userName } = useView();
@@ -83,10 +84,7 @@ const Chat = () => {
         <div className="chat-text">
           <div className="chat-name">
             <div className="chat-profile-container">
-              <div
-                className="chat-back-button"
-                onClick={() => popView()}
-              >
+              <div className="chat-back-button" onClick={() => popView()}>
                 <FontAwesomeIcon icon={faArrowLeft} />
               </div>
               <div className="chat-profile"></div>
@@ -98,25 +96,28 @@ const Chat = () => {
 
       {/* Messages */}
       <div className="chat-message-area">
-        {chats.length > 0 ? (
-          chats.map((chat) => (
-            <div key={chat.id} className="chat-message">
-              <strong>{chat.sender || "Unknown"}:</strong> <div style={{fontFamily: "inherit", whiteSpace: 'pre-wrap'}}>{chat.text}</div>
-            </div>
-          ))
-        ) : (
-          <p>No messages yet</p>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Online Users List (Optional for testing) */}
-      <div className="chat-users-status">
-        {users.map((u) => (
-          <div key={u.id}>
-            {u.userName} — {u.status}
+        <div className="cm-chat-container">
+          {chats.length > 0 ? (
+            chats.map((chat) => (
+              <div key={chat.id} className="chat-message">
+                <strong>{chat.sender || "Unknown"}:</strong>{" "}
+                <div style={{ fontFamily: "inherit", whiteSpace: "pre-wrap" }}>
+                  {chat.text}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No messages yet</p>
+          )}
+          <div ref={messagesEndRef} />
+          <div className="chat-users-status">
+            {users.map((u) => (
+              <div key={u.id}>
+                {u.userName} — {u.status}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
 
       {/* Input */}
@@ -130,6 +131,7 @@ const Chat = () => {
               rows={1}
               className="ct-textbox"
               placeholder="Type here"
+              ref={textareaRef}
             ></textarea>
           </div>
           <div className="ct-send-button" onClick={handleSend}>
