@@ -2,17 +2,17 @@ import "./chat.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useView } from "../context/useView";
+import { useChat } from "../context/useChat";
 
-import {
-  getDatabase,
-  ref,
-  onValue,
-} from "firebase/database";
-import { useState, useEffect } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { useState, useEffect, useRef } from "react";
 
 const Chat = () => {
-  const [users, setUsers] = useState([{}]);
+  const { chats, sendChat } = useChat();
+  const [users, setUsers] = useState([]);
+  const [message, setMessage] = useState("");
   const db = getDatabase();
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     const statusRef = ref(db, "status");
@@ -56,31 +56,36 @@ const Chat = () => {
     return () => unsubscribe();
   }, [db]);
 
-  const handleInputHeight = (component) => {
-    component.style.height = "30px";
-    const newHeight = component.scrollHeight;
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chats]);
 
-    if (newHeight < 150) {
-      component.style.height = newHeight + "px";
-    } else {
-      component.style.height = "150px";
+  const handleSend = () => {
+    if (message.trim()) {
+      sendChat(message, userName);
+      setMessage("");
     }
   };
 
-  const { popView } = useView();
+  const handleInputHeight = (component) => {
+    component.style.height = "30px";
+    const newHeight = component.scrollHeight;
+    component.style.height =
+      newHeight < 150 ? `${newHeight}px` : "150px";
+  };
+
+  const { popView, userName } = useView();
 
   return (
     <div className="chat-container">
+      {/* Header */}
       <div className="chat-heading-container">
         <div className="chat-text">
           <div className="chat-name">
-            {/* Hello Vishnu! */}
             <div className="chat-profile-container">
               <div
                 className="chat-back-button"
-                onClick={() => {
-                  popView();
-                }}
+                onClick={() => popView()}
               >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </div>
@@ -90,35 +95,49 @@ const Chat = () => {
           <span className="chat-label">Group Chat</span>
         </div>
       </div>
+
+      {/* Messages */}
       <div className="chat-message-area">
-        {users.length > 0 ? (
-          users.map((user) => (
-            <div key={user.id}>
-              {user.userName}: {user.status}
+        {chats.length > 0 ? (
+          chats.map((chat) => (
+            <div key={chat.id} className="chat-message">
+              <strong>{chat.sender || "Unknown"}:</strong> {chat.text}
             </div>
           ))
         ) : (
-          <p>No users found</p>
+          <p>No messages yet</p>
         )}
+        <div ref={messagesEndRef} />
       </div>
+
+      {/* Online Users List (Optional for testing) */}
+      <div className="chat-users-status">
+        {users.map((u) => (
+          <div key={u.id}>
+            {u.userName} — {u.status}
+          </div>
+        ))}
+      </div>
+
+      {/* Input */}
       <div className="chat-text-area">
         <div className="ct-container">
           <div className="ct-textbox">
             <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               onInput={(e) => handleInputHeight(e.target)}
-              name="message"
-              id="message"
               rows={1}
               className="ct-textbox"
               placeholder="Type here"
             ></textarea>
           </div>
-          <div className="ct-send-button">
+          <div className="ct-send-button" onClick={handleSend}>
             <FontAwesomeIcon
               icon={faPaperPlane}
               size="2x"
               className="ct-icon"
-              style={{ color: "#003679" }}
+              style={{ color: "#003679", cursor: "pointer" }}
             />
           </div>
         </div>
