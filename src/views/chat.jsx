@@ -101,7 +101,7 @@ const Chat = () => {
         {chats.length > 0 ? (
           chats.map((chat) => (
             <div key={chat.id} className="chat-message">
-              <strong>{chat.sender || "Unknown"}:</strong> {chat.text}
+              <strong>{chat.sender || "Unknown"}:</strong> <div style={{fontFamily: "inherit", whiteSpace: 'pre-wrap'}}>{chat.text}</div>
             </div>
           ))
         ) : (
