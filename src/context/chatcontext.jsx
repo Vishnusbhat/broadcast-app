@@ -1,3 +1,5 @@
+// ChatContext.jsx
+import { createContext, useState, useEffect, useCallback, useRef } from "react";
 import {
   collection,
   query,
@@ -7,31 +9,26 @@ import {
   startAfter,
   getDocs,
   addDoc,
-  serverTimestamp
 } from "firebase/firestore";
-import { db } from "../firebase";
-import {
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-  useRef
-} from "react";
+import { db as firestoreDb, rtdb } from "../firebase"; // Make sure you have both
+import { ref, onValue } from "firebase/database";
 
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
   const [chats, setChats] = useState([]);
-  const [lastVisible, setLastVisible] = useState(null); 
+  const [users, setUsers] = useState([]); // 👈 user list with status
+  const [lastVisible, setLastVisible] = useState(null);
   const [latestTimestamp, setLatestTimestamp] = useState(null);
   const PAGE_SIZE = 50;
 
   const unsubscribeRef = useRef(null);
 
+  /* --------------------- Firestore: Chats --------------------- */
   useEffect(() => {
     const fetchInitialMessages = async () => {
       const q = query(
-        collection(db, "chats"),
+        collection(firestoreDb, "chats"),
         orderBy("timestamp", "desc"),
         limit(PAGE_SIZE)
       );
@@ -40,14 +37,11 @@ export const ChatProvider = ({ children }) => {
 
       if (!snapshot.empty) {
         const docsReversed = snapshot.docs
-          .map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }))
+          .map((doc) => ({ id: doc.id, ...doc.data() }))
           .reverse();
 
         setChats(docsReversed);
-        setLastVisible(snapshot.docs[snapshot.docs.length - 1]); 
+        setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
         const newestMsg = docsReversed[docsReversed.length - 1];
         setLatestTimestamp(newestMsg.timestamp);
 
@@ -56,7 +50,6 @@ export const ChatProvider = ({ children }) => {
     };
 
     fetchInitialMessages();
-
     return () => {
       if (unsubscribeRef.current) unsubscribeRef.current();
     };
@@ -64,7 +57,7 @@ export const ChatProvider = ({ children }) => {
 
   const listenForNewMessages = (latestTs) => {
     const q = query(
-      collection(db, "chats"),
+      collection(firestoreDb, "chats"),
       orderBy("timestamp", "asc"),
       startAfter(latestTs)
     );
@@ -76,9 +69,9 @@ export const ChatProvider = ({ children }) => {
           ...doc.data(),
         }));
 
-        setChats(prev => {
-          const existingIds = new Set(prev.map(m => m.id));
-          const filtered = newMessages.filter(m => !existingIds.has(m.id));
+        setChats((prev) => {
+          const existingIds = new Set(prev.map((m) => m.id));
+          const filtered = newMessages.filter((m) => !existingIds.has(m.id));
           if (filtered.length === 0) return prev;
 
           setLatestTimestamp(filtered[filtered.length - 1].timestamp);
@@ -92,7 +85,7 @@ export const ChatProvider = ({ children }) => {
     if (!lastVisible) return;
 
     const q = query(
-      collection(db, "chats"),
+      collection(firestoreDb, "chats"),
       orderBy("timestamp", "desc"),
       startAfter(lastVisible),
       limit(PAGE_SIZE)
@@ -105,7 +98,7 @@ export const ChatProvider = ({ children }) => {
         ...doc.data(),
       }));
 
-      setChats(prev => [...moreChats.reverse(), ...prev]); 
+      setChats((prev) => [...moreChats.reverse(), ...prev]);
       setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
     }
   };
@@ -113,9 +106,11 @@ export const ChatProvider = ({ children }) => {
   const sendChat = useCallback(async (text, sender) => {
     if (!text.trim()) return;
     try {
-      await addDoc(collection(db, "chats"), {
+      await addDoc(collection(firestoreDb, "chats"), {
         text,
         sender,
+        delivered: [],
+        seen: [],
         timestamp: new Date(),
       });
     } catch (error) {
@@ -123,15 +118,59 @@ export const ChatProvider = ({ children }) => {
     }
   }, []);
 
+  /* --------------------- RTDB: User Status --------------------- */
+useEffect(() => {
+  const statusRef = ref(rtdb, "status");
+  const usersRef = ref(rtdb, "users");
+
+  // Store latest snapshots in local variables
+  let statusMap = {};
+  let usersMap = {};
+
+  const unsubscribeStatus = onValue(statusRef, (statusSnap) => {
+    statusMap = statusSnap.val() || {};
+    combineAndSet(usersMap, statusMap); // pass in usersMap as primary
+  });
+
+  const unsubscribeUsers = onValue(usersRef, (usersSnap) => {
+    usersMap = usersSnap.val() || {};
+    combineAndSet(usersMap, statusMap);
+  });
+
+  // Merge: iterate over *all* users from usersData and attach status
+  function combineAndSet(usersData, statusData) {
+    const combined = Object.keys(usersData).map((uid) => {
+      const userDetails = usersData[uid] || {};
+      const userStatus = statusData[uid] || {};
+      return {
+        id: uid,
+        ...userDetails,
+        status:
+          userStatus.state === "online"
+            ? "Online"
+            : userStatus.last_changed
+              ? `Last active: ${new Date(userStatus.last_changed).toLocaleString()}`
+              : "Offline", // default if no status entry
+      };
+    });
+    setUsers(combined);
+  }
+
+  return () => {
+    unsubscribeStatus();
+    unsubscribeUsers();
+  };
+}, []);
+
+
   const value = {
     chats,
     sendChat,
-    loadMoreChats
+    loadMoreChats,
+    users,
   };
 
-  return (
-    <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
-  );
+  return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
 };
 
 export default ChatContext;

@@ -3,60 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useView } from "../context/useView";
 import { useChat } from "../context/useChat";
-
-import { getDatabase, ref, onValue } from "firebase/database";
 import { useState, useEffect, useRef } from "react";
-import { ChartArea } from "lucide-react";
 
 const Chat = () => {
-  const { chats, sendChat } = useChat();
-  const [users, setUsers] = useState([]);
+  const { chats, sendChat, users } = useChat();
   const [message, setMessage] = useState("");
-  const db = getDatabase();
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
-
-  useEffect(() => {
-    const statusRef = ref(db, "status");
-    const usersRef = ref(db, "users");
-
-    const unsubscribe = onValue(statusRef, (snapshot) => {
-      const statusData = snapshot.val();
-      if (statusData) {
-        const userIds = Object.keys(statusData);
-
-        onValue(
-          usersRef,
-          (userSnapshot) => {
-            const usersData = userSnapshot.val();
-
-            const combinedUsers = userIds.map((uid) => {
-              const userStatus = statusData[uid];
-              const userDetails = usersData ? usersData[uid] : null;
-
-              return {
-                id: uid,
-                userName: userDetails?.userName || "Unknown User",
-                status:
-                  userStatus.state === "online"
-                    ? "Online"
-                    : `Last active: ${new Date(
-                        userStatus.last_changed
-                      ).toLocaleString()}`,
-              };
-            });
-
-            setUsers(combinedUsers);
-          },
-          { onlyOnce: true }
-        );
-      } else {
-        setUsers([]);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [db]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -113,15 +66,6 @@ const Chat = () => {
                       "start"
                     } ${index == 0 && "start"}`}
                   >
-                    {/* <div className="cm-text">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book. It has survived not only five
-                      centuries, but also the leap into electronic typesetting,
-                      remaining essentially unchanged.
-                    </div> */}
                     <div className="cm-text">{chat.text}</div>
                     <div className="cm-timestamp">
                       {chat.timestamp?.toDate().toLocaleTimeString([], {

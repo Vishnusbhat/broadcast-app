@@ -2,18 +2,19 @@ import "./login.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { getDocs, collection, query, where } from "firebase/firestore";
-import { db, ref, set, rtdb } from "../firebase";
+import {
+  get,
+  query,
+  orderByChild,
+  equalTo,
+  orderByKey,
+} from "firebase/database";
+import { ref, set, rtdb } from "../firebase";
 import { useView } from "../context/useView";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const {
-    userName,
-    pushView,
-    setUserName,
-    setUserID,
-  } = useView();
+  const { userName, pushView, setUserName, setUserID } = useView();
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -26,31 +27,35 @@ const Login = () => {
       setSubmitted((prev) => !prev);
     }, 100);
     try {
-      const usersRef = collection(db, "users");
-      const q = query(usersRef, where("userName", "==", userName));
-      const querySnapshot = await getDocs(q);
+      const usersRef = ref(rtdb, `users`);
+      const q = query(usersRef, orderByChild("userName"), equalTo(userName));
+      const querySnapshot = await get(q);
+      const userObj = Object.values(querySnapshot.val())
 
-      if (querySnapshot.empty) {
+      if (!querySnapshot.exists()) {
         toast.error("User not found");
         return;
       }
 
-      const userDoc = querySnapshot.docs[0].data();
+      const userID = userObj[0].id;
+      setUserID(userID);
+      const userIDStr = String(userID);
+      const passwordRef = ref(rtdb, `password`);
+      const pq = query(passwordRef, orderByKey(), equalTo(userIDStr));
+      const passwordSnapshot = await get(pq);
+      const passObj = Object.values(passwordSnapshot.val())
+      const dbPassword = passObj[0].password;
 
-      if (userDoc.password !== password) {
+      if (dbPassword !== password) {
         toast.error("Incorrect Password!");
         setSubmitted(false);
         return;
       }
-      const userId = querySnapshot.docs[0].id;
-      console.log("user id: " + userId);
-      setUserID(userId);
-      await set(ref(rtdb, `status/${userId}`), {
+
+      await set(ref(rtdb, `status/${userID}`), {
         state: "online",
         last_changed: Date.now()
       });
-
-      localStorage.setItem("userName", userDoc.userName);
       pushView("home");
     } catch (error) {
       console.error("Login error:", error.message);
