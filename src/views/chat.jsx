@@ -6,6 +6,7 @@ import { useChat } from "../context/useChat";
 
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useState, useEffect, useRef } from "react";
+import { ChartArea } from "lucide-react";
 
 const Chat = () => {
   const { chats, sendChat } = useChat();
@@ -97,25 +98,51 @@ const Chat = () => {
       {/* Messages */}
       <div className="chat-message-area">
         <div className="cm-chat-container">
-          {chats.length > 0 ? (
-            chats.map((chat) => (
-              <div key={chat.id} className="chat-message">
-                <strong>{chat.sender || "Unknown"}:</strong>{" "}
-                <div style={{ fontFamily: "inherit", whiteSpace: "pre-wrap" }}>
-                  {chat.text}
+          <div className="cm-chats">
+            {chats.length > 0 ? (
+              chats.map((chat, index) => (
+                <div key={chat.id} className={"chat-block"}>
+                  <div
+                    className={`chat-message  ${
+                      chat.sender === userName
+                        ? "sent-from-me"
+                        : "sent-from-others"
+                    } ${
+                      index > 0 &&
+                      chats[index - 1].sender !== chat.sender &&
+                      "start"
+                    } ${index == 0 && "start"}`}
+                  >
+                    {/* <div className="cm-text">
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s, when an unknown
+                      printer took a galley of type and scrambled it to make a
+                      type specimen book. It has survived not only five
+                      centuries, but also the leap into electronic typesetting,
+                      remaining essentially unchanged.
+                    </div> */}
+                    <div className="cm-text">{chat.text}</div>
+                    <div className="cm-timestamp">
+                      {chat.timestamp?.toDate().toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <p>No messages yet</p>
-          )}
-          <div ref={messagesEndRef} />
-          <div className="chat-users-status">
-            {users.map((u) => (
-              <div key={u.id}>
-                {u.userName} — {u.status}
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No messages yet</p>
+            )}
+            <div ref={messagesEndRef} />
+            {/* <div className="chat-users-status">
+              {users.map((u) => (
+                <div key={u.id}>
+                  {u.userName} — {u.status}
+                </div>
+              ))}
+            </div> */}
           </div>
         </div>
       </div>

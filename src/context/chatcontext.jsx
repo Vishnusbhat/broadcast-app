@@ -116,7 +116,7 @@ export const ChatProvider = ({ children }) => {
       await addDoc(collection(db, "chats"), {
         text,
         sender,
-        timestamp: serverTimestamp(),
+        timestamp: new Date(),
       });
     } catch (error) {
       console.error("Error sending chat message:", error);

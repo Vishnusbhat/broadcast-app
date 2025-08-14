@@ -103,12 +103,94 @@
 }
 
 .cm-chat-container {
+    padding: 8px;
     width: 100%;
     min-height: fit-content;
     width: 100%;
+    /* background-color: pink; */
 }
 
+.cm-chats {
+    /* background-color: violet; */
+    margin-left: 36px;
+    display: flex;
+    flex-direction: column;
+}
 
+.chat-block {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.chat-message.sent-from-me {
+    margin-left: auto;
+    margin-right: 14px;
+        background: #ebd4d4;
+}
+
+.chat-message.sent-from-me.start::after {
+    content: "";
+    position: absolute;
+    right: -12px;
+    top: 0px;
+    width: 0;
+    height: 0;
+    border-left: 24px solid #ebd4d4;
+    border-top: 0px solid transparent;
+    border-bottom: 18px solid transparent;
+}
+
+.chat-message.sent-from-others {
+    margin-right: auto;
+    margin-left: 14px;
+    background: #f4d3ff;
+}
+
+.chat-message.sent-from-others.start::after {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: 0px;
+    width: 0;
+    height: 0;
+    border-right: 24px solid #f4d3ff;
+    border-top: 0px solid transparent;
+    border-bottom: 18px solid transparent;
+}
+
+.chat-message {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    max-width: 75%;
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    position: relative;
+    color: black;
+}
+
+.cm-text {
+    white-space: pre-wrap;
+    word-break: break-word;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.cm-timestamp {
+    flex: none;
+    height: 4px;
+    font-size: 0.75em;
+    color: #888;
+    padding-left: 8px;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    margin-left: auto;
+    /* Optionally set a min-width if you want it to always fit on its own line if too tight:
+     min-width: 44px; 
+  */
+}
 
 
 
