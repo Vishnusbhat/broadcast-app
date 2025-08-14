@@ -1,8 +1,27 @@
 import "./home.css";
 import { useView } from "../context/useView";
+import { useChat } from "../context/useChat";
+import { useEffect, useState } from "react";
 
 const Home = () => {
-  const { user, role } = useView();
+  const { userName, role } = useView();
+  const { users } = useChat();
+  const [filteredUsers, setFilteredUsers] = useState([]);
+useEffect(() => {
+  console.log("Users from context:", users);
+
+    const updated = users
+  .filter(user => user.userName !== userName)
+  .sort((a, b) => {
+    if (a.status === "Online" && b.status !== "Online") return -1;
+    if (b.status === "Online" && a.status !== "Online") return 1;
+    return (b.lastActiveTime || 0) - (a.lastActiveTime || 0);
+  });
+
+  setFilteredUsers(updated);
+}, [users, userName]);
+
+
   const pendingVerification = [
     { companyName: "Google", createdBy: "Vishnu", createdAt: "10 minutes ago" },
     {
@@ -53,32 +72,20 @@ const Home = () => {
         </div>
       </div>
       <div className="online-profiles-container">
-        <div className="op-heading">Online Profiles</div>
+        <div className="op-heading">Profiles</div>
         <div className="op-profiles">
-          <div className="op-profile">
-            <div className="op-profiles-logo"></div>
-            <div className="op-profiles-name">Name</div>
-          </div>
-          <div className="op-profile">
-            <div className="op-profiles-logo"></div>
-            <div className="op-profiles-name">Name</div>
-          </div>
-          <div className="op-profile">
-            <div className="op-profiles-logo"></div>
-            <div className="op-profiles-name">Name</div>
-          </div>
-          <div className="op-profile">
-            <div className="op-profiles-logo"></div>
-            <div className="op-profiles-name">Name</div>
-          </div>
-          <div className="op-profile">
-            <div className="op-profiles-logo"></div>
-            <div className="op-profiles-name">Name</div>
-          </div>
-          <div className="op-profile">
-            <div className="op-profiles-logo"></div>
-            <div className="op-profiles-name">Name</div>
-          </div>
+          {filteredUsers.map((user, index) => (
+            <div className="op-profile" key={index}>
+              <div
+                className={`${
+                  user.status === "Online"
+                    ? "op-profiles-logo"
+                    : "ofp-profiles-logo"
+                }`}
+              ></div>
+              <div className="op-profiles-name">{user.userName}</div>
+            </div>
+          ))}
         </div>
       </div>
       <div className="urgent-verifications-container">
@@ -134,7 +141,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div className="offline-profiles-container">
+      {/* <div className="offline-profiles-container">
         <div className="ofp-heading">Offline Profiles</div>
         <div className="ofp-profiles">
           <div className="ofp-profile">
@@ -158,7 +165,7 @@ const Home = () => {
             <div className="ofp-profiles-name">Name</div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

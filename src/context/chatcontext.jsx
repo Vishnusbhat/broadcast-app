@@ -17,7 +17,7 @@ const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
   const [chats, setChats] = useState([]);
-  const [users, setUsers] = useState([]); // 👈 user list with status
+  const [users, setUsers] = useState([]);
   const [lastVisible, setLastVisible] = useState(null);
   const [latestTimestamp, setLatestTimestamp] = useState(null);
   const PAGE_SIZE = 50;
@@ -123,13 +123,12 @@ useEffect(() => {
   const statusRef = ref(rtdb, "status");
   const usersRef = ref(rtdb, "users");
 
-  // Store latest snapshots in local variables
   let statusMap = {};
   let usersMap = {};
 
   const unsubscribeStatus = onValue(statusRef, (statusSnap) => {
     statusMap = statusSnap.val() || {};
-    combineAndSet(usersMap, statusMap); // pass in usersMap as primary
+    combineAndSet(usersMap, statusMap); 
   });
 
   const unsubscribeUsers = onValue(usersRef, (usersSnap) => {
@@ -137,7 +136,6 @@ useEffect(() => {
     combineAndSet(usersMap, statusMap);
   });
 
-  // Merge: iterate over *all* users from usersData and attach status
   function combineAndSet(usersData, statusData) {
     const combined = Object.keys(usersData).map((uid) => {
       const userDetails = usersData[uid] || {};
@@ -150,7 +148,8 @@ useEffect(() => {
             ? "Online"
             : userStatus.last_changed
               ? `Last active: ${new Date(userStatus.last_changed).toLocaleString()}`
-              : "Offline", // default if no status entry
+              : "Offline", 
+        lastActiveTime: userStatus.last_changed || null
       };
     });
     setUsers(combined);

@@ -20,11 +20,7 @@ function AppContent() {
       {currentView === "login" && <Login />}
       {currentView === "home" && <Home />}
       {currentView === "create" && <Common />}
-      {currentView === "chat" && (
-        <ChatProvider>
-          <Chat />
-        </ChatProvider>
-      )}
+      {currentView === "chat" && <Chat />}
     </>
   );
 }
@@ -32,9 +28,11 @@ function AppContent() {
 export default function App() {
   return (
     <ViewProvider>
-      <div className="app-container">
-        <AppContent />
-      </div>
+      <ChatProvider>
+        <div className="app-container">
+          <AppContent />
+        </div>
+      </ChatProvider>
     </ViewProvider>
   );
 }

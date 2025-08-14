@@ -34,7 +34,6 @@ export const ViewProvider = ({ children }) => {
 
   useEffect(() => {
     setCurrentView(viewStack[viewStack.length - 1]);
-    console.log("View stack:", viewStack);
   }, [viewStack]);
 
   useEffect(() => {

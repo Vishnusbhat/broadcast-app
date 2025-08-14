@@ -66,6 +66,15 @@ const Chat = () => {
                       "start"
                     } ${index == 0 && "start"}`}
                   >
+                    <div
+                      className={`cm-label ${
+                        index === 0 || chats[index - 1].sender !== chat.sender
+                          ? ""
+                          : "off"
+                      }`}
+                    >
+                      {chat.sender}
+                    </div>
                     <div className="cm-text">{chat.text}</div>
                     <div className="cm-timestamp">
                       {chat.timestamp?.toDate().toLocaleTimeString([], {
@@ -80,18 +89,9 @@ const Chat = () => {
               <p>No messages yet</p>
             )}
             <div ref={messagesEndRef} />
-            {/* <div className="chat-users-status">
-              {users.map((u) => (
-                <div key={u.id}>
-                  {u.userName} — {u.status}
-                </div>
-              ))}
-            </div> */}
           </div>
         </div>
       </div>
-
-      {/* Input */}
       <div className="chat-text-area">
         <div className="ct-container">
           <div className="ct-textbox">

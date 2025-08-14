@@ -126,7 +126,7 @@
 .chat-message.sent-from-me {
     margin-left: auto;
     margin-right: 14px;
-        background: #ebd4d4;
+    background: #ebd4d4;
 }
 
 .chat-message.sent-from-me.start::after {
@@ -160,22 +160,38 @@
 }
 
 .chat-message {
+    flex-direction: column;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
-    max-width: 75%;
+    max-width: 80%;
     border-radius: 10px;
-    padding: 8px 12px;
+    padding: 4px 40px 4px 10px;
     margin-bottom: 8px;
     position: relative;
     color: black;
 }
 
+.cm-label {
+    margin: 0 4px 0 4px;
+    width: 100%;
+    justify-content: start;
+    font-weight: 600;
+}
+
 .cm-text {
+    display: flex;
+    justify-content: start;
+    width: 100%;
     white-space: pre-wrap;
     word-break: break-word;
     flex: 1 1 auto;
     min-width: 0;
+    margin: 0 4px 0 4px;
+}
+
+.off {
+    display: none;
 }
 
 .cm-timestamp {
@@ -187,6 +203,9 @@
     margin-bottom: 6px;
     white-space: nowrap;
     margin-left: auto;
+    position: absolute;
+    right: 6px;
+    bottom: 8px;
     /* Optionally set a min-width if you want it to always fit on its own line if too tight:
      min-width: 44px; 
   */
