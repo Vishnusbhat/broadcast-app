@@ -103,12 +103,13 @@ export const ChatProvider = ({ children }) => {
     }
   };
 
-  const sendChat = useCallback(async (text, sender) => {
+  const sendChat = useCallback(async (text, sender, replyTo) => {
     if (!text.trim()) return;
     try {
       await addDoc(collection(firestoreDb, "chats"), {
         text,
         sender,
+        replyTo,
         delivered: [],
         seen: [],
         timestamp: Date.now(),

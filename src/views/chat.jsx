@@ -1,6 +1,10 @@
 import "./chat.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faPaperPlane,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { useView } from "../context/useView";
 import { useChat } from "../context/useChat";
 import { useState, useEffect, useRef } from "react";
@@ -11,6 +15,48 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
+  const [replyTarget, setReplyTarget] = useState(null);
+  const pointerStartX = useRef(0);
+  const [draggedId, setDraggedId] = useState(null);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [scrollLocked, setScrollLocked] = useState(false);
+  const REPLY_DRAG_THRESHOLD = 60;
+
+  useEffect(() => {
+    console.log(replyTarget);
+  }, [replyTarget]);
+
+  function handlePointerDown(e, id) {
+    e.preventDefault();
+    pointerStartX.current = e.clientX;
+    setDraggedId(id);
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }
+
+  function handlePointerMove(e, id) {
+    if (draggedId === id && pointerStartX.current && !scrollLocked) {
+      const offset = Math.max(0, e.clientX - pointerStartX.current);
+      setDragOffset(offset);
+      if (offset > REPLY_DRAG_THRESHOLD && !scrollLocked) {
+        setScrollLocked(true);
+      }
+      if (offset <= REPLY_DRAG_THRESHOLD && scrollLocked) {
+        setScrollLocked(false);
+      }
+    }
+  }
+
+  function handlePointerUp(e, chat) {
+    if (draggedId === chat.id) {
+      if (dragOffset > 40) {
+        setReplyTarget(chat);
+      }
+      setDraggedId(null);
+      setDragOffset(0);
+      pointerStartX.current = 0;
+      setScrollLocked(false);
+    }
+  }
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -18,8 +64,9 @@ const Chat = () => {
 
   const handleSend = () => {
     if (message.trim()) {
-      sendChat(message, userName);
+      sendChat(message, userName, replyTarget);
       setMessage("");
+      setReplyTarget(null);
       textareaRef.current.style.height = "30px";
     }
   };
@@ -46,7 +93,13 @@ const Chat = () => {
         <div className="chat-text">
           <div className="chat-name">
             <div className="chat-profile-container">
-              <div className="chat-back-button" onClick={() => popView()}>
+              <div
+                className="chat-back-button"
+                onClick={() => {
+                  popView();
+                  setReplyTarget(null);
+                }}
+              >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </div>
               <div className="chat-profile"></div>
@@ -79,7 +132,9 @@ const Chat = () => {
                       </div>
                     </div>
                     <div
-                      className={`chat-message  ${
+                      className={`chat-message ${
+                        chat.id === draggedId ? "dragging" : ""
+                      } ${
                         chat.sender === userName
                           ? "sent-from-me"
                           : "sent-from-others"
@@ -89,6 +144,22 @@ const Chat = () => {
                           prev !== cur) &&
                         "start"
                       } ${index == 0 && "start"}`}
+                      onPointerDown={(e) => handlePointerDown(e, chat.id)}
+                      onPointerMove={(e) => handlePointerMove(e, chat.id)}
+                      onPointerUp={(e) => handlePointerUp(e, chat)}
+                      style={{
+                        transform:
+                          chat.id === draggedId
+                            ? `translateX(${dragOffset}px)`
+                            : "none",
+                        transition:
+                          chat.id === draggedId ? "none" : "transform 0.16s",
+                        cursor: "grab",
+                      }}
+                      // Optional: prevents unwanted text selection during drag
+                      onPointerLeave={(e) => {
+                        if (draggedId) handlePointerUp(e, chat);
+                      }}
                     >
                       <div
                         className={`cm-profile-pic ${
@@ -108,6 +179,14 @@ const Chat = () => {
                       >
                         {chat.sender === userName ? "You" : chat.sender}
                       </div>
+                      {chat.replyTo && (
+                        <div className="cm-reply-section">
+                          <div className="cmr-sender">
+                            {chat.replyTo.sender}
+                          </div>
+                          <div className="cmr-text">{chat.replyTo.text}</div>
+                        </div>
+                      )}
                       <div className="cm-text">{chat.text}</div>
                       <div className="cm-timestamp">
                         {new Date(chat.timestamp)?.toLocaleTimeString([], {
@@ -127,6 +206,32 @@ const Chat = () => {
         </div>
       </div>
       <div className="chat-text-area">
+        <div
+          className={`ct-reply-section ${replyTarget ? "active" : ""}`}
+          style={
+            replyTarget
+              ? { maxHeight: "200px", padding: "32px 10px 5px 10px" }
+              : { maxHeight: "0", padding: "0", minHeight: "0" }
+          }
+        >
+          <div className="ctr-cross" onClick={() => setReplyTarget(null)}>
+            <div className="ctr-cross-border">
+              <FontAwesomeIcon
+                icon={faXmark}
+                style={{ color: "#fff", cursor: "pointer" }}
+              />
+            </div>
+          </div>
+          {replyTarget && (
+            <div className="ctr-display">
+              <div className="ctr-label">
+                {replyTarget.sender === userName ? "You" : replyTarget.sender}
+              </div>
+              <div className="ctr-text">{replyTarget.text}</div>
+            </div>
+          )}
+        </div>
+
         <div className="ct-container">
           <div className="ct-textbox">
             <textarea

@@ -173,6 +173,7 @@
 .cm-date-container.visible {
     display: flex;
 }
+
 .cm-date {
     font-size: 10px;
     width: fit-content;
@@ -184,6 +185,8 @@
 }
 
 .chat-message {
+    touch-action: pan-y;
+    transition: transform 0.16s;
     flex-direction: column;
     display: flex;
     flex-wrap: wrap;
@@ -194,6 +197,11 @@
     margin-bottom: 8px;
     position: relative;
     color: black;
+}
+
+.chat-message.dragging {
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+    z-index: 3;
 }
 
 .cm-profile-pic {
@@ -218,6 +226,7 @@
     justify-content: start;
     font-weight: 600;
 }
+
 
 .cm-text {
     display: block;
@@ -254,7 +263,7 @@
 .chat-text-area {
     width: 100%;
     /* min-height: 70px; */
-    max-height: 150px;
+    max-height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -277,6 +286,90 @@
     justify-content: center;
     align-items: start;
     padding-left: 8px;
+}
+
+.ct-reply-section {
+    display: flex;
+    transform: scaleY(0);
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    z-index: 999;
+    width: 86%;
+    background-color: #6f578b;
+    border-radius: 8px;
+    color: black;
+    padding: 20px 10px 0 10px;
+    margin: 4px 16px 4px 16px;
+    position: relative;
+    min-height: 97px;
+}
+
+.ctr-cross {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+}
+
+.ctr-cross-border {
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    width: 24px;
+    border-radius: 12px;
+    border: beige 1px solid;
+}
+.ct-reply-section.active {
+    transform: scaleY(1);
+}
+
+.ctr-display {
+    background-color: #ffffff85;
+    width: 100%;
+    height: 100%;
+}
+
+.ctr-label {
+    width: fit-content;
+    font-weight: 500;
+    padding: 6px 6px 0 6px;
+}
+
+.cm-reply-section {
+    overflow: hidden;
+    min-width: 0;
+    width: 300px;
+    max-height: 80px;
+    background-color: #004f5fbd;
+    margin: 4px 0;
+    border-radius: 8px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.cmr-sender {
+    font-weight: 500;
+}
+.cmr-text {
+    min-width: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ctr-text {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 6px 6px 6px;
+    flex: 1 1 0;
 }
 
 .ct-send-button {
