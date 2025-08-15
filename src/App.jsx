@@ -20,7 +20,7 @@ function AppContent() {
       {currentView === "login" && <Login />}
       {currentView === "home" && <Home />}
       {currentView === "create" && <Common />}
-      {currentView === "chat" && <Chat />}
+      <Chat />
     </>
   );
 }

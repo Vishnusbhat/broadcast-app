@@ -4,6 +4,7 @@ import { faArrowLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useView } from "../context/useView";
 import { useChat } from "../context/useChat";
 import { useState, useEffect, useRef } from "react";
+import { formatDate } from "../utils/formatDate";
 
 const Chat = () => {
   const { chats, sendChat, users } = useChat();
@@ -29,10 +30,17 @@ const Chat = () => {
     component.style.height = newHeight < 150 ? `${newHeight}px` : "150px";
   };
 
-  const { popView, userName } = useView();
+  const { popView, userName, currentView } = useView();
 
   return (
-    <div className="chat-container">
+    <div
+      className="chat-container"
+      style={{
+        opacity: currentView === "chat" ? 1 : 0,
+        pointerEvents: currentView === "chat" ? "auto" : "none",
+        // transition: "opacity 0.3s ease",
+      }}
+    >
       {/* Header */}
       <div className="chat-heading-container">
         <div className="chat-text">
@@ -53,38 +61,59 @@ const Chat = () => {
         <div className="cm-chat-container">
           <div className="cm-chats">
             {chats.length > 0 ? (
-              chats.map((chat, index) => (
-                <div key={chat.id} className={"chat-block"}>
-                  <div
-                    className={`chat-message  ${
-                      chat.sender === userName
-                        ? "sent-from-me"
-                        : "sent-from-others"
-                    } ${
-                      index > 0 &&
-                      chats[index - 1].sender !== chat.sender &&
-                      "start"
-                    } ${index == 0 && "start"}`}
-                  >
+              chats.map((chat, index) => {
+                const currentDateOnly = new Date(chat.timestamp);
+                const prevDateOnly = new Date(chats[index - 1]?.timestamp);
+                const prev = prevDateOnly.setHours(0, 0, 0, 0);
+                const cur = currentDateOnly.setHours(0, 0, 0, 0);
+                const dayDiff =
+                  (currentDateOnly.setHours(0, 0, 0, 0) -
+                    prevDateOnly.setHours(0, 0, 0, 0)) /
+                  86400000;
+                console.log(dayDiff);
+                return (
+                  <div key={chat.id} className={"chat-block"}>
                     <div
-                      className={`cm-label ${
-                        index === 0 || chats[index - 1].sender !== chat.sender
-                          ? ""
-                          : "off"
-                      }`}
+                      className={`cm-date-container ${
+                        index > 0 && prev !== cur ? "visible" : ""
+                      }
+                    ${index === 0 ? "visible" : ""}`}
                     >
-                      {chat.sender}
+                      <div className="cm-date">
+                        {formatDate(chat.timestamp)}
+                      </div>
                     </div>
-                    <div className="cm-text">{chat.text}</div>
-                    <div className="cm-timestamp">
-                      {chat.timestamp?.toDate().toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
+                    <div
+                      className={`chat-message  ${
+                        chat.sender === userName
+                          ? "sent-from-me"
+                          : "sent-from-others"
+                      } ${
+                        index > 0 &&
+                        chats[index - 1].sender !== chat.sender &&
+                        "start"
+                      } ${index == 0 && "start"}`}
+                    >
+                      <div
+                        className={`cm-label ${
+                          index === 0 || chats[index - 1].sender !== chat.sender
+                            ? ""
+                            : "off"
+                        }`}
+                      >
+                        {chat.sender === userName ? "You" : chat.sender}
+                      </div>
+                      <div className="cm-text">{chat.text}</div>
+                      <div className="cm-timestamp">
+                        {new Date(chat.timestamp)?.toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
+                );
+              })
             ) : (
               <p>No messages yet</p>
             )}

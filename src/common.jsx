@@ -160,7 +160,6 @@ const Common = () => {
     setOpenForm((prev) => {
       const p = { ...prev };
       const isolated = getDeadline(Date.now());
-      console.log("original deadline: " + isolated);
       const current_state = fetchCurrentDBState();
       const finalDeadline = modifyDeadline(isolated, p.branches, current_state);
 

@@ -111,7 +111,7 @@ export const ChatProvider = ({ children }) => {
         sender,
         delivered: [],
         seen: [],
-        timestamp: new Date(),
+        timestamp: Date.now(),
       });
     } catch (error) {
       console.error("Error sending chat message:", error);

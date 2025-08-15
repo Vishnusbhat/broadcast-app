@@ -8,8 +8,6 @@ const Home = () => {
   const { users } = useChat();
   const [filteredUsers, setFilteredUsers] = useState([]);
 useEffect(() => {
-  console.log("Users from context:", users);
-
     const updated = users
   .filter(user => user.userName !== userName)
   .sort((a, b) => {
