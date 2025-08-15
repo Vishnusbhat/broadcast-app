@@ -66,11 +66,6 @@ const Chat = () => {
                 const prevDateOnly = new Date(chats[index - 1]?.timestamp);
                 const prev = prevDateOnly.setHours(0, 0, 0, 0);
                 const cur = currentDateOnly.setHours(0, 0, 0, 0);
-                const dayDiff =
-                  (currentDateOnly.setHours(0, 0, 0, 0) -
-                    prevDateOnly.setHours(0, 0, 0, 0)) /
-                  86400000;
-                console.log(dayDiff);
                 return (
                   <div key={chat.id} className={"chat-block"}>
                     <div
@@ -90,10 +85,20 @@ const Chat = () => {
                           : "sent-from-others"
                       } ${
                         index > 0 &&
-                        chats[index - 1].sender !== chat.sender &&
+                        (chats[index - 1].sender !== chat.sender ||
+                          prev !== cur) &&
                         "start"
                       } ${index == 0 && "start"}`}
                     >
+                      <div
+                        className={`cm-profile-pic ${
+                          chat.sender !== userName &&
+                          index > 0 &&
+                          (chats[index - 1].sender !== chat.sender ||
+                            prev !== cur) &&
+                          "show"
+                        } ${chat.sender !== userName && index == 0 && "show"}`}
+                      ></div>
                       <div
                         className={`cm-label ${
                           index === 0 || chats[index - 1].sender !== chat.sender

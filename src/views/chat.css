@@ -196,6 +196,22 @@
     color: black;
 }
 
+.cm-profile-pic {
+    width: 36px;
+    height: 36px;
+    background-color: black;
+    position: absolute;
+    border-radius: 18px;
+    top: -2px;
+    left: -50px;
+    border: white 2px solid;
+    display: none;
+}
+
+.cm-profile-pic.show {
+    display: block;
+}
+
 .cm-label {
     margin: 0 4px 0 4px;
     width: 100%;
