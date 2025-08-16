@@ -7,6 +7,11 @@ const formatDate = (date) => {
   const currentDate = new Date(date);
   currentDate.setHours(0, 0, 0, 0);
 
+  const weekday = currentDate.toLocaleDateString([], { weekday: "short" });
+  const day = currentDate.toLocaleDateString([], { day: "numeric" });
+  const month = currentDate.toLocaleDateString([], { month: "short" });
+  const year = currentDate.toLocaleDateString([], { year: "numeric" });
+
   if (currentDate.getTime() === todayDate.getTime()) {
     return "Today";
   } else if (currentDate.getTime() === yesterday.getTime()) {
@@ -16,19 +21,10 @@ const formatDate = (date) => {
     if (diffDays < 7) {
       return currentDate.toLocaleDateString([], { weekday: "long" });
     } else {
-      return currentDate.toLocaleDateString([], {
-        weekday: "short",
-        day: "numeric",
-        month: "short",
-      });
+      return `${day} ${month} ${year}, ${weekday}`;
     }
   } else {
-    return currentDate.toLocaleDateString([], {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
+    return `${day} ${month} ${year}, ${weekday}`;
   }
 };
 

@@ -11,7 +11,7 @@ import { useState, useEffect, useRef } from "react";
 import { formatDate } from "../utils/formatDate";
 
 const Chat = () => {
-  const { chats, sendChat, users } = useChat();
+  const { chats, sendChat } = useChat();
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
@@ -23,7 +23,7 @@ const Chat = () => {
   const REPLY_DRAG_THRESHOLD = 60;
 
   useEffect(() => {
-    console.log(replyTarget);
+    textareaRef.current?.focus();
   }, [replyTarget]);
 
   function handlePointerDown(e, id) {
@@ -235,10 +235,17 @@ const Chat = () => {
         <div className="ct-container">
           <div className="ct-textbox">
             <textarea
+              autoFocus
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onInput={(e) => handleInputHeight(e.target)}
               rows={1}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSend();
+                }
+              }}
               className="ct-textbox"
               placeholder="Type here"
               ref={textareaRef}
