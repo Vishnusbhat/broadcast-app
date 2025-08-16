@@ -23,7 +23,7 @@ const Chat = () => {
   const REPLY_DRAG_THRESHOLD = 60;
 
   useEffect(() => {
-    textareaRef.current?.focus();
+    if (replyTarget) textareaRef.current?.focus();
   }, [replyTarget]);
 
   function handlePointerDown(e, id) {
@@ -32,6 +32,10 @@ const Chat = () => {
     setDraggedId(id);
     e.currentTarget.setPointerCapture(e.pointerId);
   }
+
+  function isAndroid() {
+  return /android/i.test(navigator.userAgent);
+}
 
   function handlePointerMove(e, id) {
     if (draggedId === id && pointerStartX.current && !scrollLocked) {
@@ -241,7 +245,7 @@ const Chat = () => {
               onInput={(e) => handleInputHeight(e.target)}
               rows={1}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
+                if (!isAndroid() && e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
                   handleSend();
                 }
