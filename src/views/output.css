@@ -1,17 +1,60 @@
 .output-container {
     width: 100vw;
-    height: 100vh;
     padding: 24px;
     font-size: 16px;
     position: relative;
+    background-color: black;
 }
 
-.output-container pre {
+
+.o-urgent-button {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    bottom: -40px;
+    left: 50%;
+    border-radius: 8px;
+    transform: translate(-50%);
+    position: absolute;
+    width: auto;
+    height: 30px;
+    border: #555555 1px solid;
+}
+
+.o-urgent-button.true {
+    background-color: #468900;
+}
+
+.o-create-broadcast-button {
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    position: absolute;
+    bottom: -90px;
+    left: 50%;
+    transform: translate(-50%);
+    width: auto;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #555555;
+}
+
+.o-create-broadcast-button.pressed {
+    background-color: #555555b5;
+}
+
+.o-broadcast-text {
+    position: relative;
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word;
     font-family: inherit;
     width: 100%;
+    margin-bottom: 140px;
 }
 
 
@@ -83,15 +126,17 @@
     align-items: center;
 }
 
-.drawer > * {
+.drawer>* {
     padding-bottom: 16px;
     opacity: 0;
     transform: translateY(-10px);
 
 }
-.drawer.close > * {
+
+.drawer.close>* {
     pointer-events: none;
 }
+
 .drawer.open {
     pointer-events: auto;
     visibility: visible;
@@ -123,28 +168,31 @@
         transform: translateY(0);
     }
 }
+
 @keyframes slideOut {
     from {
         opacity: 1;
         transform: translateY(0);
     }
+
     to {
         opacity: 0;
         transform: translateY(-20px);
     }
 }
-.drawer > * {
+
+.drawer>* {
     animation: slideOut 0.3s backwards;
 }
 
-.drawer > *:nth-child(1) {
+.drawer>*:nth-child(1) {
     animation-delay: 0.1s;
 }
 
-.drawer > *:nth-child(2) {
+.drawer>*:nth-child(2) {
     animation-delay: 0.2s;
 }
 
-.drawer > *:nth-child(3) {
+.drawer>*:nth-child(3) {
     animation-delay: 0.3s;
 }

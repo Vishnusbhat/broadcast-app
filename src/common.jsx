@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Selector from "./views/selector";
 import Preview from "./views/preview";
 import Output from "./views/output";
-import Navbar from "./components/navbar";
+import { useView } from "./context/useView";
 import {
   fetchCurrentDBState,
   getDeadline,
@@ -11,6 +11,7 @@ import {
 
 const Common = () => {
   const [broadcast, setBroadcast] = useState("");
+  const { userName } = useView();
   const [notes, setNotes] = useState([]);
   const [openForm, setOpenForm] = useState({
     companyName: "",
@@ -74,6 +75,7 @@ const Common = () => {
     type: "On-Campus",
     course: "BTech",
     category: "Open",
+    company: ""
   });
   useEffect(() => {
     setBroadcast("");
@@ -143,6 +145,8 @@ const Common = () => {
     });
   }, [initForm.course]);
 
+  useEffect(() => {setInitForm((prev) => ({...prev, company: openForm.companyName}))}, [openForm.companyName]);
+
   useEffect(() => {
     setOpenForm((prev) => {
       const p = { ...prev };
@@ -172,6 +176,17 @@ const Common = () => {
   return (
     <>
       {/* <Navbar /> */}
+       <div className="common-heading-container">
+        <div className="common-text">
+          <div className="common-name">
+            Hello {userName}!
+            <div className="common-profile-container">
+              <div className="common-profile"></div>
+            </div>
+          </div>
+          <span className="common-label">Create Broadcast</span>
+        </div>
+      </div>
       <Selector
         initForm={initForm}
         setInitForm={setInitForm}
@@ -190,7 +205,7 @@ const Common = () => {
         resultForm={resultForm}
         broadcast={broadcast}
       /> */}
-      <Output broadcast={broadcast} setOpenForm={setOpenForm} />
+      <Output broadcast={broadcast} initForm={initForm} />
     </>
   );
 };

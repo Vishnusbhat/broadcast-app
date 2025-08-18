@@ -1,5 +1,5 @@
 import SearchBox from "./searchBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ResultGenerator from "../generator/result";
 
 import "./selector.css";
@@ -11,8 +11,10 @@ const Result = ({
   broadcast,
   setBroadcast,
   initForm,
+  setInitForm
 }) => {
   const [company, setCompany] = useState("");
+  useEffect(() => {setInitForm((prev) => ({...prev, company: company}))}, [company]);
 
   return (
     <>

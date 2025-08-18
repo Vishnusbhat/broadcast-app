@@ -9,9 +9,25 @@ import Home from "./views/home";
 import BottomNav from "./views/bottomNav";
 import Chat from "./views/chat";
 import { ChatProvider } from "./context/chatcontext";
+import { useEffect } from "react";
+import MyBroadcasts from "./views/mybroadcasts";
+import axios from "axios";
 
 function AppContent() {
+  const wakeUpCronService = async () => {
+    try {
+      const cronServiceResponse = await axios.get(
+        "https://cron-service-3343.onrender.com/wakeup"
+      );
+      console.log(cronServiceResponse);
+    } catch {
+      console.log("Cron service not responded.");
+    }
+  };
   const { currentView } = useView();
+  useEffect(() => {
+    wakeUpCronService();
+  }, []);
 
   return (
     <>
@@ -20,6 +36,7 @@ function AppContent() {
       {currentView === "login" && <Login />}
       {currentView === "home" && <Home />}
       {currentView === "create" && <Common />}
+      {currentView === "broadcast" && <MyBroadcasts />}
       <Chat />
     </>
   );

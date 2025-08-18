@@ -8,11 +8,12 @@
   /* font-family: "Merriweather", serif; */
   font-family: "Poppins", sans-serif;
   font-optical-sizing: auto;
-  overscroll-behavior: contain; 
+  overscroll-behavior: contain;
+  background: linear-gradient(to bottom right, #539ffc, #dbeafe);
 }
 
 * {
-  overscroll-behavior: none; 
+  overscroll-behavior: none;
   box-sizing: border-box;
   max-width: 100%;
   user-select: none;

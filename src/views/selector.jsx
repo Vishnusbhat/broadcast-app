@@ -4,7 +4,6 @@ import CompanyInput from "./companyInput";
 import ProfileInput from "./profileInput";
 import Result from "./result";
 import CommonProfileInput from "./commonProfileInput";
-import CopyButton from "../copy";
 import OpenGenerator from "../generator/open";
 import Dropdown from "../components/dropdown";
 import NoteSection from "../components/notesection";
@@ -162,6 +161,7 @@ const Selector = ({
                 toggleResult={toggleResult}
                 setBroadcast={setBroadcast}
                 broadcast={broadcast}
+                setInitForm={setInitForm}
               />
             </>
           )}

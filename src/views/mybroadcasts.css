@@ -1,0 +1,85 @@
+.my-broadcasts-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(to bottom right, #60a5fa, #99c5ff);
+    overflow-y: hidden;
+    position: fixed;
+    inset: 0;
+    justify-content: start;
+}
+
+.my-broadcasts-container {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom right, #60a5fa, #99c5ff);
+    overflow-y: auto;
+}
+
+.my-broadcasts-heading-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.my-broadcasts-text {
+    height: inherit;
+    padding: 16px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    color: white;
+}
+
+.my-broadcasts-name {
+    font-weight: 700;
+    flex: 1;
+    font-size: 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.my-broadcasts-profile-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex: 1;
+    height: auto;
+}
+
+.my-broadcasts-profile {
+    width: 44px;
+    height: 44px;
+    border: white 2px solid;
+    border-radius: 22px;
+    background-color: #85858e;
+}
+
+.my-broadcasts-label {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 400px) {
+    .my-broadcasts-label {
+        font-size: 5vw;
+    }
+}
+
+
+.mb-broadcast-container {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    margin-bottom: 50px;
+}
+
+.mb-no-active-broadcasts {
+    font-size: 18px;
+}

@@ -1,6 +1,6 @@
 // src/firebase.js
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, collection, addDoc, onSnapshot } from "firebase/firestore";
 import { getDatabase, ref, onValue, set, onDisconnect } from "firebase/database"; 
 
 const firebaseConfig = {
@@ -20,4 +20,4 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);       
 const rtdb = getDatabase(app);       
 
-export { db, rtdb, ref, onValue, set, onDisconnect };
+export { db, rtdb, ref, onValue, set, onDisconnect, collection, addDoc, onSnapshot };

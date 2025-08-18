@@ -61,7 +61,7 @@ useEffect(() => {
       <div className="home-heading-container">
         <div className="home-text">
           <div className="home-name">
-            Hello Vishnu!
+            Hello {userName}!
             <div className="home-profile-container">
               <div className="home-profile"></div>
             </div>

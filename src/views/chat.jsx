@@ -9,6 +9,8 @@ import { useView } from "../context/useView";
 import { useChat } from "../context/useChat";
 import { useState, useEffect, useRef } from "react";
 import { formatDate } from "../utils/formatDate";
+import EmojiPicker from 'emoji-picker-react';
+
 
 const Chat = () => {
   const { chats, sendChat } = useChat();
@@ -34,8 +36,8 @@ const Chat = () => {
   }
 
   function isAndroid() {
-  return /android/i.test(navigator.userAgent);
-}
+    return /android/i.test(navigator.userAgent);
+  }
 
   function handlePointerMove(e, id) {
     if (draggedId === id && pointerStartX.current && !scrollLocked) {
@@ -89,10 +91,8 @@ const Chat = () => {
       style={{
         opacity: currentView === "chat" ? 1 : 0,
         pointerEvents: currentView === "chat" ? "auto" : "none",
-        // transition: "opacity 0.3s ease",
       }}
     >
-      {/* Header */}
       <div className="chat-heading-container">
         <div className="chat-text">
           <div className="chat-name">
@@ -112,8 +112,6 @@ const Chat = () => {
           <span className="chat-label">Group Chat</span>
         </div>
       </div>
-
-      {/* Messages */}
       <div className="chat-message-area">
         <div className="cm-chat-container">
           <div className="cm-chats">
@@ -135,6 +133,7 @@ const Chat = () => {
                         {formatDate(chat.timestamp)}
                       </div>
                     </div>
+                     {/* <div className="cm-reation-container"></div> */}
                     <div
                       className={`chat-message ${
                         chat.id === draggedId ? "dragging" : ""
@@ -160,11 +159,11 @@ const Chat = () => {
                           chat.id === draggedId ? "none" : "transform 0.16s",
                         cursor: "grab",
                       }}
-                      // Optional: prevents unwanted text selection during drag
                       onPointerLeave={(e) => {
                         if (draggedId) handlePointerUp(e, chat);
                       }}
                     >
+                     
                       <div
                         className={`cm-profile-pic ${
                           chat.sender !== userName &&
@@ -191,7 +190,9 @@ const Chat = () => {
                           <div className="cmr-text">{chat.replyTo.text}</div>
                         </div>
                       )}
-                      <div className="cm-text">{chat.text}</div>
+                      <div className="cm-text">
+                        {chat.text}
+                      </div>
                       <div className="cm-timestamp">
                         {new Date(chat.timestamp)?.toLocaleTimeString([], {
                           hour: "2-digit",

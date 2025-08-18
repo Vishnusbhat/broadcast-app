@@ -49,7 +49,7 @@ const BottomNav = () => {
             }}
           />
         </div>
-        <div className="bn-option" onClick={() => handleClick("verification")}>
+        <div className="bn-option" onClick={() => handleClick("broadcast")}>
           <FontAwesomeIcon
             icon={faThumbsUp}
             size="2x"
