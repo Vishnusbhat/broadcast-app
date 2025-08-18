@@ -14,6 +14,7 @@ import MyBroadcasts from "./views/mybroadcasts";
 import axios from "axios";
 
 function AppContent() {
+  const { popView } = useView();
   const wakeUpCronService = async () => {
     try {
       const cronServiceResponse = await axios.get(
@@ -33,9 +34,10 @@ function AppContent() {
     const handlePopState = (event) => {
       event.preventDefault();
       window.history.pushState(null, document.title, window.location.href);
-      alert(
-        "Back is disabled! (Customize this logic if you want a custom modal or action.)"
-      );
+      // alert(
+      //   "Back is disabled! (Customize this logic if you want a custom modal or action.)"
+      // );
+      popView();
     };
     window.history.pushState(null, document.title, window.location.href);
     window.addEventListener("popstate", handlePopState);
