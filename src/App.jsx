@@ -29,6 +29,22 @@ function AppContent() {
     wakeUpCronService();
   }, []);
 
+  useEffect(() => {
+    const handlePopState = (event) => {
+      event.preventDefault();
+      window.history.pushState(null, document.title, window.location.href);
+      alert(
+        "Back is disabled! (Customize this logic if you want a custom modal or action.)"
+      );
+    };
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
   return (
     <>
       <ToastContainer />
