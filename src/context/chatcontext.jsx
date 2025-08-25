@@ -1,4 +1,3 @@
-// ChatContext.jsx
 import { createContext, useState, useEffect, useCallback, useRef } from "react";
 import {
   collection,

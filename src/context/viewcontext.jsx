@@ -1,16 +1,21 @@
-import React, { createContext, useState, useEffect } from "react";
-import { rtdb, ref, onValue, set, onDisconnect } from "../firebase"; 
+import { createContext, useState, useEffect } from "react";
+import { rtdb, ref, onValue, set, onDisconnect } from "../firebase";
+import { db, collection, onSnapshot, query, where, orderBy } from "../firebase";
 const ViewContext = createContext();
 
 export const ViewProvider = ({ children }) => {
   const [viewStack, setViewStack] = useState(["login"]);
   const [currentView, setCurrentView] = useState();
+  const [myBroadcasts, setMyBroadcasts] = useState([]);
+  const [verifBroadcast, setVerifBroadcast] = useState([]);
+  const [broadcasts, setBroadcasts] = useState([]);
+  const [currentMyBroadcast, setCurrentMyBroadcast] = useState(null);
   const [userObj, setUserObj] = useState({
     userName: "",
     role: "",
     phoneNumber: "",
     userId: "",
-    verificationThreshold: 5
+    verificationThreshold: 5,
   });
 
   const pushView = (view) => {
@@ -27,7 +32,11 @@ export const ViewProvider = ({ children }) => {
     });
   };
 
-  const setUserName = (user) => setUserObj((prev) => ({ ...prev, userName: user }));
+  const setOpenMyBroadcast = (broadcast) => {
+    setCurrentMyBroadcast(broadcast);
+  };
+  const setUserName = (user) =>
+    setUserObj((prev) => ({ ...prev, userName: user }));
   const setUserRole = (role) => setUserObj((prev) => ({ ...prev, role: role }));
   const setUserPhoneNumber = (phoneNumber) =>
     setUserObj((prev) => ({ ...prev, phoneNumber }));
@@ -38,8 +47,8 @@ export const ViewProvider = ({ children }) => {
   }, [viewStack]);
 
   useEffect(() => {
-    if (!userObj.userId) return; 
-    console.log('userId in useeffect: ' + userObj.userId);
+    if (!userObj.userId) return;
+    console.log("userId in useeffect: " + userObj.userId);
     const connectedRef = ref(rtdb, ".info/connected");
     const userStatusRef = ref(rtdb, `status/${userObj.userId}`);
 
@@ -57,13 +66,41 @@ export const ViewProvider = ({ children }) => {
       }
     });
 
-    return () => unsubscribe();
-  }, [userObj.userId]);
+    const q = query(
+      collection(db, "broadcasts"),
+      orderBy("createdAt", "desc"),
+      where("createdBy", "==", userObj.userName)
+    );
+    const unsub = onSnapshot(q, (snapshot) => {
+      setMyBroadcasts(
+        snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      );
+    });
+
+    return () => {
+      unsubscribe();
+      unsub();
+    };
+  }, [userObj.userId, userObj.userName]);
+
+  useEffect(() => {
+    const q = query(collection(db, "broadcasts"));
+    const unsub = onSnapshot(q, (snapshot) => {
+      setBroadcasts(
+        snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      );
+
+      return () => {
+        unsub();
+      };
+    });
+  }, []);
 
   return (
     <ViewContext.Provider
       value={{
         ...userObj,
+        currentMyBroadcast,
         currentView,
         pushView,
         popView,
@@ -71,6 +108,11 @@ export const ViewProvider = ({ children }) => {
         setUserRole,
         setUserPhoneNumber,
         setUserID,
+        myBroadcasts,
+        setOpenMyBroadcast,
+        broadcasts,
+        verifBroadcast,
+        setVerifBroadcast
       }}
     >
       {children}

@@ -12,9 +12,10 @@ import { ChatProvider } from "./context/chatcontext";
 import { useEffect } from "react";
 import MyBroadcasts from "./views/mybroadcasts";
 import axios from "axios";
+import VerifBroadcast from "./views/verifBroadcast";
 
 function AppContent() {
-  const { popView } = useView();
+  const { popView, verifBroadcast, currentView } = useView();
   const wakeUpCronService = async () => {
     try {
       const cronServiceResponse = await axios.get(
@@ -25,7 +26,6 @@ function AppContent() {
       console.log("Cron service not responded.");
     }
   };
-  const { currentView } = useView();
   useEffect(() => {
     wakeUpCronService();
   }, []);
@@ -52,6 +52,7 @@ function AppContent() {
       {currentView === "home" && <Home />}
       {currentView === "create" && <Common />}
       {currentView === "broadcast" && <MyBroadcasts />}
+      {currentView === "verif-broadcast" && <VerifBroadcast id={verifBroadcast}/>}
       <Chat />
     </>
   );

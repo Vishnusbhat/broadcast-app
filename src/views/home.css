@@ -160,7 +160,7 @@
     display: flex;
     justify-content: space-between;
     min-width: 250px;
-    max-width: 300px;
+    max-width: 330px;
     height: auto;
     margin-right: 16px;
     /* background: linear-gradient(to bottom right, #ffe0e0, #fff7ed); */
@@ -181,6 +181,7 @@
     padding: 16px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .uv-company-name {
@@ -189,6 +190,9 @@
     font-weight: 500;
     font-size: 24px;
     margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .uv-created-by {
@@ -203,7 +207,7 @@
 }
 
 .uv-labels {
-    width: 120px;
+    min-width: 120px;
     height: 100%;
     /* background-color: red; */
     padding: 16px;
@@ -214,6 +218,7 @@
 }
 
 .uv-label {
+    padding: 0 16px 0 16px;
     width: 64px;
     height: 30px;
     background-color: #60a5fa;
@@ -236,6 +241,34 @@
     align-items: center;
     color: black;
     border: #50ff00 1px solid;
+}
+
+.v-counts {
+    display: flex;
+    flex-direction: column;
+}
+
+.v-corrections {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.v-corrections svg {
+    margin-right: 4px;
+}
+
+.v-verifications {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.v-verifications svg {
+    margin-right: 4px;
 }
 
 .pending-verifications-container {
