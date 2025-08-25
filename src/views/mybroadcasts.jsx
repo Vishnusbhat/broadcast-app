@@ -40,7 +40,7 @@ const MyBroadcasts = () => {
             {broadcasts.map((broadcast, index) => {
               return (
                 <div className="mb-broadcast" key={index}>
-                  {broadcast.verified.length <= verificationThreshold && (
+                  {broadcast.verified?.length <= verificationThreshold && (
                     <div className="mb-verified-label">
                       <svg
                         width="24"
@@ -166,7 +166,7 @@ const MyBroadcasts = () => {
                       0
                     </div>
                   </div>
-                  <div className="mb-comments">
+                  {/* <div className="mb-comments">
                     <svg
                       width="24"
                       height="24"
@@ -202,7 +202,7 @@ const MyBroadcasts = () => {
                         />
                       </defs>
                     </svg>
-                  </div>
+                  </div> */}
                   <div className="mb-createdate">
                     {createdBefore(broadcast.createdAt)}
                   </div>
