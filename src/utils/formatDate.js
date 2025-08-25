@@ -28,4 +28,23 @@ const formatDate = (date) => {
   }
 };
 
-export { formatDate };
+const createdBefore = (timestamp) => {
+  const now = Date.now();
+  const difference = now - timestamp;
+  if (difference < 60 * 1000) {
+    if (Math.floor(difference / 1000) === 0) return 'now'
+    return `${Math.floor(difference / 1000)} seconds ago`;
+  } else if (difference < 1000 * 60 * 60) {
+    return `${Math.floor(difference / (60 * 1000))} minutes ago`;
+  } else if (difference < 1000 * 60 * 60 * 24) {
+    return `${Math.floor(difference / (60 * 1000 * 60))} hours ago`;
+  } else {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = date.toLocaleString('default', { month: 'short' });
+    const dayofweek = date.toLocaleString('default', { weekday: 'short' });
+    const day = date.getDate();
+    return `${day} ${month} ${year}, ${dayofweek}`;
+  }
+};
+export { formatDate, createdBefore };

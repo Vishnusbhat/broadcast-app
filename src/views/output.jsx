@@ -25,6 +25,8 @@ const Output = ({ broadcast, initForm }) => {
         createdBy: userName,
         createdAt: Date.now(),
         broadcast: broadcast,
+        verified: [],
+        changes: [],
         label: initForm.category,
         company: initForm.company,
         urgent: urgent,

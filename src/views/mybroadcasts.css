@@ -11,6 +11,7 @@
     justify-content: start;
 }
 
+/* 
 .my-broadcasts-container {
     min-height: 100vh;
     width: 100vw;
@@ -18,7 +19,8 @@
     flex-direction: column;
     background: linear-gradient(to bottom right, #60a5fa, #99c5ff);
     overflow-y: auto;
-}
+    margin-bottom: 200px;
+} */
 
 .my-broadcasts-heading-container {
     width: 100%;
@@ -78,6 +80,108 @@
     overflow-y: auto;
     padding: 16px;
     margin-bottom: 50px;
+    margin-bottom: 100px;
+}
+
+.mb-active-broadcasts {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mb-broadcast {
+    width: 350px;
+    height: auto;
+    background-color: rgba(192, 55, 246, 0.376);
+    margin-bottom: 12px;
+    border-radius: 12px;
+    padding: 16px;
+    position: relative;
+}
+
+.mb-company-name {
+    padding: 8px 0 0 8px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 22px;
+    justify-content: start;
+    margin-bottom: 4px;
+    width: 93%;
+    overflow: hidden;
+    position: relative;
+}
+
+.mb-urgent-label {
+    min-width: 20px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin-right: 8px;
+}
+
+.mb-verified-label {
+    min-width: 20px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin-right: 8px;
+    position: absolute;
+    right: 2px;
+    top: 30px;
+}
+
+.mb-label {
+    font-weight: 400;
+    font-size: 20px;
+    padding: 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.mb-label svg {
+    margin-right: 8px;
+}
+.mb-counts {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}
+.mb-corrections {
+    font-weight: 400;
+    font-size: 20px;
+    padding: 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-right: 32px;
+}
+
+.mb-corrections svg {
+    margin-right: 8px;
+}
+
+.mb-verifications {
+    font-weight: 400;
+    font-size: 20px;
+    padding: 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.mb-verifications svg {
+    margin-right: 8px;
+}
+
+.mb-createdate {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.688);
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
 }
 
 .mb-no-active-broadcasts {

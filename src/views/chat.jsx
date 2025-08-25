@@ -9,7 +9,6 @@ import { useView } from "../context/useView";
 import { useChat } from "../context/useChat";
 import { useState, useEffect, useRef } from "react";
 import { formatDate } from "../utils/formatDate";
-import EmojiPicker from 'emoji-picker-react';
 
 
 const Chat = () => {
@@ -73,6 +72,7 @@ const Chat = () => {
       sendChat(message, userName, replyTarget);
       setMessage("");
       setReplyTarget(null);
+      textareaRef.current?.focus();
       textareaRef.current.style.height = "30px";
     }
   };

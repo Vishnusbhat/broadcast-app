@@ -10,6 +10,7 @@ export const ViewProvider = ({ children }) => {
     role: "",
     phoneNumber: "",
     userId: "",
+    verificationThreshold: 5
   });
 
   const pushView = (view) => {
