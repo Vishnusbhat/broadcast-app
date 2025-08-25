@@ -195,7 +195,7 @@ const Chat = () => {
                       </div>
                       <div className="cm-timestamp">
                         {new Date(chat.timestamp)?.toLocaleTimeString([], {
-                          hour: "2-digit",
+                          hour: "numeric",
                           minute: "2-digit",
                         })}
                       </div>
